@@ -1,31 +1,24 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
- * @author Christopher Raleigh Raleigh
+ * @author Christopher Raleigh
  * @author Benjamin Ngo
  * @author Jeremy Wong
  */
 public class MusicLibrary {
 
-    private User owner;
-    private Collection<Song> songs;
+    private Set<Song> songs;
+
+    MusicLibrary() {
+        songs = new HashSet<Song>();
+    }
 
     Collection<Song> getSongs() {
-        throw new UnsupportedOperationException();
-    }
-
-    boolean addSong(Song song) {
-        throw new UnsupportedOperationException();
-    }
-
-    boolean removeSong(Song song) {
-        throw new UnsupportedOperationException();
+        return songs;
     }
 }

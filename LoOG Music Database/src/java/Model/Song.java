@@ -1,27 +1,29 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
 import java.util.Collection;
+import java.util.Set;
 
 /**
  *
- * @author Christopher Raleigh Raleigh
+ * @author Christopher Raleigh
  * @author Benjamin Ngo
  * @author Jeremy Wong
  */
 public class Song {
 
     private String title;
-    private Collection<Author> authors;
+    private Set<Author> authors;
 
-    public String getTitle() {
-        throw new UnsupportedOperationException();
+    public Song(String title, Set<Author> authors) {
+        this.title = title;
+        this.authors = authors;
     }
 
-    public Collection<Author> getAuthors() {
-        throw new UnsupportedOperationException();
+    public String getTitle() {
+        return title;
+    }
+
+    public Set<Author> getAuthors() {
+        return authors;
     }
 }

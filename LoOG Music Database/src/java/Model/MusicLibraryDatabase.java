@@ -1,10 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
-import java.util.Collection;
+import LoginHandling.User;
+import LoginHandling.UserDatabase;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -14,9 +13,28 @@ import java.util.Collection;
  */
 public class MusicLibraryDatabase {
 
-    private Collection<MusicLibrary> libraries;
+    private Map<String, MusicLibrary> libraries;
+    private UserDatabase userDatabase;
+
+    public MusicLibraryDatabase() {
+        libraries = new HashMap<String, MusicLibrary>();
+        userDatabase = new UserDatabase();
+    }
+
+    public boolean signUp(User signup) {
+        boolean signedUp = userDatabase.signUp(signup);
+        if (signedUp) {
+            MusicLibrary newLibrary = new MusicLibrary();
+            libraries.put(signup.getUsername(), newLibrary);
+        }
+        return signedUp;
+    }
 
     public MusicLibrary logIn(User login) {
-        throw new UnsupportedOperationException();
+        if (userDatabase.authenticateLogin(login)) {
+            MusicLibrary library = libraries.get(login.getUsername());
+            return library;
+        }
+        return null;
     }
 }
