@@ -1,6 +1,5 @@
 package Model;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +17,7 @@ public class MusicLibrary {
         songs = new HashSet<Song>();
     }
 
-    Collection<Song> getSongs() {
+    public Set<Song> getSongs() {
         return songs;
     }
 }

@@ -10,9 +10,9 @@ import java.util.Set;
  * @author Jeremy Wong
  */
 public class UserDatabase {
-    
+
     private Set<User> users;
-    
+
     private User getUser(String username) {
         Iterator<User> it = users.iterator();
         while (it.hasNext()) {
@@ -23,7 +23,7 @@ public class UserDatabase {
         }
         return null;
     }
-    
+
     public boolean signUp(User signup) {
         boolean usernameAvailable = (getUser(signup.getUsername()) == null);
         if (usernameAvailable) {
@@ -31,9 +31,14 @@ public class UserDatabase {
         }
         return usernameAvailable;
     }
-    
+
     public boolean authenticateLogin(User login) {
-        boolean ret = users.contains(login);
-        return ret;
+        User foundUser = getUser(login.getUsername());
+        if (foundUser != null) {
+            boolean passwordMatches = login.getPassword().
+                    equals(foundUser.getPassword());
+            return passwordMatches;
+        }
+        return false;
     }
 }
