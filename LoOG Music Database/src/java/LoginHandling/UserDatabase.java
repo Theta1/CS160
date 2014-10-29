@@ -1,9 +1,10 @@
 package LoginHandling;
 
-import java.util.Iterator;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
+ * A collection of users.
  *
  * @author Christopher Raleigh
  * @author Benjamin Ngo
@@ -11,34 +12,39 @@ import java.util.Set;
  */
 public class UserDatabase {
 
-    private Set<User> users;
+    private Map<String, User> users;
 
-    private User getUser(String username) {
-        Iterator<User> it = users.iterator();
-        while (it.hasNext()) {
-            User nextUser = it.next();
-            if (username.equals(nextUser.getUsername())) {
-                return nextUser;
-            }
-        }
-        return null;
+    public UserDatabase() {
+        users = new HashMap<>();
     }
 
-    public boolean signUp(User signup) {
-        boolean usernameAvailable = (getUser(signup.getUsername()) == null);
+    /**
+     * Adds a new user.
+     *
+     * @param username the user's name
+     * @param password the user's password
+     * @return false if the user already exists
+     */
+    public boolean signUp(String username, String password) {
+        boolean usernameAvailable = !users.containsKey(username);
         if (usernameAvailable) {
-            users.add(signup);
+            users.put(username, new User(username, password));
         }
         return usernameAvailable;
     }
 
-    public boolean authenticateLogin(User login) {
-        User foundUser = getUser(login.getUsername());
-        if (foundUser != null) {
-            boolean passwordMatches = login.getPassword().
-                    equals(foundUser.getPassword());
-            return passwordMatches;
+    /**
+     * Verifies that the entered username-password combination is correct.
+     *
+     * @param username the entered username
+     * @param password the entered password
+     * @return true if the entered information in correct
+     */
+    public boolean authenticateLogin(String username, String password) {
+        User user = users.get(username);
+        if (user == null) {
+            return false;
         }
-        return false;
+        return (user.comparePassword(password) == 0);
     }
 }
