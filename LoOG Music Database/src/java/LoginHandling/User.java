@@ -6,6 +6,7 @@ package LoginHandling;
  * @author Christopher Raleigh
  * @author Benjamin Ngo
  * @author Jeremy Wong
+ * @author David-Eric Thorpe
  */
 public class User {
 

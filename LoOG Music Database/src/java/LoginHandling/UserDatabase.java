@@ -9,6 +9,7 @@ import java.util.Map;
  * @author Christopher Raleigh
  * @author Benjamin Ngo
  * @author Jeremy Wong
+ * @author David-Eric Thorpe
  */
 public class UserDatabase {
 
@@ -25,7 +26,7 @@ public class UserDatabase {
      * @param password the user's password
      * @return false if the user already exists
      */
-    public boolean signUp(String username, String password) {
+    public boolean addUser(String username, String password) {
         boolean usernameAvailable = !users.containsKey(username);
         if (usernameAvailable) {
             users.put(username, new User(username, password));
@@ -34,17 +35,19 @@ public class UserDatabase {
     }
 
     /**
-     * Verifies that the entered username-password combination is correct.
+     * Returns a User object after verifying that the entered username-password
+     * combination is correct.
      *
      * @param username the entered username
      * @param password the entered password
-     * @return true if the entered information in correct
+     * @return the User object whose username and password match, if it exists,
+     * null otherwise
      */
-    public boolean authenticateLogin(String username, String password) {
+    public User getUser(String username, String password) {
         User user = users.get(username);
-        if (user == null) {
-            return false;
+        if ((user != null) && (user.comparePassword(password) == 0)) {
+            return user;
         }
-        return (user.comparePassword(password) == 0);
+        return null;
     }
 }
