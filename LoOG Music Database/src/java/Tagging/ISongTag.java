@@ -1,4 +1,4 @@
-package Tagging;
+package tagging;
 
 /**
  * Tags have a name, denoting its type, and text, describing its content/
