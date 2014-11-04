@@ -1,5 +1,7 @@
 package login_handling;
 
+import java.io.Serializable;
+
 /**
  * Associates a user to a name and a password.
  *
@@ -8,7 +10,7 @@ package login_handling;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public class User {
+public class User implements Serializable {
 
     private String username;
     private String password;

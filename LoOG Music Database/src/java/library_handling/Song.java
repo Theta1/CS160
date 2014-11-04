@@ -1,10 +1,11 @@
 package library_handling;
 
-import tagging.ISongTag;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import tagging.ISongTag;
 
 /**
  * A song contains its title and any number of tags that describe the song.
@@ -14,7 +15,7 @@ import java.util.Set;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public class Song {
+public class Song implements Serializable {
 
     private String title;
     private Map<String, Set<ISongTag>> tags;

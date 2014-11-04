@@ -1,5 +1,6 @@
 package library_handling;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ import java.util.Set;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public class MusicLibrary {
+public class MusicLibrary implements Serializable {
 
     private Set<Song> songs;
 

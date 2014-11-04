@@ -1,5 +1,6 @@
 package login_handling;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +12,7 @@ import java.util.Map;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public class UserDatabase {
+public class UserDatabase implements Serializable {
 
     private Map<String, User> users;
 

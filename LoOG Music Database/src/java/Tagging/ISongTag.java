@@ -1,5 +1,7 @@
 package tagging;
 
+import java.io.Serializable;
+
 /**
  * Tags have a name, denoting its type, and text, describing its content/
  *
@@ -8,7 +10,7 @@ package tagging;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public interface ISongTag {
+public interface ISongTag extends Serializable {
 
     /**
      *

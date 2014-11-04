@@ -1,8 +1,9 @@
 package library_handling;
 
-import login_handling.User;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import login_handling.User;
 
 /**
  * Contains individual, personal MusicLibraries.
@@ -12,7 +13,7 @@ import java.util.Map;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public class MusicLibraryDatabase {
+public class MusicLibraryDatabase implements Serializable {
 
     private Map<User, MusicLibrary> libraries;
 
