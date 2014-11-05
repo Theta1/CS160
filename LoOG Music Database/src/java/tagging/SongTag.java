@@ -1,4 +1,4 @@
-package taggingTEMP;
+package tagging;
 
 /**
  * A convenience class for implementations of ISongType. Has a pre-built

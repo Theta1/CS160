@@ -1,4 +1,4 @@
-package taggingTEMP;
+package tagging;
 
 import java.io.Serializable;
 
