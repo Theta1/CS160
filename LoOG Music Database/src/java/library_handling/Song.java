@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import tagging.ISongTag;
+import taggingTEMP.ISongTag;
 
 /**
  * A song contains its title and any number of tags that describe the song.

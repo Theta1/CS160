@@ -1,4 +1,4 @@
-package tagging;
+package taggingTEMP;
 
 /**
  * A tag that can store the first name and last name of a song's artist.
