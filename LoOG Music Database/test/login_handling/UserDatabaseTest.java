@@ -27,7 +27,7 @@ public class UserDatabaseTest {
         instance = new UserDatabase();
         username = "CRaleigh";
         password = "password";
-        userAdded = instance.addUser(username, password);
+        userAdded = instance.signUp(username, password);
     }
 
     /**
@@ -48,7 +48,7 @@ public class UserDatabaseTest {
     public void testGetUser() {
         System.out.println("getUser");
         String expResult = username;
-        String result = instance.getUser(username, password).getUsername();
+        String result = instance.logIn(username, password).getUsername();
         assertEquals(expResult, result);
     }
 }

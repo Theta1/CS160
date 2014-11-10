@@ -27,7 +27,7 @@ public class UserDatabase implements Serializable {
      * @param password the user's password
      * @return false if the user already exists
      */
-    public boolean addUser(String username, String password) {
+    public boolean signUp(String username, String password) {
         boolean usernameAvailable = !users.containsKey(username);
         if (usernameAvailable) {
             users.put(username, new User(username, password));
@@ -44,7 +44,7 @@ public class UserDatabase implements Serializable {
      * @return the User object whose username and password match, if it exists,
      * null otherwise
      */
-    public User getUser(String username, String password) {
+    public User logIn(String username, String password) {
         User user = users.get(username);
         if ((user != null) && (user.comparePassword(password) == 0)) {
             return user;
