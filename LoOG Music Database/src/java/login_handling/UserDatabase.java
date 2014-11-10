@@ -1,5 +1,6 @@
 package login_handling;
 
+import java.lang.IllegalArgumentException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,6 +50,6 @@ public class UserDatabase implements Serializable {
         if ((user != null) && (user.comparePassword(password) == 0)) {
             return user;
         }
-        return null;
+        throw new IllegalArgumentException("Incorrect username of password.");
     }
 }
