@@ -21,8 +21,8 @@ public class User implements Serializable {
      * @param password the user's password
      */
     User(String username, String password) {
-        this.username = username;
-        this.password = password;
+        setUsername(username);
+        setPassword(password);
     }
 
     /**
@@ -34,12 +34,38 @@ public class User implements Serializable {
     }
 
     /**
+     * Sets this user's name.
+     *
+     * @param newUsername new value for username
+     */
+    private void setUsername(String newUsername) {
+        username = newUsername;
+    }
+
+    /**
+     *
+     * @return this user's password
+     */
+    private String getPassword() {
+        return password;
+    }
+
+    /**
+     * Sets this user's password.
+     *
+     * @param newPassword new value for password
+     */
+    private void setPassword(String newPassword) {
+        password = newPassword;
+    }
+
+    /**
      * Compares a user-entered password to the real password.
      *
      * @param enteredPassword the password entered by the user
      * @return 0 if the passwords match
      */
     int comparePassword(String enteredPassword) {
-        return password.compareTo(enteredPassword);
+        return getPassword().compareTo(enteredPassword);
     }
 }
