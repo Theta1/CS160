@@ -55,7 +55,7 @@ public class User implements Serializable {
         query += username;
         query += "'";
         ResultSet results = statement.executeQuery(query);
-        int newID = results.getInt(1) + 1;
+        int newID = results.getInt(1);
         return newID;
     }
 
