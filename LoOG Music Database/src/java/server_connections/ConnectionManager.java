@@ -30,6 +30,10 @@ public class ConnectionManager {
         }
     }
 
+    /**
+     *
+     * @return a connection to the SQL Cantus database.
+     */
     public static Connection getConnection() {
         return connection;
     }
