@@ -1,12 +1,9 @@
 package login_handling;
 
-import java.lang.IllegalArgumentException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * A collection of users.
@@ -47,8 +44,9 @@ public class UserDatabase implements Serializable {
      * @param username the entered username
      * @param password the entered password
      * @return the User object whose username and password match, if it exists,
-     * null otherwise
+     * throws IllegalArgumentException otherwise
      * @throws SQLException
+     * @throws IllegalArgumentException
      */
     public User logIn(String username, String password) throws SQLException {
         User user = users.get(username);

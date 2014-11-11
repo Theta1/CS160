@@ -14,9 +14,9 @@ import java.sql.SQLException;
  * @author David-Eric Thorpe
  */
 public class ConnectionManager {
-    
+
     private static Connection connection;
-    
+
     static {
         try {
             Driver myDriver = new com.mysql.jdbc.Driver();
@@ -29,7 +29,7 @@ public class ConnectionManager {
             System.err.println(e);
         }
     }
-    
+
     public static Connection getConnection() {
         return connection;
     }
