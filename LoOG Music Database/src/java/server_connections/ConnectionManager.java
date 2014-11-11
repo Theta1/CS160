@@ -1,6 +1,7 @@
 package server_connections;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -13,22 +14,23 @@ import java.sql.SQLException;
  * @author David-Eric Thorpe
  */
 public class ConnectionManager {
-
-    public static Connection getConnection() {
-        return getConnection(Credentials.getUsername(), Credentials.
-                getPassword());
-    }
-
-    public static Connection getConnection(String username, String password) {
-        Connection connection = null;
+    
+    private static Connection connection;
+    
+    static {
         try {
-            String drivers = "com.mysql.jdbc.Driver";
-            String url = "jdbc:mysql://dethorpe.me";
-            System.setProperty(drivers, "");
+            Driver myDriver = new com.mysql.jdbc.Driver();
+            String url = "jdbc:mysql://localhost:8084/";
+            String username = Credentials.getUsername();
+            String password = Credentials.getPassword();
+            DriverManager.registerDriver(myDriver);
             connection = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
             System.err.println(e);
         }
+    }
+    
+    public static Connection getConnection() {
         return connection;
     }
 }
