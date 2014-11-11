@@ -4,6 +4,9 @@
  */
 package login_handling;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -27,7 +30,11 @@ public class UserDatabaseTest {
         instance = new UserDatabase();
         username = "CRaleigh";
         password = "password";
-        userAdded = instance.signUp(username, password);
+        try {
+            userAdded = instance.signUp(username, password);
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
     }
 
     /**
@@ -48,7 +55,13 @@ public class UserDatabaseTest {
     public void testGetUser() {
         System.out.println("getUser");
         String expResult = username;
-        String result = instance.logIn(username, password).getUsername();
-        assertEquals(expResult, result);
+        String result;
+        try {
+            result = instance.logIn(username, password).getUsername();
+            assertEquals(expResult, result);
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+
     }
 }
