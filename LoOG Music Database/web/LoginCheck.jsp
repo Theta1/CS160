@@ -1,9 +1,10 @@
-<%-- 
+<%--
     Document   : LoginCheck
     Created on : Nov 10, 2014, 8:36:28 AM
     Author     : Busairo
 --%>
 
+<%@page import="login_handling.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,11 +16,16 @@
         <%
             String username = request.getParameter("username");
             String password = request.getParameter("password");
+            UserDatabase ud = new UserDatabase();
             
-            if(username.equals("darkeclipse8") && password.equals("eclipse")) {
-                session.setAttribute("username", username);
-                response.sendRedirect("LandingPage.jsp");
-            } else {
+            try 
+            {  
+               User getuser = ud.logIn(username, password);
+               session.setAttribute("username", username);
+               response.sendRedirect("LandingPage.jsp");  
+            }
+            catch (IllegalArgumentException e) 
+            {
                 session.setAttribute("username", username);
                 response.sendRedirect("InvalidLogin.jsp");
             }

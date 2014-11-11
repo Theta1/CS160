@@ -12,18 +12,18 @@
         <title>Cantus Home Page</title>
     </head>
     <body>
-    <center> 
-        <h2> 
-            <% 
-                String name = session.getAttribute("username").toString(); 
-                out.println("Hello " + name + ", you have successfully logged into Cantus."); 
-            %> 
-        </h2> 
-
-        <form action="AddASong.html" method="post">
+        <center> 
+            <h2> 
+                <% 
+                    String name = session.getAttribute("username").toString(); 
+                    out.println("Hello " + name + ", you have successfully logged into Cantus."); 
+                %> 
+            </h2> 
+            
+            <form action="AddASong.html" method="post">
             <br/> <input type = "submit" value = "Add A Song To Library"> </form> 
-
-        <a href="LoggedOut.jsp">Logout</a>
-    </center>
-</body>
+            
+            <a href="LoggedOut.jsp">Logout</a>
+        </center>
+    </body>
 </html>
