@@ -1,9 +1,9 @@
 package login_handling;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.Statement;
 
 /**
  * A collection of users.
@@ -15,10 +15,7 @@ import java.util.Map;
  */
 public class UserDatabase implements Serializable {
 
-    private Map<String, User> users;
-
     public UserDatabase() {
-        users = new HashMap<>();
     }
 
     /**
@@ -29,12 +26,9 @@ public class UserDatabase implements Serializable {
      * @return false if the user already exists
      * @throws SQLException
      */
-    public boolean signUp(String username, String password) throws SQLException {
-        boolean usernameAvailable = !users.containsKey(username);
-        if (usernameAvailable) {
-            users.put(username, User.createUser(username, password));
-        }
-        return usernameAvailable;
+    public boolean signUp(String username, String password) throws
+            SQLException {
+        return (User.createUser(username, password) != null);
     }
 
     /**
@@ -49,10 +43,33 @@ public class UserDatabase implements Serializable {
      * @throws IllegalArgumentException
      */
     public User logIn(String username, String password) throws SQLException {
-        User user = users.get(username);
+        User user = getUser(username);
         if ((user != null) && (user.comparePassword(password) == 0)) {
             return user;
         }
-        throw new IllegalArgumentException("Incorrect username of password.");
+        throw new IllegalArgumentException("Incorrect username or password.");
+    }
+
+    /**
+     * Returns a User object from the requested username
+     *
+     * @param username the username for which to search
+     * @return null if no user is found
+     */
+    private User getUser(String username) {
+        try {
+            Statement statement = server_connections.ConnectionManager.
+                    getConnection().createStatement();
+            String query = "SELECT 'user_id' FROM 'users' WHERE 'username' = '";
+            query += username;
+            query += "'";
+            ResultSet results = statement.executeQuery(query);
+            int nextInt = results.getInt(1);
+            User ret = new User(nextInt);
+            return ret;
+        } catch (SQLException ex) {
+            System.err.println(ex);
+            return null;
+        }
     }
 }

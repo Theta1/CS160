@@ -14,9 +14,9 @@
     <body>
     <center> 
         <h2> 
-            <% 
-                String name = session.getAttribute("username").toString(); 
-                out.println("Hello " + name + ", you have successfully logged into Cantus."); 
+            <%
+                String name = session.getAttribute("username").toString();
+                out.println("Hello " + name + ", you have successfully logged into Cantus.");
             %> 
         </h2> 
 

@@ -35,23 +35,27 @@ public class User implements Serializable {
      */
     static User createUser(String username, String password) throws
             SQLException {
-        int newID = getNextUserID();
-        setSQLUpdate(newID, username, password);
+        setSQLUpdate(username, password);
+        int newID = getUserID(username);
         User newUser = new User(newID);
         return newUser;
     }
 
     /**
+     * Gets an ID number from a certain username.
      *
+     * @param username the username to search
      * @return the next ID to use for a new user
      * @throws SQLException
      */
-    private static int getNextUserID() throws SQLException {
+    private static int getUserID(String username) throws SQLException {
         Statement statement = server_connections.ConnectionManager.
                 getConnection().createStatement();
-        ResultSet results = statement.executeQuery(
-                "SELECT MAX('user_id') FROM 'users'");
-        int newID = results.getInt(1) + 1;
+        String query = "SELECT 'user_id' FROM 'users' WHERE 'username' = '";
+        query += username;
+        query += "'";
+        ResultSet results = statement.executeQuery(query);
+        int newID = results.getInt(1);
         return newID;
     }
 
@@ -67,7 +71,7 @@ public class User implements Serializable {
                 getConnection().createStatement();
         String query = "SELECT ";
         query += value;
-        query += " FROM `users` WHERE `user_id` = ";
+        query += " FROM 'users' WHERE 'user_id' = ";
         query += Integer.toString(id);
         ResultSet results = statement.executeQuery(query);
         return results;
@@ -76,20 +80,17 @@ public class User implements Serializable {
     /**
      * Adds a row via an SQL update.
      *
-     * @param id a unique ID number to be used as a key
      * @param username the user's name
      * @param password the user's password
      * @return a row count
      * @throws SQLException
      */
-    private static int setSQLUpdate(int id, String username, String password)
+    private static int setSQLUpdate(String username, String password)
             throws SQLException {
         Statement statement = server_connections.ConnectionManager.
                 getConnection().createStatement();
-        String update = "INSERT INTO `cantus`.`users` (`user_id`, `username`, "
-                + "`password`) VALUES (";
-        update += Integer.toString(id);
-        update += ", '";
+        String update = "INSERT INTO 'cantus'.'users' ('username', "
+                + "'password') VALUES ('";
         update += username;
         update += "', '";
         update += password;
