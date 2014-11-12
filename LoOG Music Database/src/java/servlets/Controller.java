@@ -7,11 +7,11 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import library_handling.MusicLibrary;
 import login_handling.User;
 import login_handling.UserDatabase;
 
@@ -38,12 +38,12 @@ public class Controller extends HttpServlet {
         this.userdb = userdb;
     }
 
-    public Boolean signUp(String userName, String password) {
+    public Boolean signUp(String userName, String password) throws SQLException {
         //
         return userdb.signUp(userName, password);
     }
 
-    public User login(String userName, String password) {
+    public User login(String userName, String password) throws SQLException {
         //
         return userdb.logIn(userName, password);
     }
