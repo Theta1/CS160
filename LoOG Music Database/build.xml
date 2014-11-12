@@ -23,7 +23,7 @@
  		  			<fileset dir="${lib.dir}"/>
 	 		  	</copy>
  		  </target>
-		  <target name="compile" depends="jar">
+		  <target name="compile" depends="init">
 		  </target>
 		  <target name="run" depends="jar,compile">
 		  </target>

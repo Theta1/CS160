@@ -17,18 +17,18 @@ public class ConnectionManager {
     private static Connection connection;
 
     static {
+        initializeConnection();
+    }
+
+    private static void initializeConnection() {
         try {
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-            } catch (ClassNotFoundException ex) {
-                System.err.println(ex);
-            }
+            Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://localhost:8084/";
             String username = Credentials.getUsername();
             String password = Credentials.getPassword();
             connection = DriverManager.getConnection(url, username, password);
-        } catch (SQLException e) {
-            System.err.println(e);
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.err.println(ex);
         }
     }
 
@@ -37,6 +37,9 @@ public class ConnectionManager {
      * @return a connection to the SQL Cantus database.
      */
     public static Connection getConnection() {
+        if (connection == null) {
+            initializeConnection();
+        }
         return connection;
     }
 }
