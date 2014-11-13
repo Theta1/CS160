@@ -18,6 +18,6 @@
             session.invalidate(); 
         %> 
         <h1>Logout was done successfully.</h1>
-        <a href="login.html">Click here to return to the Login page</a>
+        <a href="index.html">Click here to return to the Login page</a>
     </body>
 </html>
