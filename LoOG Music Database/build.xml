@@ -22,7 +22,7 @@
 "Removes web previous deployment of application">
 	<echo>Undeploying old war</echo>
         <undeploy url="${url}" username="${username}" password="${password}"
-            path="${project.name}"/>
+            path="/${project.name}"/>
     </target>
     <target name="clean" description=
 "Cleans previous deployment directory">
@@ -56,10 +56,10 @@
 		<fileset dir="${build.dir}"/>
 	</war>
     </target>
-    <!--target name="deploy" repends="undeploy,war" description=
+    <target name="deploy" repends="undeploy,war" description=
 "Removes web previous deployment of application">
 	<echo>Undeploying old war</echo>
         <deploy url="${url}" username="${username}" password="${password}"
-            path="${project.name} war="file:${dist.dir}/${project.name}.war"/>
-    </target-->
+            path="/${project.name} war="file:${dist.dir}/${project.name}.war"/>
+    </target>
 </project>
