@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+The Catus LoOG Music Database, Ant file
+Run this file to automatically compile and deploy the webapp
+to tomcat and the database to mysql (or mariadb).
 
+Authors:    David-Eric Thorpe
+            Ben
+            Chris
+            Jeff
+            
+Version 1.0
+___________
+Change log:
+
+-->
 <project name="${project.name}" default="undeploy" basedir=".">
     <property file="build.properties"/>
 
@@ -59,8 +73,15 @@
 		<fileset dir="${build.dir}"/>
 	</war>
     </target>
-    <target name="deploy" depends="war" description=
-"Removes web previous deployment of application">
+    <!--target name="dbcreate" description="creates the db from mysqldump file">
+        <echo>Creating DB</echo>
+        <sql driver="${sql.driver}" url="${sql.url}" userid="${sql.username}" 
+    password="${sql.password}" >
+  <transaction src="${slq.dir}/cantus.sql"/>
+  </sql>
+    </target-->
+    <target name="deploy" depends="war,dbcreate" description=
+"Removes previous deployment of application">
 	<echo>Undeploying old war</echo>
         <deploy url="${url}" username="${username}" password="${password}"
             path="/${project.name}" war="file:${dist.dir}/${project.name}.war"/>
