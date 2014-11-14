@@ -14,6 +14,9 @@
     <taskdef name="undeploy"  classname="org.apache.catalina.ant.UndeployTask">
         <classpath refid="catalina-ant-classpath"/>
     </taskdef>
+    <taskdef name="deploy"  classname="org.apache.catalina.ant.DeployTask">
+        <classpath refid="catalina-ant-classpath"/>
+    </taskdef>
     <path id="classpath">
  	<fileset dir="${lib.dir}" includes="mysql-connector-java-5.1.34-bin.jar"/>
         <fileset dir="${lib.dir}" includes="servlet-api.jar"/>    
@@ -56,10 +59,10 @@
 		<fileset dir="${build.dir}"/>
 	</war>
     </target>
-    <target name="deploy" repends="undeploy,war" description=
+    <target name="deploy" depends="war" description=
 "Removes web previous deployment of application">
 	<echo>Undeploying old war</echo>
         <deploy url="${url}" username="${username}" password="${password}"
-            path="/${project.name} war="file:${dist.dir}/${project.name}.war"/>
+            path="/${project.name}" war="file:${dist.dir}/${project.name}.war"/>
     </target>
 </project>
