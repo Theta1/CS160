@@ -4,10 +4,10 @@ The Catus LoOG Music Database, Ant file
 Run this file to automatically compile and deploy the webapp
 to tomcat and the database to mysql (or mariadb).
 
-Authors:    David-Eric Thorpe
-            Ben
-            Chris
-            Jeff
+Authors:	Christopher Raleigh
+		Benjamin Ngo
+		Jeremy Wong
+		David-Eric Thorpe
             
 Version 1.0
 ___________
