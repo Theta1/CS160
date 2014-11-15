@@ -19,7 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `cantus`
 --
-
+CREATE database IF NOT EXISTS cantus;
+use cantus;
 -- --------------------------------------------------------
 
 --

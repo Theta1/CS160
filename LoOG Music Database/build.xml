@@ -14,79 +14,85 @@ ___________
 Change log:
 
 -->
-<project name="${project.name}" default="undeploy" basedir=".">
-    <property file="build.properties"/>
-    <path id="catalina-ant-classpath">
-        <fileset dir="${lib.dir}">
-            <include name="catalina-ant.jar"/>
-            <include name="tomcat-coyote.jar"/>
-            <include name="tomcat-util.jar"/>
-            <include name="tomcat-juli.jar"/>
-            <include name="JDBCTutorial.jar"/>
-            <include name="mysql-connector-java-5.1.34-bin.jar"/>
-            <include name="mysql-connector-java.jar"/>
-        </fileset>
-    </path>
-    <taskdef name="undeploy"  classname="org.apache.catalina.ant.UndeployTask">
-        <classpath refid="catalina-ant-classpath"/>
-    </taskdef>
-    <taskdef name="deploy"  classname="org.apache.catalina.ant.DeployTask">
-        <classpath refid="catalina-ant-classpath"/>
-    </taskdef>
-    <path id="classpath">
- 	<fileset dir="${lib.dir}" includes="mysql-connector-java-5.1.34-bin.jar"/>
-        <fileset dir="${lib.dir}" includes="servlet-api.jar"/>    
-    </path>
-    <target name="undeploy" description=
-        "Removes web previous deployment of application">
-	<echo>Undeploying old war</echo>
-        <undeploy url="${url}" username="${username}" password="${password}"
-            path="/${project.name}"/>
-    </target>
-    <target name="clean" description=
+<project name="${project.name}" default="deploy" basedir=".">
+	<property file="build.properties"/>
+	<path id="classpath">
+ 		<fileset dir="${lib.dir}" includes="servlet-api.jar"/>
+	</path>
+	<path id="catalina-ant-classpath">
+		<fileset dir="${lib.dir}">
+        		<include name="catalina-ant.jar"/>
+        		<include name="tomcat-coyote.jar"/>
+        		<include name="tomcat-util.jar"/>
+        		<include name="tomcat-juli.jar"/>
+			<include name="mysql-connector-java-5.1.34-bin.jar"/>
+        	</fileset>
+	</path>
+    	<taskdef name="undeploy"  classname="org.apache.catalina.ant.UndeployTask">
+        	<classpath refid="catalina-ant-classpath"/>
+    	</taskdef>
+    	<taskdef name="deploy"  classname="org.apache.catalina.ant.DeployTask">
+    		<classpath refid="catalina-ant-classpath"/>
+    	</taskdef>
+	<!--Targets below-->
+    	<target name="dbdrop" description=
+	"clears previous database entries">
+        	<echo>Dropping old database</echo>
+        	<sql driver="${sql.driver}" url="${sql.url}" userid="${sql.username}" password="${sql.password}" >
+			DROP database IF EXISTS cantus;
+        	</sql>
+    	</target>
+    	<target name="undeploy" description=
+    	"Removes web previous deployment of application.">
+		<echo>Undeploying old war</echo>
+        	<undeploy failonerror="no" url="${url}" username="${username}" password="${password}" path="/${project.name}"/>
+    	</target>
+    	<target name="clean" description=
         "Cleans previous deployment directory">
-	<echo>Cleaning the ${build.dir}</echo>
-	<delete dir="${build.dir}"/>
-        <delete dir="${dist.dir}"/>
-    </target>
-    <target name="init" depends="clean" description=
+		<echo>Cleaning the ${build.dir}</echo>
+		<delete dir="${build.dir}"/>
+        	<delete dir="${dist.dir}"/>
+    	</target>
+    	<target name="init" depends="clean" description=
         "Creates new deployment directory">
-	<echo>Creating the build directory</echo>
-	<mkdir dir="${build.dir}/WEB-INF/classes"/>
-	<mkdir dir="${build.dir}/WEB-INF/lib"/>
-    </target>
-    <target name="compile" depends="init">
-	<echo>Compile the source files</echo>
-	<javac srcdir="${src.dir}" destdir="${build.dir}/WEB-INF/classes">
-		<classpath refid="classpath"/>
-	</javac>
-    </target>
-    <target name="copy" depends="compile">
-	<copy todir="${build.dir}">
-		<fileset dir="${web.content}"/>
-	</copy>
-	<copy todir="${build.dir}/WEB-INF/lib">
-		<fileset dir="${lib.dir}"/>
-	</copy>
-    </target>
-    <target name="war" depends="copy" description="creates the
-war" >
-	<echo>Building the war file</echo>
-	<war destfile="${dist.dir}/${project.name}.war" webxml="${build.dir}/WEB-INF/web.xml">
-		<fileset dir="${build.dir}"/>
-	</war>
-    </target>
-    <target name="dbcreate" description="creates the db from mysqldump file">
-        <echo>Creating DB</echo>
-        <sql driver="${sql.driver}" url="${sql.url}" userid="${sql.username}" 
-            password="${sql.password}" >
-            <transaction src="${slq.dir}/cantus.sql"/>
-        </sql>
-    </target>
-    <target name="deploy" depends="war,dbcreate" description=
-        "Removes previous deployment of application">
-	<echo>Undeploying old war</echo>
-        <deploy url="${url}" username="${username}" password="${password}"
-            path="/${project.name}" war="file:${dist.dir}/${project.name}.war"/>
-    </target>
+		<echo>Creating the ${build.dir}</echo>
+		<mkdir dir="${build.dir}/WEB-INF/classes"/>
+		<mkdir dir="${build.dir}/WEB-INF/lib"/>
+    	</target>
+    	<target name="compile" depends="init" description=
+	"Compiles the sources files">
+		<echo>Compiling the source files</echo>
+		<javac srcdir="${src.dir}" destdir="${build.dir}/WEB-INF/classes">
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+    	<target name="copy" depends="compile" description=
+	"Copies the webapp into deployment structure">
+		<echo>Copying files to ${build.dir}</echo>
+		<copy todir="${build.dir}">
+			<fileset dir="${web.content}"/>
+		</copy>
+		<copy todir="${build.dir}/WEB-INF/lib">
+			<fileset dir="${lib.dir}"/>
+		</copy>
+	</target>
+    	<target name="war" depends="copy" description=
+	"creates the war file" >
+		<echo>Building the war file in ${dist.dir}</echo>
+		<war destfile="${dist.dir}/${project.name}.war" webxml="${build.dir}/WEB-INF/web.xml">
+			<fileset dir="${build.dir}"/>
+		</war>
+	</target>
+    	<target name="dbcreate" depends="dbdrop" description=
+	"creates the database from mysqldump file">
+        	<echo>Creating DB</echo>
+        	<sql driver="${sql.driver}" url="${sql.url}" userid="${sql.username}" password="${sql.password}" >
+	        	<transaction src="${sql.dir}/cantus.sql"/>
+	        </sql>
+    	</target>
+    	<target name="deploy" depends="war,dbcreate,undeploy" description=
+ 	"Removes previous deployment of application">
+		<echo>Deploying war file</echo>
+        	<deploy url="${url}" username="${username}" password="${password}" path="/${project.name}" war="file:${dist.dir}/${project.name}.war"/>
+    	</target>
 </project>
