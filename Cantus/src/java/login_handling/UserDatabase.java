@@ -1,6 +1,5 @@
 package login_handling;
 
-import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,7 +12,7 @@ import java.sql.Statement;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public class UserDatabase implements Serializable {
+public class UserDatabase {
 
     public UserDatabase() {
     }

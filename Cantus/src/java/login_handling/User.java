@@ -1,9 +1,9 @@
 package login_handling;
 
-import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 /**
  * Associates a user to a name and a password.
@@ -13,18 +13,8 @@ import java.sql.SQLException;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public class User implements Serializable {
-
-    private int id;
-
-    /**
-     * Creates a User Java object from an existing user, using the ID value.
-     *
-     * @param id the ID of the user in the SQL database
-     */
-    User(int id) {
-        this.id = id;
-    }
+public class User {
+    private static final Logger LOG = Logger.getLogger(User.class.getName());
 
     /**
      * Registers a new user into the system.
@@ -33,8 +23,7 @@ public class User implements Serializable {
      * @param password the user's password
      * @throws SQLException
      */
-    static User createUser(String username, String password) throws
-            SQLException {
+    static User createUser(String username, String password) throws SQLException {
         setSQLUpdate(username, password);
         int newID = getUserID(username);
         User newUser = new User(newID);
@@ -59,24 +48,6 @@ public class User implements Serializable {
     }
 
     /**
-     * Returns results from an SQL query.
-     *
-     * @param value the value to get from the row
-     * @return results from the query
-     * @throws SQLException
-     */
-    private ResultSet getSQLQuery(String value)
-            throws SQLException {
-        String query = "SELECT `?` FROM `users` WHERE `user_id` = ?";
-        PreparedStatement ps = server_connections.ConnectionManager.
-                getConnection().prepareStatement(query);
-        ps.setString(1, value);
-        ps.setInt(2, id);
-        ResultSet results = ps.executeQuery(query);
-        return results;
-    }
-
-    /**
      * Adds a row via an SQL update.
      *
      * @param username the user's name
@@ -84,8 +55,7 @@ public class User implements Serializable {
      * @return a row count
      * @throws SQLException
      */
-    private static int setSQLUpdate(String username, String password)
-            throws SQLException {
+    private static int setSQLUpdate(String username, String password) throws SQLException {
         String update = "INSERT INTO `users` (`username`, "
                 + "`password`) VALUES (`?`, `?`)";
         PreparedStatement ps = server_connections.ConnectionManager.
@@ -94,6 +64,35 @@ public class User implements Serializable {
         ps.setString(2, password);
         int rowCount = ps.executeUpdate(update);
         return rowCount;
+    }
+
+    private final int id;
+
+    /**
+     * Creates a User Java object from an existing user, using the ID value.
+     *
+     * @param id the ID of the user in the SQL database
+     */
+    User(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Returns results from an SQL query.
+     *
+     * @param value the value to get from the row
+     * @return results from the query
+     * @throws SQLException
+     */
+    private ResultSet getSQLQuery(String value) throws
+            SQLException {
+        String query = "SELECT `?` FROM `users` WHERE `user_id` = ?";
+        PreparedStatement ps = server_connections.ConnectionManager.
+                getConnection().prepareStatement(query);
+        ps.setString(1, value);
+        ps.setInt(2, id);
+        ResultSet results = ps.executeQuery(query);
+        return results;
     }
 
     /**
@@ -111,7 +110,8 @@ public class User implements Serializable {
      * @return this user's password
      * @throws SQLException
      */
-    private String getPassword() throws SQLException {
+    private String getPassword()
+            throws SQLException {
         ResultSet results = getSQLQuery("password");
         String password = results.getString(1);
         return password;
@@ -124,7 +124,9 @@ public class User implements Serializable {
      * @return 0 if the passwords match
      * @throws SQLException
      */
-    int comparePassword(String enteredPassword) throws SQLException {
+    int comparePassword(String enteredPassword)
+            throws SQLException {
         return getPassword().compareTo(enteredPassword);
     }
+
 }
