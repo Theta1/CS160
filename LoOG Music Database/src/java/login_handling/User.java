@@ -1,9 +1,9 @@
 package login_handling;
 
 import java.io.Serializable;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Associates a user to a name and a password.
@@ -49,12 +49,11 @@ public class User implements Serializable {
      * @throws SQLException
      */
     private static int getUserID(String username) throws SQLException {
-        Statement statement = server_connections.ConnectionManager.
-                getConnection().createStatement();
-        String query = "SELECT 'user_id' FROM 'users' WHERE 'username' = '";
-        query += username;
-        query += "'";
-        ResultSet results = statement.executeQuery(query);
+        String query = "SELECT `user_id` FROM `users` WHERE `username` = `?`";
+        PreparedStatement ps = server_connections.ConnectionManager.
+                getConnection().prepareStatement(query);
+        ps.setString(1, username);
+        ResultSet results = ps.executeQuery(query);
         int newID = results.getInt(1);
         return newID;
     }
@@ -66,14 +65,14 @@ public class User implements Serializable {
      * @return results from the query
      * @throws SQLException
      */
-    private ResultSet getSQLQuery(String value) throws SQLException {
-        Statement statement = server_connections.ConnectionManager.
-                getConnection().createStatement();
-        String query = "SELECT ";
-        query += value;
-        query += " FROM 'users' WHERE 'user_id' = ";
-        query += Integer.toString(id);
-        ResultSet results = statement.executeQuery(query);
+    private ResultSet getSQLQuery(String value)
+            throws SQLException {
+        String query = "SELECT `?` FROM `users` WHERE `user_id` = ?";
+        PreparedStatement ps = server_connections.ConnectionManager.
+                getConnection().prepareStatement(query);
+        ps.setString(1, value);
+        ps.setInt(2, id);
+        ResultSet results = ps.executeQuery(query);
         return results;
     }
 
@@ -87,15 +86,13 @@ public class User implements Serializable {
      */
     private static int setSQLUpdate(String username, String password)
             throws SQLException {
-        Statement statement = server_connections.ConnectionManager.
-                getConnection().createStatement();
-        String update = "INSERT INTO 'cantus'.'users' ('username', "
-                + "'password') VALUES ('";
-        update += username;
-        update += "', '";
-        update += password;
-        update += "')";
-        int rowCount = statement.executeUpdate(update);
+        String update = "INSERT INTO `users` (`username`, "
+                + "`password`) VALUES (`?`, `?`)";
+        PreparedStatement ps = server_connections.ConnectionManager.
+                getConnection().prepareStatement(update);
+        ps.setString(1, username);
+        ps.setString(2, password);
+        int rowCount = ps.executeUpdate(update);
         return rowCount;
     }
 
@@ -104,7 +101,7 @@ public class User implements Serializable {
      * @return this user's name
      */
     String getUsername() throws SQLException {
-        ResultSet results = getSQLQuery("'username'");
+        ResultSet results = getSQLQuery("username");
         String username = results.getString(1);
         return username;
     }
@@ -115,7 +112,7 @@ public class User implements Serializable {
      * @throws SQLException
      */
     private String getPassword() throws SQLException {
-        ResultSet results = getSQLQuery("'password'");
+        ResultSet results = getSQLQuery("password");
         String password = results.getString(1);
         return password;
     }

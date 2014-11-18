@@ -56,20 +56,15 @@ public class UserDatabase implements Serializable {
      * @param username the username for which to search
      * @return null if no user is found
      */
-    private User getUser(String username) {
-        try {
-            Statement statement = server_connections.ConnectionManager.
-                    getConnection().createStatement();
-            String query = "SELECT 'user_id' FROM 'users' WHERE 'username' = '";
-            query += username;
-            query += "'";
-            ResultSet results = statement.executeQuery(query);
-            int nextInt = results.getInt(1);
-            User ret = new User(nextInt);
-            return ret;
-        } catch (SQLException ex) {
-            System.err.println(ex);
-            return null;
-        }
+    private User getUser(String username) throws SQLException {
+        Statement statement = server_connections.ConnectionManager.
+                getConnection().createStatement();
+        String query = "SELECT 'user_id' FROM 'users' WHERE 'username' = '";
+        query += username;
+        query += "'";
+        ResultSet results = statement.executeQuery(query);
+        int nextInt = results.getInt(1);
+        User ret = new User(nextInt);
+        return ret;
     }
 }
