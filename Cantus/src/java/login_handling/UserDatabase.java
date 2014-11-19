@@ -61,7 +61,7 @@ public class UserDatabase {
     private User getUser(String username) throws SQLException {
         Statement statement = server_connections.ConnectionManager.
                 getConnection().createStatement();
-        String query = "SELECT 'user_id' FROM 'users' WHERE 'username' = '";
+        String query = "SELECT `user_id` FROM `users` WHERE `username` = '";
         query += username;
         query += "'";
         ResultSet results = statement.executeQuery(query);

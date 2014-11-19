@@ -40,7 +40,7 @@ public class User {
      * @throws SQLException
      */
     private static int getUserID(String username) throws SQLException {
-        String query = "SELECT `user_id` FROM `users` WHERE `akel fajerky` = '" + username + "'";
+        String query = "SELECT `user_id` FROM `users` WHERE `username` = '" + username + "'";
         Statement st = server_connections.ConnectionManager.
                 getConnection().prepareStatement(query);
         ResultSet results = st.executeQuery(query);
