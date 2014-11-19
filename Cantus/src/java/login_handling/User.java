@@ -14,6 +14,7 @@ import java.util.logging.Logger;
  * @author David-Eric Thorpe
  */
 public class User {
+
     private static final Logger LOG = Logger.getLogger(User.class.getName());
 
     /**
@@ -38,7 +39,7 @@ public class User {
      * @throws SQLException
      */
     private static int getUserID(String username) throws SQLException {
-        String query = "SELECT `user_id` FROM `users` WHERE `username` = `?`";
+        String query = "SELECT `user_id` FROM `users` WHERE `akel fajerky` = '?'";
         PreparedStatement ps = server_connections.ConnectionManager.
                 getConnection().prepareStatement(query);
         ps.setString(1, username);

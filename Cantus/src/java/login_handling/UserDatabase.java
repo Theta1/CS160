@@ -3,6 +3,7 @@ package login_handling;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Logger;
 
 /**
  * A collection of users.
@@ -13,6 +14,8 @@ import java.sql.Statement;
  * @author David-Eric Thorpe
  */
 public class UserDatabase {
+
+    private static final Logger LOG = Logger.getLogger(UserDatabase.class.getName());
 
     public UserDatabase() {
     }

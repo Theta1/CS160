@@ -3,6 +3,7 @@ package server_connections;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 
 /**
  * Manages the connection to the SQL server.
@@ -15,6 +16,8 @@ import java.sql.SQLException;
 public class ConnectionManager {
 
     private static Connection connection;
+
+    private static final Logger LOG = Logger.getLogger(ConnectionManager.class.getName());
 
     static {
         connection = null;
@@ -31,11 +34,15 @@ public class ConnectionManager {
     /**
      *
      * @return a connection to the SQL Cantus database.
+     * @throws java.sql.SQLException
      */
     public static Connection getConnection() throws SQLException {
         if (connection == null) {
             initializeConnection();
         }
         return connection;
+    }
+
+    private ConnectionManager() {
     }
 }

@@ -1,5 +1,7 @@
 package server_connections;
 
+import java.util.logging.Logger;
+
 /**
  * Stores the username and password for the SQL server.
  *
@@ -10,13 +12,15 @@ package server_connections;
  */
 public class Credentials {
 
+    private static final Logger LOG = Logger.getLogger(Credentials.class.getName());
+
     /**
      * Change to actual username before building!
      *
      * @return our SQL username
      */
     static String getUsername() {
-        return "gentlemen";
+        return "root";
     }
 
     /**
@@ -26,5 +30,8 @@ public class Credentials {
      */
     static String getPassword() {
         return "workhard";
+    }
+
+    private Credentials() {
     }
 }
