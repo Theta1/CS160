@@ -25,7 +25,7 @@ public class ConnectionManager {
     }
 
     private static void initializeConnection() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/";
+        String url = "jdbc:mysql://localhost:3306/cantus";
         String username = Credentials.getUsername();
         String password = Credentials.getPassword();
         DriverManager.registerDriver(new com.mysql.jdbc.Driver());
