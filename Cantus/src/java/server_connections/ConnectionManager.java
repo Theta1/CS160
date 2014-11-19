@@ -17,7 +17,8 @@ public class ConnectionManager {
 
     private static Connection connection;
 
-    private static final Logger LOG = Logger.getLogger(ConnectionManager.class.getName());
+    private static final Logger LOG = Logger.getLogger(ConnectionManager.class.
+            getName());
 
     static {
         connection = null;

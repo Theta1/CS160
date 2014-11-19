@@ -25,7 +25,8 @@ public class User {
      * @param password the user's password
      * @throws SQLException
      */
-    static User createUser(String username, String password) throws SQLException {
+    static User createUser(String username, String password) throws
+            SQLException {
         setSQLUpdate(username, password);
         int newID = getUserID(username);
         User newUser = new User(newID);
@@ -40,7 +41,9 @@ public class User {
      * @throws SQLException
      */
     private static int getUserID(String username) throws SQLException {
-        String query = "SELECT `user_id` FROM `users` WHERE `username` = '" + username + "'";
+        String query = "SELECT `user_id` FROM `users` WHERE `username` = '";
+        query += username;
+        query += "'";
         Statement st = server_connections.ConnectionManager.
                 getConnection().prepareStatement(query);
         ResultSet results = st.executeQuery(query);
@@ -56,9 +59,14 @@ public class User {
      * @return a row count
      * @throws SQLException
      */
-    private static int setSQLUpdate(String username, String password) throws SQLException {
+    private static int setSQLUpdate(String username, String password) throws
+            SQLException {
         String update = "INSERT INTO `users` (`username`, "
-                + "`password`) VALUES (`" + username + "`, `" + password + "`)";
+                + "`password`) VALUES (`";
+        update += username;
+        update += "`, `";
+        update += password;
+        update += "`)";
         Statement st = server_connections.ConnectionManager.
                 getConnection().prepareStatement(update);
         int rowCount = st.executeUpdate(update);
@@ -85,7 +93,11 @@ public class User {
      */
     private ResultSet getSQLQuery(String value) throws
             SQLException {
-        String query = "SELECT `" + value + "` FROM `users` WHERE `user_id` = " + Integer.toString(id) + "";
+        String query = "SELECT `";
+        query += value;
+        query += "` FROM `users` WHERE `user_id` = ";
+        query += Integer.toString(id);
+        query += "";
         PreparedStatement st = server_connections.ConnectionManager.
                 getConnection().prepareStatement(query);
         ResultSet results = st.executeQuery(query);

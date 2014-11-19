@@ -15,7 +15,8 @@ import java.util.logging.Logger;
  */
 public class UserDatabase {
 
-    private static final Logger LOG = Logger.getLogger(UserDatabase.class.getName());
+    private static final Logger LOG = Logger.getLogger(UserDatabase.class.
+            getName());
 
     public UserDatabase() {
     }

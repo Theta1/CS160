@@ -12,7 +12,8 @@ import java.util.logging.Logger;
  */
 public class Credentials {
 
-    private static final Logger LOG = Logger.getLogger(Credentials.class.getName());
+    private static final Logger LOG = Logger.getLogger(Credentials.class.
+            getName());
 
     /**
      * Change to actual username before building!
