@@ -3,6 +3,7 @@ package login_handling;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Logger;
 
 /**
@@ -39,11 +40,10 @@ public class User {
      * @throws SQLException
      */
     private static int getUserID(String username) throws SQLException {
-        String query = "SELECT `user_id` FROM `users` WHERE `akel fajerky` = '?'";
-        PreparedStatement ps = server_connections.ConnectionManager.
+        String query = "SELECT `user_id` FROM `users` WHERE `akel fajerky` = '" + username + "'";
+        Statement st = server_connections.ConnectionManager.
                 getConnection().prepareStatement(query);
-        ps.setString(1, username);
-        ResultSet results = ps.executeQuery(query);
+        ResultSet results = st.executeQuery(query);
         int newID = results.getInt(1);
         return newID;
     }
@@ -58,12 +58,10 @@ public class User {
      */
     private static int setSQLUpdate(String username, String password) throws SQLException {
         String update = "INSERT INTO `users` (`username`, "
-                + "`password`) VALUES (`?`, `?`)";
-        PreparedStatement ps = server_connections.ConnectionManager.
+                + "`password`) VALUES (`" + username + "`, `" + password + "`)";
+        Statement st = server_connections.ConnectionManager.
                 getConnection().prepareStatement(update);
-        ps.setString(1, username);
-        ps.setString(2, password);
-        int rowCount = ps.executeUpdate(update);
+        int rowCount = st.executeUpdate(update);
         return rowCount;
     }
 
@@ -87,12 +85,10 @@ public class User {
      */
     private ResultSet getSQLQuery(String value) throws
             SQLException {
-        String query = "SELECT `?` FROM `users` WHERE `user_id` = ?";
-        PreparedStatement ps = server_connections.ConnectionManager.
+        String query = "SELECT `" + value + "` FROM `users` WHERE `user_id` = " + Integer.toString(id) + "";
+        PreparedStatement st = server_connections.ConnectionManager.
                 getConnection().prepareStatement(query);
-        ps.setString(1, value);
-        ps.setInt(2, id);
-        ResultSet results = ps.executeQuery(query);
+        ResultSet results = st.executeQuery(query);
         return results;
     }
 
