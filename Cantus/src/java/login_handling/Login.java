@@ -68,11 +68,11 @@ public class Login extends HttpServlet {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (user == null) {
-            response.sendRedirect("LandingPage.jsp");
+            response.sendRedirect("Regester.html");
         } else {
             HttpSession session = request.getSession(true);
             session.setAttribute("currentSessionUser", user);
-            response.sendRedirect("main.jsp");
+            response.sendRedirect("LandingPage.jsp");
         }
     }
     /**
