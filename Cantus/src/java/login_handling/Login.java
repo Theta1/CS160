@@ -43,7 +43,8 @@ public class Login extends HttpServlet {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/cantus",
                     "root", "");
-            statement = connection.prepareStatement("SELECT user_id FROM users WHERE username = ? AND password = ?");
+            statement = connection.prepareStatement("SELECT user_id, username, email, librarynumber "
+                    + "FROM users WHERE username = ? AND password = ?");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -90,6 +91,9 @@ public class Login extends HttpServlet {
         if (results.next()) {
             User user = new User();
             user.setID(results.getInt("user_id"));
+            user.setUN(results.getString("username"));
+            user.setEmail(results.getString("email"));
+            user.setLibraryID(results.getString("librarynumber"));
             results.close();
             statement.close();
             connection.close();
