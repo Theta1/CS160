@@ -13,11 +13,11 @@
     </head>
     <body>
     <center> 
-        
-            <%@ page import="login_handling.User" %>
-            <% login_handling.User currentUser = ((login_handling.User) (session.getAttribute("currentSessionUser")));%>
-        <h2>     
-            Hello <%= currentUser.getUN() %> you have successfully logged into Cantus.            
+        <h2> 
+            <%
+                String name = session.getAttribute("username").toString();
+                out.println("Hello " + name + ", you have successfully logged into Cantus.");
+            %> 
         </h2> 
 
         <form action="AddASong.html" method="post">

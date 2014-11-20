@@ -16,55 +16,11 @@ import java.util.logging.Logger;
  */
 public class User {
 
-    private int id;
-    
     private static final Logger LOG = Logger.getLogger(User.class.getName());
-    private String libraryID;
-    private String email;
-    private String userName;
 
-    /**
-     * Creates a User Java object. ID must be set manually.
-     */
-    User() {}
-    
-    /**
-     * Creates a User Java object from an existing user, using the ID value.
-     *
-     * @param id the ID of the user in the SQL database
-     */
-    User(int id) {
-        this.id = id;
-    }
-    
-    /**
-    * Setter for user.id
-    * @param aInt is the int to be set to the user_id
-    */
-    void setID(int aInt) {
-        this.id=aInt;
-        //note: this is useful for debugging!
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    void setUN(String string) {
-        this.userName = string;
-    }
-    
-    public String getUN(){
-        return this.userName;
-    }
-
-    void setEmail(String string) {
-        this.email = string;
-    }
-
-    void setLibraryID(String string) {
-        this.libraryID = string;
-    }
     /**
      * Registers a new user into the system.
-     * Depreciated
+     *
      * @param username the user's name
      * @param password the user's password
      * @throws SQLException
@@ -79,7 +35,7 @@ public class User {
 
     /**
      * Gets an ID number from a certain username.
-     * Depreciated
+     *
      * @param username the username to search
      * @return the next ID to use for a new user
      * @throws SQLException
@@ -98,7 +54,7 @@ public class User {
 
     /**
      * Adds a row via an SQL update.
-     * Depreciated
+     *
      * @param username the user's name
      * @param password the user's password
      * @return a row count
@@ -118,9 +74,20 @@ public class User {
         return rowCount;
     }
 
+    private final int id;
+
+    /**
+     * Creates a User Java object from an existing user, using the ID value.
+     *
+     * @param id the ID of the user in the SQL database
+     */
+    User(int id) {
+        this.id = id;
+    }
+
     /**
      * Returns results from an SQL query.
-     * Depreciated
+     *
      * @param value the value to get from the row
      * @return results from the query
      * @throws SQLException
@@ -139,7 +106,7 @@ public class User {
     }
 
     /**
-     * Depreciated
+     *
      * @return this user's name
      */
     String getUsername() throws SQLException {
@@ -150,7 +117,7 @@ public class User {
     }
 
     /**
-     * Depreciated
+     *
      * @return this user's password
      * @throws SQLException
      */
@@ -164,7 +131,7 @@ public class User {
 
     /**
      * Compares a user-entered password to the real password.
-     * Depreciated
+     *
      * @param enteredPassword the password entered by the user
      * @return 0 if the passwords match
      * @throws SQLException
@@ -173,4 +140,5 @@ public class User {
             throws SQLException {
         return getPassword().compareTo(enteredPassword);
     }
+
 }
