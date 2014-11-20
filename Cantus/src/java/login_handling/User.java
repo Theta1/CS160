@@ -19,6 +19,9 @@ public class User {
     private int id;
     
     private static final Logger LOG = Logger.getLogger(User.class.getName());
+    private String libraryID;
+    private String email;
+    private String userName;
 
     /**
      * Creates a User Java object. ID must be set manually.
@@ -44,6 +47,17 @@ public class User {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    void setUN(String string) {
+        this.userName = string;
+    }
+
+    void setEmail(String string) {
+        this.email = string;
+    }
+
+    void setLibraryID(String string) {
+        this.libraryID = string;
+    }
     /**
      * Registers a new user into the system.
      * Depreciated
