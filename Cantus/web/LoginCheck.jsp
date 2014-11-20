@@ -17,15 +17,12 @@
             String username = request.getParameter("username");
             String password = request.getParameter("password");
             UserDatabase ud = new UserDatabase();
-            
-            try 
-            {  
-               User getuser = ud.logIn(username, password);
-               session.setAttribute("username", username);
-               response.sendRedirect("LandingPage.jsp");  
-            }
-            catch (IllegalArgumentException e) 
-            {
+
+            try {
+                User getuser = ud.logIn(username, password);
+                session.setAttribute("username", username);
+                response.sendRedirect("LandingPage.jsp");
+            } catch (IllegalArgumentException e) {
                 session.setAttribute("username", username);
                 response.sendRedirect("InvalidLogin.jsp");
             }
