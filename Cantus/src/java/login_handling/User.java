@@ -50,6 +50,10 @@ public class User {
     void setUN(String string) {
         this.userName = string;
     }
+    
+    public String getUN(){
+        return this.userName;
+    }
 
     void setEmail(String string) {
         this.email = string;
