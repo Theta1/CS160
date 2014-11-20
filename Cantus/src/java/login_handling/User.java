@@ -74,7 +74,7 @@ public class User {
         return rowCount;
     }
 
-    private final int id;
+    private int id;
 
     /**
      * Creates a User Java object from an existing user, using the ID value.
@@ -83,6 +83,10 @@ public class User {
      */
     User(int id) {
         this.id = id;
+    }
+
+    User() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -140,5 +144,12 @@ public class User {
             throws SQLException {
         return getPassword().compareTo(enteredPassword);
     }
+
+    void setID(int aInt) {
+        this.id=aInt;
+        //note: this is useful for debugging!
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
 }
