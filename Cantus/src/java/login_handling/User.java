@@ -47,6 +47,7 @@ public class User {
         Statement st = server_connections.ConnectionManager.
                 getConnection().prepareStatement(query);
         ResultSet results = st.executeQuery(query);
+        results.next();
         int newID = results.getInt(1);
         return newID;
     }
@@ -110,6 +111,7 @@ public class User {
      */
     String getUsername() throws SQLException {
         ResultSet results = getSQLQuery("username");
+        results.next();
         String username = results.getString(1);
         return username;
     }
@@ -122,6 +124,7 @@ public class User {
     private String getPassword()
             throws SQLException {
         ResultSet results = getSQLQuery("password");
+        results.next();
         String password = results.getString(1);
         return password;
     }

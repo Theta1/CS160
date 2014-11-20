@@ -66,6 +66,7 @@ public class UserDatabase {
         query += username;
         query += "'";
         ResultSet results = statement.executeQuery(query);
+        results.next();
         int nextInt = results.getInt(1);
         User ret = new User(nextInt);
         return ret;
