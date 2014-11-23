@@ -63,11 +63,11 @@ public class User {
     private static int setSQLUpdate(String username, String password) throws
             SQLException {
         String update = "INSERT INTO `users` (`username`, "
-                + "`password`) VALUES (`";
+                + "`password`) VALUES ('";
         update += username;
-        update += "`, `";
+        update += "', '";
         update += password;
-        update += "`)";
+        update += "')";
         Statement st = server_connections.ConnectionManager.
                 getConnection().prepareStatement(update);
         int rowCount = st.executeUpdate(update);
