@@ -3,6 +3,7 @@ package login_handling;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -27,11 +28,16 @@ public class UserDatabase {
      * @param username the user's name
      * @param password the user's password
      * @return false if the user already exists
-     * @throws SQLException
      */
-    public boolean signUp(String username, String password) throws
-            SQLException {
-        return (User.createUser(username, password) != null);
+    public boolean signUp(String username, String password) {
+        boolean usernameAvailable = true;
+        try {
+            return (User.createUser(username, password) != null);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE,
+                    null, ex);
+            return false;
+        }
     }
 
     /**
@@ -42,15 +48,20 @@ public class UserDatabase {
      * @param password the entered password
      * @return the User object whose username and password match, if it exists,
      * throws IllegalArgumentException otherwise
-     * @throws SQLException
      * @throws IllegalArgumentException
      */
-    public User logIn(String username, String password) throws SQLException {
-        User user = getUser(username);
-        if ((user != null) && (user.comparePassword(password) == 0)) {
-            return user;
+    public User logIn(String username, String password) {
+        IllegalArgumentException wrongPassword = new IllegalArgumentException("Incorrect username or password.");
+        try {
+            User user = getUser(username);
+            if ((user != null) && (user.comparePassword(password) == 0)) {
+                return user;
+            }
+            throw wrongPassword;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            throw wrongPassword;
         }
-        throw new IllegalArgumentException("Incorrect username or password.");
     }
 
     /**
