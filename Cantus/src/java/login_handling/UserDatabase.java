@@ -30,7 +30,6 @@ public class UserDatabase {
      * @return false if the user already exists
      */
     public boolean signUp(String username, String password) {
-        boolean usernameAvailable = true;
         try {
             return (User.createUser(username, password) != null);
         } catch (SQLException ex) {
