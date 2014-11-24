@@ -34,8 +34,7 @@ public class UserDatabase {
         try {
             return (User.createUser(username, password) != null);
         } catch (SQLException ex) {
-            Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE,
-                    null, ex);
+            LOG.log(Level.SEVERE, null, ex);
             return false;
         }
     }
@@ -51,7 +50,8 @@ public class UserDatabase {
      * @throws IllegalArgumentException
      */
     public User logIn(String username, String password) {
-        IllegalArgumentException wrongPassword = new IllegalArgumentException("Incorrect username or password.");
+        IllegalArgumentException wrongPassword = new IllegalArgumentException(
+                "Incorrect username or password.");
         try {
             User user = getUser(username);
             if ((user != null) && (user.comparePassword(password) == 0)) {
@@ -59,7 +59,7 @@ public class UserDatabase {
             }
             throw wrongPassword;
         } catch (SQLException ex) {
-            Logger.getLogger(UserDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.log(Level.SEVERE, null, ex);
             throw wrongPassword;
         }
     }
