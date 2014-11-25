@@ -44,6 +44,15 @@ public class SQLStatements {
         return results;
     }
 
+    /**
+     * Adds a row via an SQL update.
+     *
+     * @param table the table to update
+     * @param keys which types of values will be inserted
+     * @param values the values themselves to be inserted
+     * @return a row count
+     * @throws SQLException
+     */
     public static int setSQLUpdate(String table, String keys, String values)
             throws SQLException {
         String update = "INSERT INTO `";
