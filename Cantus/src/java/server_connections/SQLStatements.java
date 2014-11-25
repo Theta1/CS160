@@ -44,6 +44,21 @@ public class SQLStatements {
         return results;
     }
 
+    public static int setSQLUpdate(String table, String keys, String values)
+            throws SQLException {
+        String update = "INSERT INTO `";
+        update += table;
+        update += "` (";
+        update += keys;
+        update += ") VALUES (";
+        update += values;
+        update += ")";
+        Statement st = server_connections.ConnectionManager.
+                getConnection().createStatement();
+        int rowCount = st.executeUpdate(update);
+        return rowCount;
+    }
+
     private SQLStatements() {
     }
 }

@@ -2,7 +2,6 @@ package login_handling;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Logger;
 import server_connections.SQLStatements;
 
@@ -62,15 +61,14 @@ public class User {
      */
     private static int setSQLUpdate(String username, String password) throws
             SQLException {
-        String update = "INSERT INTO `users` (`username`, "
-                + "`password`) VALUES ('";
-        update += username;
-        update += "', '";
-        update += password;
-        update += "')";
-        Statement st = server_connections.ConnectionManager.
-                getConnection().prepareStatement(update);
-        int rowCount = st.executeUpdate(update);
+        String table = "users";
+        String keys = "`username`, `password`";
+        String values = "'";
+        values += username;
+        values += "', '";
+        values += password;
+        values += "'";
+        int rowCount = SQLStatements.setSQLUpdate(table, keys, values);
         return rowCount;
     }
 
