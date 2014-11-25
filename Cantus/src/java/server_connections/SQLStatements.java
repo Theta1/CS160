@@ -33,7 +33,7 @@ public class SQLStatements {
         String query = "SELECT `";
         query += value;
         query += "` FROM `";
-        query = table;
+        query += table;
         query += "` WHERE `";
         query += keyType;
         query += "` = ";

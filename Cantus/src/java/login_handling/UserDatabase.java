@@ -2,9 +2,9 @@ package login_handling;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import server_connections.SQLStatements;
 
 /**
  * A collection of users.
@@ -31,10 +31,7 @@ public class UserDatabase {
      */
     public boolean signUp(String username, String password) {
         try {
-            if (getUser(username) == null) {
-                return (User.createUser(username, password) != null);
-            }
-            return false;
+            return (User.createUser(username, password) != null);
         } catch (SQLException ex) {
             LOG.log(Level.SEVERE, null, ex);
             return false;
@@ -73,12 +70,14 @@ public class UserDatabase {
      * @return null if no user is found
      */
     private User getUser(String username) throws SQLException {
-        Statement statement = server_connections.ConnectionManager.
-                getConnection().createStatement();
-        String query = "SELECT `user_id` FROM `users` WHERE `username` = '";
-        query += username;
-        query += "'";
-        ResultSet results = statement.executeQuery(query);
+        String value = "user_id";
+        String table = "users";
+        String keyType = "username";
+        String key = "'";
+        key += username;
+        key += "'";
+        ResultSet results = SQLStatements.getSQLQuery(value, table, keyType,
+                key);
         results.next();
         int nextInt = results.getInt(1);
         User ret = new User(nextInt);

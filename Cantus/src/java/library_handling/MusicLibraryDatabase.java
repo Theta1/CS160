@@ -1,9 +1,7 @@
 package library_handling;
 
-import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -19,6 +17,17 @@ import server_connections.SQLStatements;
  * @author David-Eric Thorpe
  */
 public class MusicLibraryDatabase {
+
+    private static final Logger LOG = Logger.getLogger(
+            MusicLibraryDatabase.class.getName());
+
+    private static ResultSet getSQLQuery(String value, String keyType,
+            String key) throws SQLException {
+        String table = "libraries";
+        ResultSet results = SQLStatements.getSQLQuery(value, table, keyType,
+                key);
+        return results;
+    }
 
     private Map<User, MusicLibrary> libraries;
 
@@ -38,14 +47,5 @@ public class MusicLibraryDatabase {
             libraries.put(user, MusicLibrary.createLibrary());
         }
         return libraries.get(user);
-    }
-    private static final Logger LOG = Logger.getLogger(MusicLibraryDatabase.class.getName());
-
-    private static ResultSet getSQLQuery(String value, String keyType,
-            String key) throws SQLException {
-        String table = "libraries";
-        ResultSet results = SQLStatements.getSQLQuery(value, table, keyType,
-                key);
-        return results;
     }
 }
