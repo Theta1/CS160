@@ -1,9 +1,9 @@
 package library_handling;
 
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * Contains songs owned by a specific user.
@@ -24,6 +24,12 @@ import java.util.Set;
  */
 public class MusicLibrary {
 
+    private static final Logger LOG = Logger.getLogger(MusicLibrary.class.getName());
+
+    static MusicLibrary createLibrary() {
+        return new MusicLibrary(0);
+    }
+
     private final Set<Song> songs = new HashSet<>(0);
     private final int id;
 
@@ -31,15 +37,13 @@ public class MusicLibrary {
         this.id = id;
     }
 
-    static MusicLibrary createLibrary() {
-        return new MusicLibrary(0);
-    }
-
     /**
      *
      * @return songs in this library
      */
     public Set<Song> getSongs() {
+        Set<Song> songs = new HashSet<>();
         return Collections.unmodifiableSet(songs);
     }
+
 }

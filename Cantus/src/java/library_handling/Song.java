@@ -15,7 +15,7 @@ import tagging.ISongTag;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public class Song implements Serializable {
+public class Song {
 
     private String title;
     private Map<String, Set<ISongTag>> tags;

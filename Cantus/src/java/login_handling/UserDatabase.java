@@ -31,7 +31,11 @@ public class UserDatabase {
      */
     public boolean signUp(String username, String password) {
         try {
-            return (User.createUser(username, password) != null);
+            if (getUser(username) == null) {
+                return (User.createUser(username, password) != null);
+            } else {
+                return false;
+            }
         } catch (SQLException ex) {
             LOG.log(Level.SEVERE, null, ex);
             return false;
@@ -69,18 +73,23 @@ public class UserDatabase {
      * @param username the username for which to search
      * @return null if no user is found
      */
-    private User getUser(String username) throws SQLException {
-        String value = "user_id";
-        String table = "users";
-        String keyType = "username";
-        String key = "'";
-        key += username;
-        key += "'";
-        ResultSet results = SQLStatements.getSQLQuery(value, table, keyType,
-                key);
-        results.next();
-        int nextInt = results.getInt(1);
-        User ret = new User(nextInt);
-        return ret;
+    private User getUser(String username) {
+        try {
+            String value = "user_id";
+            String table = "users";
+            String keyType = "username";
+            String key = "'";
+            key += username;
+            key += "'";
+            ResultSet results = SQLStatements.getSQLQuery(value, table, keyType,
+                    key);
+            results.next();
+            int nextInt = results.getInt(1);
+            User ret = new User(nextInt);
+            return ret;
+        } catch (SQLException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 }
