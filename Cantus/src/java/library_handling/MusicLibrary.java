@@ -1,6 +1,7 @@
 package library_handling;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,12 +13,17 @@ import java.util.Set;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public class MusicLibrary implements Serializable {
+public class MusicLibrary {
 
-    private Set<Song> songs;
+    private final Set<Song> songs = new HashSet<>(0);
+    private final int id;
 
-    MusicLibrary() {
-        songs = new HashSet<>();
+    MusicLibrary(int id) {
+        this.id = id;
+    }
+
+    static MusicLibrary createLibrary() {
+        return new MusicLibrary(0);
     }
 
     /**
@@ -25,6 +31,6 @@ public class MusicLibrary implements Serializable {
      * @return songs in this library
      */
     public Set<Song> getSongs() {
-        return songs;
+        return Collections.unmodifiableSet(songs);
     }
 }

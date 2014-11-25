@@ -1,9 +1,14 @@
 package library_handling;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 import login_handling.User;
+import server_connections.SQLStatements;
 
 /**
  * Contains individual, personal MusicLibraries.
@@ -13,7 +18,7 @@ import login_handling.User;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public class MusicLibraryDatabase implements Serializable {
+public class MusicLibraryDatabase {
 
     private Map<User, MusicLibrary> libraries;
 
@@ -30,8 +35,17 @@ public class MusicLibraryDatabase implements Serializable {
     public MusicLibrary getMusicLibrary(User user) {
         //Create a library if user is new.
         if (!libraries.containsKey(user)) {
-            libraries.put(user, new MusicLibrary());
+            libraries.put(user, MusicLibrary.createLibrary());
         }
         return libraries.get(user);
+    }
+    private static final Logger LOG = Logger.getLogger(MusicLibraryDatabase.class.getName());
+
+    private static ResultSet getSQLQuery(String value, String keyType,
+            String key) throws SQLException {
+        String table = "libraries";
+        ResultSet results = SQLStatements.getSQLQuery(value, table, keyType,
+                key);
+        return results;
     }
 }

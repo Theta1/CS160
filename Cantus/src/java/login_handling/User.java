@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Logger;
+import server_connections.SQLStatements;
 
 /**
  * Associates a user to a name and a password.
@@ -84,15 +85,9 @@ public class User {
      */
     private static ResultSet getSQLQuery(String value, String keyType,
             String key) throws SQLException {
-        String query = "SELECT `";
-        query += value;
-        query += "` FROM `users` WHERE `";
-        query += keyType;
-        query += "` = ";
-        query += key;
-        Statement st = server_connections.ConnectionManager.
-                getConnection().createStatement();
-        ResultSet results = st.executeQuery(query);
+        String table = "users";
+        ResultSet results = SQLStatements.getSQLQuery(value, table, keyType,
+                key);
         return results;
     }
 

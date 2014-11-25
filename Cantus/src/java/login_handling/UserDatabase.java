@@ -31,7 +31,10 @@ public class UserDatabase {
      */
     public boolean signUp(String username, String password) {
         try {
-            return (User.createUser(username, password) != null);
+            if (getUser(username) == null) {
+                return (User.createUser(username, password) != null);
+            }
+            return false;
         } catch (SQLException ex) {
             LOG.log(Level.SEVERE, null, ex);
             return false;
