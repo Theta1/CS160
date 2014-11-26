@@ -1,10 +1,10 @@
 package library_handling;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 import tagging.ISongTag;
 
 /**
@@ -15,7 +15,8 @@ import tagging.ISongTag;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public class Song {
+public class Song implements Comparable<Song>{
+    private static final Logger LOG = Logger.getLogger(Song.class.getName());
 
     private String title;
     private Map<String, Set<ISongTag>> tags;
@@ -58,5 +59,10 @@ public class Song {
             tags.put(tagType, new HashSet<ISongTag>());
         }
         return tags.get(tagType);
+    }
+
+    @Override
+    public int compareTo(Song o) {
+        return getTitle().compareToIgnoreCase(o.getTitle());
     }
 }

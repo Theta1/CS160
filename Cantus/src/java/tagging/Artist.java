@@ -1,5 +1,7 @@
 package tagging;
 
+import java.util.logging.Logger;
+
 /**
  * A tag that can store the first name and last name of a song's artist.
  *
@@ -12,6 +14,7 @@ public class Artist implements ISongTag {
 
     private String firstName;
     private String lastName;
+    private int id;
 
     /**
      *
@@ -44,7 +47,10 @@ public class Artist implements ISongTag {
      * @return the full name of the artist
      */
     public String getFullName() {
-        return (firstName + lastName);
+        String fullName = getFirstName();
+        fullName += " ";
+        fullName += getLastName();
+        return fullName;
     }
 
     @Override
@@ -56,4 +62,15 @@ public class Artist implements ISongTag {
     public String getTagText() {
         return getFullName();
     }
+
+    @Override
+    public String getTableName() {
+        return "tags_artists";
+    }
+
+    @Override
+    public int getID() {
+        return id;
+    }
+    private static final Logger LOG = Logger.getLogger(Artist.class.getName());
 }
