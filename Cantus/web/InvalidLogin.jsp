@@ -19,7 +19,7 @@
             out.println("Sorry we don't have the username '" + name + "' registered in our database.");
             out.println("Please re-enter the username and password.");
         %>
-        <form action="LoginCheck.jsp" method="post">
+        <form action="LoginCheck">
             <br/> <font color ="black"> Username: </font> <input type = "text" name = "username">
             <br/> <font color ="black"> Password: </font> <input type = "password" name = "password">
             <br/> <input type = "submit" value = "Submit"> </form>
