@@ -15,12 +15,12 @@ import server_connections.SQLStatements;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public class libraryDatabase {
+public class LibraryDatabase {
 
     private static final Logger LOG = Logger.getLogger(UserDatabase.class.
             getName());
 
-    public libraryDatabase() {
+    public LibraryDatabase() {
     }
 
     /** Use for referance from userDB

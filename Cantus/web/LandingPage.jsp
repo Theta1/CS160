@@ -14,25 +14,65 @@
     <body>
     <center> 
         <h2> 
-            <%@ page import="servlets.LoginCheck" %>
+            <link rel="stylesheet" type="text/css" href="LandingPage.css">
+            <%@ page import="servlets.LoginCheck, java.util.ArrayList" %>
             <%
                 String name = LoginCheck.getUserName();
-                out.println("Hello " + name + ", you have successfully logged into Cantus.");
+                //out.println("Hello " + name + ", you have successfully logged into Cantus.");
+                ArrayList testListOfSongs = new ArrayList();
+                testListOfSongs.add("Go Crazy");
+                testListOfSongs.add("Holler");
+                testListOfSongs.add("Mr Mr");
+                testListOfSongs.add("Fur Elise");
+                testListOfSongs.add("Immortals");
+                testListOfSongs.add("Let It Go");
+                testListOfSongs.add("Friend In Me");
+                testListOfSongs.add("Big Booty Bitches");
+                testListOfSongs.add("MapleStory Login Theme");
+                testListOfSongs.add("Grenade");
+                testListOfSongs.add("Nintendo Mii Theme");
+                testListOfSongs.add("SSB Theme");
+                testListOfSongs.add("Yu-Gi-Oh Theme");
+                testListOfSongs.add("I Got A Boy");
+                testListOfSongs.add("Give It To Me");
+                testListOfSongs.add("Touch My Body");
+                testListOfSongs.add("Upgrades");
+                testListOfSongs.add("Avengers Theme Song");
+                testListOfSongs.add("Twinkle");
+                testListOfSongs.add("Twinkle");
+                testListOfSongs.add("Twinkle");
+                testListOfSongs.add("Twinkle");
+                testListOfSongs.add("Twinkle");
+                testListOfSongs.add("Twinkle");
+                testListOfSongs.add("Twinkle");
+                testListOfSongs.add("Twinkle");
+                testListOfSongs.add("Twinkle");
+                testListOfSongs.add("Twinkle");
+                
             %> 
+            Hello <span class="aquaText"><%= name %></span>, you have successfully logged into Cantus.
         </h2> 
-        <canvas id="myCanvas" width="200" height="100"
-        style="border:1px solid #d3d3d3;">
+        
+       <!-- <canvas id="myCanvas" width="800" height="400">
         Your browser does not support the HTML5 canvas tag.</canvas>
         
         <script>
             var c = document.getElementById("myCanvas");
             var ctx = c.getContext("2d");
-            ctx.font = "30px Arial";
-            ctx.fillText("Hello World",10,50);
-        </script>
-        
+            ctx.fillStyle="#FFFFFF";
+            ctx.fillRect(20,0,800,400);
+            ctx.fillStyle="#000000";
+            ctx.fillText("List of songs from user goes here.",30,40);
+        </script>-->
+       <div class="songarea">
+           <% 
+             for(int i = 0; i < testListOfSongs.size(); i++)
+             {  out.println(testListOfSongs.get(i) + "<BR>"); }
+           %>
+       </div>
+       
         <form action="search.java" method="post">
-            <font color="black"> Search: </font> <input type="text" name="search"> </form>
+            <font color="white"> Search: </font> <input type="text" name="search"> </form>
         
         <form action="AddASong.html" method="post">
             <br/> <input type = "submit" value = "Add A Song To Library"> </form> 
