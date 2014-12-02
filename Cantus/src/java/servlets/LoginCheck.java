@@ -56,15 +56,14 @@ public class LoginCheck extends HttpServlet {
                 username_e = username;
                 response.sendRedirect(INVALID_LOGIN_PAGE);
             }*/
+            username_e = username;
             try 
             {  
                User getuser = ud.logIn(username, password);
-               username_e = username;
                response.sendRedirect("LandingPage.jsp");  
             }
             catch (IllegalArgumentException e) 
             {
-                username_e = username;
                 response.sendRedirect("InvalidLogin.jsp");
             }
         }

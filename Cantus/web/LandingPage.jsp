@@ -16,7 +16,7 @@
         <h2> 
             <%@ page import="servlets.LoginCheck" %>
             <%
-                String name = LoginCheck.getUserName();
+                String name = session.getAttribute("username").toString();
                 out.println("Hello " + name + ", you have successfully logged into Cantus.");
             %> 
         </h2> 
