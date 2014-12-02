@@ -20,50 +20,12 @@
                 String name = LoginCheck.getUserName();
                 //out.println("Hello " + name + ", you have successfully logged into Cantus.");
                 ArrayList testListOfSongs = new ArrayList();
-                testListOfSongs.add("Go Crazy");
-                testListOfSongs.add("Holler");
-                testListOfSongs.add("Mr Mr");
-                testListOfSongs.add("Fur Elise");
-                testListOfSongs.add("Immortals");
-                testListOfSongs.add("Let It Go");
-                testListOfSongs.add("Friend In Me");
-                testListOfSongs.add("Big Booty Bitches");
-                testListOfSongs.add("MapleStory Login Theme");
-                testListOfSongs.add("Grenade");
-                testListOfSongs.add("Nintendo Mii Theme");
-                testListOfSongs.add("SSB Theme");
-                testListOfSongs.add("Yu-Gi-Oh Theme");
-                testListOfSongs.add("I Got A Boy");
-                testListOfSongs.add("Give It To Me");
-                testListOfSongs.add("Touch My Body");
-                testListOfSongs.add("Upgrades");
-                testListOfSongs.add("Avengers Theme Song");
-                testListOfSongs.add("Twinkle");
-                testListOfSongs.add("Twinkle");
-                testListOfSongs.add("Twinkle");
-                testListOfSongs.add("Twinkle");
-                testListOfSongs.add("Twinkle");
-                testListOfSongs.add("Twinkle");
-                testListOfSongs.add("Twinkle");
-                testListOfSongs.add("Twinkle");
-                testListOfSongs.add("Twinkle");
-                testListOfSongs.add("Twinkle");
-                
+                for(int i = 0; i < 5000; i++)
+                    testListOfSongs.add(i);
             %> 
             Hello <span class="aquaText"><%= name %></span>, you have successfully logged into Cantus.
         </h2> 
         
-       <!-- <canvas id="myCanvas" width="800" height="400">
-        Your browser does not support the HTML5 canvas tag.</canvas>
-        
-        <script>
-            var c = document.getElementById("myCanvas");
-            var ctx = c.getContext("2d");
-            ctx.fillStyle="#FFFFFF";
-            ctx.fillRect(20,0,800,400);
-            ctx.fillStyle="#000000";
-            ctx.fillText("List of songs from user goes here.",30,40);
-        </script>-->
        <div class="songarea">
            <% 
              for(int i = 0; i < testListOfSongs.size(); i++)
@@ -71,15 +33,21 @@
            %>
        </div>
        
+       <div id="searchbar"
         <form action="search.java" method="post">
             <font color="white"> Search: </font> <input type="text" name="search"> </form>
+       </div>
         
+       <div id ="addsongbutton">
         <form action="AddASong.html" method="post">
             <br/> <input type = "submit" value = "Add A Song To Library"> </form> 
+       </div>
+       
+       <div id ="deletesongbutton">
             <input type = "submit" value = "Delete Song From Library">
-            
+       </div>
 
-            <br/><a href="LoggedOut.jsp">Logout</a>
+       <br/><a href="LoggedOut.jsp">Logout of Cantus</a>
     </center>
 </body>
 </html>

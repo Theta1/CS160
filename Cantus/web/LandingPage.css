@@ -14,6 +14,7 @@ and open the template in the editor.
 
 body {
     background-image: url("black texture.jpg");
+    font-family: cursive;
 }
 
 h2 {
@@ -22,14 +23,71 @@ h2 {
 
 a {
     color: white;
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    font-size: 150%;
 }
 
 .songarea {
-    border: 1px solid white;
+    border: 15px solid black;
     color: black;
     background-color: white;
     width: 800px;
     height: 400px;
     overflow: scroll;
+    position: absolute;
+    left: 50px;
+    top: 80px;
+}
+
+#searchbar {
+    position: absolute;
+    left: 850px;
+    top: 80px;
+    font-size: 150%;
+}
+
+#addsongbutton {
+    position: absolute;
+    left: 900px;
+    top: 100px;
+    font-size: 150%
+}
+
+#deletesongbutton {
+    position: absolute;
+    left: 900px;
+    top: 190px;
+    font-size: 150%;
+}
+
+input[type="submit"]{
+  width:100%;
+  background: transparent;
+  border:10px;
+  padding:0%;
+  font-family: cursive;
+  font-size:100%;
+  color:#fff;
+  cursor:pointer;
+  transition:background .3s;
+  -webkit-transition:background .3s;
+}
+
+input[type="submit"]:hover{
+    background: gray;
+}
+
+input[type="text"] {
+  width:55%;
+  background: transparent;
+  border:5px;
+  font-family: cursive;
+  font-size:100%;
+  color: aqua;
+  cursor:pointer;
+  transition:background .3s;
+  -webkit-transition:background .3s;
 }
 
