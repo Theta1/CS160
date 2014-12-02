@@ -42,14 +42,11 @@ public class RegistrationConfirmination extends HttpServlet {
             String email = request.getParameter("email");
             UserDatabase ud = new UserDatabase();
             boolean signedUp = ud.signUp(username, password);
-            
-            if(signedUp)
-            {
+
+            if (signedUp) {
                 //out.println("It seems like you are already a user.  Please login");
                 response.sendRedirect("index.html");
-            }
-            else
-            {
+            } else {
                 //out.println("You have successfully registered for Cantus. Thank you.");
                 request.setAttribute("username", username);
                 response.sendRedirect("LandingPage.jsp");

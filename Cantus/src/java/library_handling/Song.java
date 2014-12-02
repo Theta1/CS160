@@ -1,10 +1,12 @@
 package library_handling;
 
-import java.util.HashMap;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import server_connections.SQLStatements;
 import tagging.ISongTag;
 
 /**
@@ -15,28 +17,51 @@ import tagging.ISongTag;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public class Song implements Comparable<Song>{
+public class Song implements Comparable<Song> {
+
     private static final Logger LOG = Logger.getLogger(Song.class.getName());
 
-    private String title;
-    private Map<String, Set<ISongTag>> tags;
+    private final static String tableName = "tracks";
+
+    /**
+     * Returns results from an SQL query.
+     *
+     * @param value the value to get from the row
+     * @param keyType the row to look for the key
+     * @param key the key to search from keyType's column
+     * @return results from the query
+     * @throws SQLException
+     */
+    private static ResultSet getSQLQuery(String value, String keyType,
+            String key) throws SQLException {
+        ResultSet results = SQLStatements.getSQLQuery(value, tableName, keyType,
+                key);
+        return results;
+    }
+    private final int id;
 
     /**
      *
-     * @param title the title of the song
+     * @param id the id of the song in the data table
      */
-    public Song(String title) {
-        this(title, new HashMap<String, Set<ISongTag>>());
+    Song(int id) {
+        this.id = id;
     }
 
     /**
      *
      * @param title the title of the song
-     * @param tags a set containing tags for the song
+     * @return a new song in the database
+     * @throws java.sql.SQLException
      */
-    public Song(String title, Map<String, Set<ISongTag>> tags) {
-        this.title = title;
-        this.tags = tags;
+    public Song createSong(String title) throws SQLException {
+        String keys = "`Title`";
+        String values = "'";
+        values += title;
+        values += "'";
+        int rowCount = SQLStatements.setSQLUpdate(tableName, keys, values);
+        Song newSong = new Song(rowCount);
+        return newSong;
     }
 
     /**
@@ -44,21 +69,18 @@ public class Song implements Comparable<Song>{
      * @return the title of this song
      */
     public String getTitle() {
-        return title;
-    }
-
-    /**
-     * Returns a set of all tags of the specified type.
-     *
-     * @param tagType the name of the type of the tags to return
-     * @return a set of all tags of the specified type
-     */
-    public Set<ISongTag> getSongTagsOfType(String tagType) {
-        //Add tag type if it does not exist.
-        if (!tags.containsKey(tagType)) {
-            tags.put(tagType, new HashSet<ISongTag>());
+        try {
+            String value = "Title";
+            String keyType = "TrackID";
+            String key = Integer.toString(id);
+            ResultSet results = getSQLQuery(value, keyType, key);
+            results.next();
+            String username = results.getString(1);
+            return username;
+        } catch (SQLException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+            return "";
         }
-        return tags.get(tagType);
     }
 
     @Override

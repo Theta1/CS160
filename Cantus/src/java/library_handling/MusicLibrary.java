@@ -7,15 +7,17 @@ import java.util.logging.Logger;
 
 /**
  * Contains songs owned by a specific user.
- * 
- * TODO Take POST data from ADDASONG.HTML
- * Searches the DB for song (if not empty) associated with song's table and returns the ID of row
- * if nothing is found inserts song as new row and stores ID
- * 
- * Searches the DB for each field (if not empty) associated with field's table and returns the ID of row
- * if nothing is found inserts field as new row and stores ID
- * 
- * If SONG or a FIELD didn't exhist then store song ID and field ID in song_has_field table
+ *
+ * TODO Take POST data from ADDASONG.HTML Searches the DB for song (if not
+ * empty) associated with song's table and returns the ID of row if nothing is
+ * found inserts song as new row and stores ID
+ *
+ * Searches the DB for each field (if not empty) associated with field's table
+ * and returns the ID of row if nothing is found inserts field as new row and
+ * stores ID
+ *
+ * If SONG or a FIELD didn't exhist then store song ID and field ID in
+ * song_has_field table
  *
  * @author Christopher Raleigh
  * @author Benjamin Ngo

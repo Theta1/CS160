@@ -31,18 +31,18 @@ body {
 }
 
 #usernamebox {
-  font-family: cursive;
-  width:20%;
-  background: transparent;
-  margin-bottom:0%;
-  padding:0%;
-  font-family:cursive;
-  font-size:95%;
-  color: transparent;
+    font-family: cursive;
+    width:20%;
+    background: transparent;
+    margin-bottom:0%;
+    padding:0%;
+    font-family:cursive;
+    font-size:95%;
+    color: transparent;
 }
 
 #passwordbox {
-  font-family: cursive;
+    font-family: cursive;
 }
 
 #mainsignuparea {
@@ -52,16 +52,16 @@ body {
 }
 
 input[type="submit"]{
-  width:20%;
-  background: transparent;
-  border:5px;
-  padding:0%;
-  font-family: cursive;
-  font-size:100%;
-  color:#fff;
-  cursor:pointer;
-  transition:background .3s;
-  -webkit-transition:background .3s;
+    width:20%;
+    background: transparent;
+    border:5px;
+    padding:0%;
+    font-family: cursive;
+    font-size:100%;
+    color:#fff;
+    cursor:pointer;
+    transition:background .3s;
+    -webkit-transition:background .3s;
 }
 
 input[type="submit"]:hover{

@@ -25,29 +25,29 @@
             %> 
             Hello <span class="aquaText"><%= name %></span>, you have successfully logged into Cantus.
         </h2> 
-        
-       <div class="songarea">
-           <% 
-             for(int i = 0; i < testListOfSongs.size(); i++)
-             {  out.println(testListOfSongs.get(i) + "<BR>"); }
-           %>
-       </div>
-       
-       <div id="searchbar"
-        <form action="search.java" method="post">
-            <font color="white"> Search: </font> <input type="text" name="search"> </form>
-       </div>
-        
-       <div id ="addsongbutton">
-        <form action="AddASong.html" method="post">
-            <br/> <input type = "submit" value = "Add A Song To Library"> </form> 
-       </div>
-       
-       <div id ="deletesongbutton">
-            <input type = "submit" value = "Delete Song From Library">
-       </div>
 
-       <br/><a href="LoggedOut.jsp">Logout of Cantus</a>
+        <div class="songarea">
+            <% 
+              for(int i = 0; i < testListOfSongs.size(); i++)
+              {  out.println(testListOfSongs.get(i) + "<BR>"); }
+            %>
+        </div>
+
+        <div id="searchbar"
+             <form action="search.java" method="post">
+                <font color="white"> Search: </font> <input type="text" name="search"> </form>
+        </div>
+
+        <div id ="addsongbutton">
+            <form action="AddASong.html" method="post">
+                <br/> <input type = "submit" value = "Add A Song To Library"> </form> 
+        </div>
+
+        <div id ="deletesongbutton">
+            <input type = "submit" value = "Delete Song From Library">
+        </div>
+
+        <br/><a href="LoggedOut.jsp">Logout of Cantus</a>
     </center>
 </body>
 </html>

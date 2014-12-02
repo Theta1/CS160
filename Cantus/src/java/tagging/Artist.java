@@ -12,6 +12,9 @@ import java.util.logging.Logger;
  */
 public class Artist implements ISongTag {
 
+    private static final long serialVersionUID = 1L;
+    private static final Logger LOG = Logger.getLogger(Artist.class.getName());
+
     private String firstName;
     private String lastName;
     private int id;
@@ -72,5 +75,4 @@ public class Artist implements ISongTag {
     public int getID() {
         return id;
     }
-    private static final Logger LOG = Logger.getLogger(Artist.class.getName());
 }

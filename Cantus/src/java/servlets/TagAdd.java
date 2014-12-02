@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "TagAdd", urlPatterns = {"/TagAdd"})
 public class TagAdd extends HttpServlet {
-    
+
     final String LANDING_PAGE = "LandingPage.jsp";
     boolean artistCheck;
     boolean albumCheck;
@@ -45,7 +45,7 @@ public class TagAdd extends HttpServlet {
             String artist = request.getParameter("artist");
             String album = request.getParameter("album");
             String group = request.getParameter("group");
-            String performance = request.getParameter("performance");          
+            String performance = request.getParameter("performance");
         }
     }
 

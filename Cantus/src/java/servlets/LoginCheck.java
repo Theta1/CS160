@@ -26,6 +26,7 @@ public class LoginCheck extends HttpServlet {
     final String LANDING_PAGE = "LandingPage.jsp";
     final String INVALID_LOGIN_PAGE = "InvalidLogin.jsp";
     private static String username_e = "";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,33 +45,30 @@ public class LoginCheck extends HttpServlet {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
             UserDatabase ud = new UserDatabase();
-            
-            
-           /* if(ud.logIn(username, password) != null)
-            {
-                username_e = username;
-                response.sendRedirect(LANDING_PAGE);
-            }
-            else 
-            { 
-                username_e = username;
-                response.sendRedirect(INVALID_LOGIN_PAGE);
-            }*/
+
+            /* if(ud.logIn(username, password) != null)
+             {
+             username_e = username;
+             response.sendRedirect(LANDING_PAGE);
+             }
+             else 
+             { 
+             username_e = username;
+             response.sendRedirect(INVALID_LOGIN_PAGE);
+             }*/
             username_e = username;
-            try 
-            {  
-               User getuser = ud.logIn(username, password);
-               response.sendRedirect("LandingPage.jsp");  
-            }
-            catch (IllegalArgumentException e) 
-            {
+            try {
+                User getuser = ud.logIn(username, password);
+                response.sendRedirect("LandingPage.jsp");
+            } catch (IllegalArgumentException e) {
                 response.sendRedirect("InvalidLogin.jsp");
             }
         }
     }
-    
-    public static String getUserName()
-    {   return username_e;    }
+
+    public static String getUserName() {
+        return username_e;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
