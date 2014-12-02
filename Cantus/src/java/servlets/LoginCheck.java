@@ -1,13 +1,15 @@
+package servlets;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +19,13 @@ import login_handling.UserDatabase;
 
 /**
  *
- * @author Kerfuffle
+ * @author Busairo
  */
-public class Controller extends HttpServlet {
+public class LoginCheck extends HttpServlet {
 
+    final String LANDING_PAGE = "LandingPage.jsp";
+    final String INVALID_LOGIN_PAGE = "InvalidLogin.jsp";
+    private static String username_e = "";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -29,42 +34,44 @@ public class Controller extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
      */
-    //private IView view;
-    private UserDatabase userdb;
-
-    public Controller(UserDatabase userdb) {
-        this.userdb = userdb;
-    }
-
-    public Boolean signUp(String userName, String password) throws SQLException {
-        //
-        return userdb.signUp(userName, password);
-    }
-
-    public User login(String userName, String password) throws SQLException {
-        //
-        return userdb.logIn(userName, password);
-    }
-
-    //public void setView(IView iview) {
-    //}
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Controller</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Controller at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            UserDatabase ud = new UserDatabase();
+            
+            
+           /* if(ud.logIn(username, password) != null)
+            {
+                username_e = username;
+                response.sendRedirect(LANDING_PAGE);
+            }
+            else 
+            { 
+                username_e = username;
+                response.sendRedirect(INVALID_LOGIN_PAGE);
+            }*/
+            try 
+            {  
+               User getuser = ud.logIn(username, password);
+               username_e = username;
+               response.sendRedirect("LandingPage.jsp");  
+            }
+            catch (IllegalArgumentException e) 
+            {
+                username_e = username;
+                response.sendRedirect("InvalidLogin.jsp");
+            }
         }
     }
+    
+    public static String getUserName()
+    {   return username_e;    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -78,7 +85,11 @@ public class Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginCheck.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -92,7 +103,11 @@ public class Controller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginCheck.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

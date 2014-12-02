@@ -18,8 +18,11 @@
             String username = request.getParameter("username");
             String password = request.getParameter("password");
             UserDatabase ud = new UserDatabase();
-            ud.signUp(username, password);
-            response.sendRedirect("index.html");
+            boolean check = ud.signUp(username, password);
+            if(check) { out.println("<p> Registration <b>SUCCESSFUL</b>");    }
+            else {  out.println("<p> Registration <b>UNSUCCESSFUL</b>");    }
+            //response.sendRedirect("index.html");
         %>
+        <br/> <a href="index.html">Click here to return to login page</a>
     </body>
 </html>

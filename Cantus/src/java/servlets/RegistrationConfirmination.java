@@ -8,18 +8,19 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import login_handling.User;
 import login_handling.UserDatabase;
 
 /**
  *
- * @author Kerfuffle
+ * @author Busairo
  */
-public class Controller extends HttpServlet {
+public class RegistrationConfirmination extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,40 +30,30 @@ public class Controller extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
      */
-    //private IView view;
-    private UserDatabase userdb;
-
-    public Controller(UserDatabase userdb) {
-        this.userdb = userdb;
-    }
-
-    public Boolean signUp(String userName, String password) throws SQLException {
-        //
-        return userdb.signUp(userName, password);
-    }
-
-    public User login(String userName, String password) throws SQLException {
-        //
-        return userdb.logIn(userName, password);
-    }
-
-    //public void setView(IView iview) {
-    //}
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Controller</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Controller at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            String username = request.getParameter("desired_username");
+            String password = request.getParameter("desired_password");
+            String email = request.getParameter("email");
+            UserDatabase ud = new UserDatabase();
+            boolean signedUp = ud.signUp(username, password);
+            
+            if(signedUp)
+            {
+                //out.println("It seems like you are already a user.  Please login");
+                response.sendRedirect("index.html");
+            }
+            else
+            {
+                //out.println("You have successfully registered for Cantus. Thank you.");
+                request.setAttribute("username", username);
+                response.sendRedirect("LandingPage.jsp");
+            }
         }
     }
 
@@ -78,7 +69,11 @@ public class Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrationConfirmination.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -92,7 +87,11 @@ public class Controller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrationConfirmination.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -104,4 +103,5 @@ public class Controller extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

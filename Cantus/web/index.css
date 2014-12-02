@@ -1,0 +1,56 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 18, 2014, 10:58:33 PM
+    Author     : Busairo
+*/
+h1 {
+    font-family: cursive;
+}
+
+h2 {
+    font-family: cursive;
+}
+
+h3 {
+    font-family: cursive;
+}
+
+p {
+    font-family: cursive;
+}
+
+#usernamebox {
+  font-family: cursive;
+  width:20%;
+  background: transparent;
+  margin-bottom:0%;
+  padding:0%;
+  font-family:cursive;
+  font-size:95%;
+  color: transparent;
+}
+
+#passwordbox {
+  font-family: cursive;
+}
+
+input[type="submit"]{
+  width:20%;
+  background: transparent;
+  border:5px;
+  padding:0%;
+  font-family: cursive;
+  font-size:100%;
+  color:#fff;
+  cursor:pointer;
+  transition:background .3s;
+  -webkit-transition:background .3s;
+}
+
+input[type="submit"]:hover{
+    background: gray;
+}

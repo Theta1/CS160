@@ -12,8 +12,10 @@
         <title>Invalid Login</title>
     </head>
     <body>
+        <%@ page import="servlets.LoginCheck" %>
         <%
-            String name = session.getAttribute("username").toString();
+            //String name = session.getAttribute("username").toString();
+            String name = LoginCheck.getUserName();
             out.println("Sorry we don't have the username '" + name + "' registered in our database.");
             out.println("Please re-enter the username and password.");
         %>
