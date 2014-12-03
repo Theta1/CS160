@@ -14,7 +14,7 @@ import server_connections.SQLStatements;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public class Artist implements ISongTag {
+public class Artist implements ISongTag, Comparable<Artist> {
 
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(Artist.class.getName());
@@ -63,5 +63,10 @@ public class Artist implements ISongTag {
     @Override
     public int getID() {
         return id;
+    }
+
+    @Override
+    public int compareTo(Artist t) {
+       return getFullName().compareToIgnoreCase(t.getFullName());
     }
 }
