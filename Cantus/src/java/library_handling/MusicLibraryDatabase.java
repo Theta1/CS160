@@ -2,8 +2,10 @@ package library_handling;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collections;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import login_handling.User;
 import server_connections.SQLStatements;
@@ -29,10 +31,8 @@ public class MusicLibraryDatabase {
         return results;
     }
 
-    private Map<User, MusicLibrary> libraries;
-
     public MusicLibraryDatabase() {
-        libraries = new HashMap<>();
+
     }
 
     /**
@@ -43,9 +43,25 @@ public class MusicLibraryDatabase {
      */
     public MusicLibrary getMusicLibrary(User user) {
         //Create a library if user is new.
-        if (!libraries.containsKey(user)) {
-            libraries.put(user, MusicLibrary.createLibrary());
+        throw new UnsupportedOperationException();
+    }
+
+    public SortedSet<Song> getSongs() {
+        TreeSet<Song> initialList = new TreeSet<>();
+        try {
+            String value = "TrackID";
+            String table = "tracks";
+            ResultSet results = SQLStatements.getSQLQueryAllRows(value, table);
+            while (results.next()) {
+                int nextID = results.getInt(1);
+                Song nextSong = new Song(nextID);
+                initialList.add(nextSong);
+            }
+        } catch (SQLException ex) {
+            LOG.log(Level.SEVERE, null, ex);
         }
-        return libraries.get(user);
+        SortedSet<Song> returnList = Collections.unmodifiableSortedSet(
+                initialList);
+        return returnList;
     }
 }

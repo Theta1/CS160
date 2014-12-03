@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.SortedSet;
-import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +21,15 @@ public class SongGroup implements ISongTag {
 
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(SongGroup.class.getName());
+
+    /**
+     *
+     * @param songID the ID of the song for which to look
+     * @return the group of the specified song
+     */
+    public static SongGroup getGroupOfSong(int songID) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
     private final int id;
 
@@ -67,7 +75,7 @@ public class SongGroup implements ISongTag {
                 int ids = results.getInt(1);
                 t.add(new Artist(ids));
             }
-            SortedSet u = Collections.unmodifiableSortedSet(t);
+            SortedSet<Artist> u = Collections.unmodifiableSortedSet(t);
             return u;
         } catch (SQLException ex) {
             LOG.log(Level.SEVERE, null, ex);
@@ -76,12 +84,4 @@ public class SongGroup implements ISongTag {
 
     }
 
-    /**
-     *
-     * @param songID the ID of the song for which to look
-     * @return the group of the specified song
-     */
-    public static SongGroup getGroupOfSong(int songID) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 }

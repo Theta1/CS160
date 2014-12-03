@@ -46,6 +46,27 @@ public class SQLStatements {
     }
 
     /**
+     * Returns results from an SQL query. SELECT value FROM table
+     *
+     * @param value the value to get from the rows
+     * @param table the table to use for the query
+     * @return results from the query
+     * @throws SQLException
+     */
+    public static ResultSet getSQLQueryAllRows(String value, String table)
+            throws SQLException {
+        String query = "SELECT `";
+        query += value;
+        query += "` FROM `";
+        query += table;
+        query += "`";
+        Statement st = server_connections.ConnectionManager.
+                getConnection().createStatement();
+        ResultSet results = st.executeQuery(query);
+        return results;
+    }
+
+    /**
      * Adds a row via an SQL update.
      *
      * @param table the table to update

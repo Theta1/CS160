@@ -19,7 +19,7 @@ public class Artist implements ISongTag, Comparable<Artist> {
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(Artist.class.getName());
 
-    private int id;
+    private final int id;
 
     /**
      *
