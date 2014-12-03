@@ -5,18 +5,24 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="AddASong.css">
         <title>Cantus: Add A Song</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <form action="TagAdd"> 
-            <h1> Please enter the appropriate information for a song.  Title is required. </h1>
-            <br/> <font color="black"> Title*: </font> <input type ="text" name="name_of_song" required>
-            <br/> <font color="black"> Artist: </font> <input type ="text" name="artist">
-            <br/> <font color="black"> Album: </font> <input type ="text" name="album">
-            <br/> <font color="black"> Group: </font> <input type ="text" name="group">
-            <br/> <font color="black"> Live Performance: </font> <input type ="text" name="performance">
-            <br/> <input type="submit" value="Add song to music list"> </form>
-        <br/> <a href="LandingPage.jsp"> Changed Your Mind? Don't want to add a song?</a>
+        <center>
+            <div id="informationarea">
+            <form action="TagAdd"> 
+                <h1> Please enter the appropriate information for a song.  </h1>
+                <h1> <font color="blue"> Title is required </font></h1>
+                <br/> <font color="white"> Title*: </font> <input type ="text" name="name_of_song" required>
+                <br/> <font color="white"> Artist: </font> <input type ="text" name="artist">
+                <br/> <font color="white"> Album: </font> <input type ="text" name="album">
+                <br/> <font color="white"> Group: </font> <input type ="text" name="group">
+                <br/> <font color="white"> Live Performance: </font> <input type ="text" name="performance">
+                <br/> <input type="submit" value="Add song to music list"> </form>
+                 </div>
+            <br/> <a href="LandingPage.jsp"> Changed Your Mind? Don't want to add a song?</a>
+        </center>
     </body>
 </html>

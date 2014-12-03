@@ -20,8 +20,9 @@
                 String name = LoginCheck.getUserName();
                 //out.println("Hello " + name + ", you have successfully logged into Cantus.");
                 ArrayList testListOfSongs = new ArrayList();
-                for(int i = 0; i < 5000; i++)
-                    testListOfSongs.add(i);
+                testListOfSongs.add("I Got A Boy    -   Girls Generation");
+                for(int i = 0; i < 1000; i++)
+                    testListOfSongs.add(i+1 + ".  This better stretch across the entire box you know just because.");
             %> 
             Hello <span class="aquaText"><%= name %></span>, you have successfully logged into Cantus.
         </h2> 
@@ -48,6 +49,7 @@
         </div>
 
         <br/><a href="LoggedOut.jsp">Logout of Cantus</a>
+       
     </center>
 </body>
 </html>
