@@ -23,7 +23,7 @@ public class SQLStatements {
      *
      * @param value the value to get from the row
      * @param table the table to use for the query
-     * @param keyType the row to look for the key
+     * @param keyType the row name to look for the key in
      * @param key the key to search from keyType's column
      * @return results from the query
      * @throws SQLException
