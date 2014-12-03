@@ -43,6 +43,16 @@
             <form action="AddASong.html" method="post">
                 <br/> <input type = "submit" value = "Add A Song To Library"> </form> 
         </div>
+        
+        <div id ="creategroupbutton">
+            <form action="" method="post">
+                <br/> <input type = "submit" value = "Create group"> </form> 
+        </div>
+        
+        <div id ="editgroupbutton">
+            <form action="" method="post">
+                <br/> <input type = "submit" value = "Edit group"> </form> 
+        </div>
 
         <div id ="deletesongbutton">
             <input type = "submit" value = "Delete Song From Library">

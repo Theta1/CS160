@@ -52,14 +52,28 @@ a {
 #addsongbutton {
     position: absolute;
     left: 900px;
-    top: 140px;
+    top: 170px;
     font-size: 150%
 }
 
 #deletesongbutton {
     position: absolute;
     left: 900px;
-    top: 230px;
+    top: 250px;
+    font-size: 150%;
+}
+
+#creategroupbutton {
+    position: absolute;
+    left: 900px;
+    top: 330px;
+    font-size: 150%;
+}
+
+#editgroupbutton {
+    position: absolute;
+    left: 900px;
+    top: 375px;
     font-size: 150%;
 }
 
@@ -86,7 +100,7 @@ input[type="text"] {
     border:5px;
     font-family: cursive;
     font-size:100%;
-    color: black;
+    color: blue;
     cursor:pointer;
     transition:background .3s;
     -webkit-transition:background .3s;

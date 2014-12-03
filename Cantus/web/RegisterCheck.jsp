@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="RegistrationCheck.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register Check</title>
     </head>
