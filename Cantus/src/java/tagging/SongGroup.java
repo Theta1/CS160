@@ -1,8 +1,11 @@
 package tagging;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.logging.Logger;
+import server_connections.SQLStatements;
 
 /**
  * A group is a collection of artists who make the same songs.
@@ -46,13 +49,22 @@ public class SongGroup implements ISongTag {
     public int getID() {
         return id;
     }
-
+    
     /**
-     *
+     * Searches the database for each artist in group.
+     * Creates an unmodifiable TreeSet of the artist
      * @return a set of all artists in this group
      */
-    public TreeSet<Artist> getArtists() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public TreeSet<Artist> getArtists() throws SQLException {
+        TreeSet<Artist> t = new TreeSet<>();
+        //throw new UnsupportedOperationException("Not supported yet.");
+        ResultSet results = SQLStatements.getSQLQuery("artistKey", "artist_has_group", "groupsKey", Integer.toString(id));
+        while(results.next()){
+            int id = results.getInt(1);
+            t.add(new Artist(id));
+        }
+        return t;
+        
     }
 
     /**
