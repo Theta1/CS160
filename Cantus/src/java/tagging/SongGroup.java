@@ -52,17 +52,18 @@ public class SongGroup implements ISongTag {
     public int getID() {
         return id;
     }
-    
+
     /**
-     * Searches the database for each artist in group.
-     * Creates an unmodifiable TreeSet of the artist
+     * Searches the database for each artist in group. Creates an unmodifiable
+     * TreeSet of the artist
+     *
      * @return a set of all artists in this group
      */
     public SortedSet<Artist> getArtists() {
         try {
             TreeSet<Artist> t = new TreeSet<>();
             ResultSet results = SQLStatements.getSQLQuery("artistKey", "artist_has_group", "groupsKey", Integer.toString(id));
-            while(results.next()){
+            while (results.next()) {
                 int ids = results.getInt(1);
                 t.add(new Artist(ids));
             }
@@ -72,7 +73,7 @@ public class SongGroup implements ISongTag {
             LOG.log(Level.SEVERE, null, ex);
             return null;
         }
-        
+
     }
 
     /**

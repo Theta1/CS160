@@ -33,7 +33,7 @@ public class Artist implements ISongTag, Comparable<Artist> {
      *
      * @return the full name of the artist
      */
-    public String getFullName(){
+    public String getFullName() {
         try {
             ResultSet results = SQLStatements.getSQLQuery("Name", "artist", "aKey", Integer.toString(id));
             results.next();
@@ -67,6 +67,6 @@ public class Artist implements ISongTag, Comparable<Artist> {
 
     @Override
     public int compareTo(Artist t) {
-       return getFullName().compareToIgnoreCase(t.getFullName());
+        return getFullName().compareToIgnoreCase(t.getFullName());
     }
 }

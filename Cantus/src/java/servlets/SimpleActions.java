@@ -46,7 +46,6 @@ public class SimpleActions extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
 
             //Set<Song> songs = mldb.getMusicLibrary(user).getSongs();
-
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -55,8 +54,8 @@ public class SimpleActions extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Servlet dumpEverything at " + request.getContextPath() + "</h1>");
             /*for (Song s : songs) {
-                out.println(s.toString());
-            }*/
+             out.println(s.toString());
+             }*/
 
             out.println("</body>");
             out.println("</html>");

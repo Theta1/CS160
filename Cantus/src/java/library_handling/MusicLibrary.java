@@ -29,24 +29,29 @@ import server_connections.SQLStatements;
  * @author David-Eric Thorpe
  */
 public class MusicLibrary {
+
     static MusicLibrary createLibrary() {
         return new MusicLibrary();
     }
-    public MusicLibrary(){
+
+    public MusicLibrary() {
     }
-    
+
     /**
-    * Queries the Database for tag list based on keyType and key.
-    * @param keyType is a string containing the table to search in.
-    * @param key is the item name to search for. Can be an empty string to return all items.
-    * @return is the result of type ResultSet
-    */
-    public ResultSet getTable(String keyType, String key ) throws SQLException {
+     * Queries the Database for tag list based on keyType and key.
+     *
+     * @param keyType is a string containing the table to search in.
+     * @param key is the item name to search for. Can be an empty string to
+     * return all items.
+     * @return is the result of type ResultSet
+     */
+    public ResultSet getTable(String keyType, String key) throws SQLException {
         ResultSet trackList;
-        if(key.length()!=0)
+        if (key.length() != 0) {
             trackList = SQLStatements.getSQLQuery("*", "tracks", "keyType", "key");
-        else
+        } else {
             trackList = SQLStatements.getSQLQuery("*", "tracks", "keyType", "");
+        }
         return trackList;
     }
     //public void store
