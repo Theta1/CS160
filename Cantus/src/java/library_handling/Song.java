@@ -2,12 +2,10 @@ package library_handling;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import server_connections.SQLStatements;
-import tagging.ISongTag;
+import tagging.SongGroup;
 
 /**
  * A song contains its title and any number of tags that describe the song.
@@ -38,6 +36,22 @@ public class Song implements Comparable<Song> {
                 key);
         return results;
     }
+
+    /**
+     *
+     * @param title the title of the song
+     * @return a new song in the database
+     * @throws java.sql.SQLException
+     */
+    static Song createSong(String title) throws SQLException {
+        String keys = "`Title`";
+        String values = "'";
+        values += title;
+        values += "'";
+        int rowCount = SQLStatements.setSQLUpdate(tableName, keys, values);
+        Song newSong = new Song(rowCount);
+        return newSong;
+    }
     private final int id;
 
     /**
@@ -46,22 +60,6 @@ public class Song implements Comparable<Song> {
      */
     Song(int id) {
         this.id = id;
-    }
-
-    /**
-     *
-     * @param title the title of the song
-     * @return a new song in the database
-     * @throws java.sql.SQLException
-     */
-    public Song createSong(String title) throws SQLException {
-        String keys = "`Title`";
-        String values = "'";
-        values += title;
-        values += "'";
-        int rowCount = SQLStatements.setSQLUpdate(tableName, keys, values);
-        Song newSong = new Song(rowCount);
-        return newSong;
     }
 
     /**
@@ -86,5 +84,13 @@ public class Song implements Comparable<Song> {
     @Override
     public int compareTo(Song o) {
         return getTitle().compareToIgnoreCase(o.getTitle());
+    }
+
+    /**
+     *
+     * @return the group of this song
+     */
+    public SongGroup getGroup() {
+        return SongGroup.getGroupOfSong(id);
     }
 }
