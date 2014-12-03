@@ -1,6 +1,10 @@
 package tagging;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import server_connections.SQLStatements;
 
 /**
  * A tag that can store the first name and last name of a song's artist.
@@ -15,45 +19,30 @@ public class Artist implements ISongTag {
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(Artist.class.getName());
 
-    private String firstName;
-    private String lastName;
     private int id;
 
     /**
      *
-     * @param firstName the forename of the artist
-     * @param lastName the surname of the artist
+     * @param id row id in table
      */
-    public Artist(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    /**
-     *
-     * @return the forename of the artist
-     */
-    public String getFirstName() {
-        return firstName;
-    }
-
-    /**
-     *
-     * @return the surname of the artist
-     */
-    public String getLastName() {
-        return lastName;
+    public Artist(int id) {
+        this.id = id;
     }
 
     /**
      *
      * @return the full name of the artist
      */
-    public String getFullName() {
-        String fullName = getFirstName();
-        fullName += " ";
-        fullName += getLastName();
-        return fullName;
+    public String getFullName(){
+        try {
+            ResultSet results = SQLStatements.getSQLQuery("Name", "artist", "aKey", Integer.toString(id));
+            results.next();
+            String fullName = results.getString(1);
+            return fullName;
+        } catch (SQLException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+            return "";
+        }
     }
 
     @Override
