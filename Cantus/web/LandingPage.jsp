@@ -43,12 +43,12 @@
             <form action="AddASong.html" method="post">
                 <br/> <input type = "submit" value = "Add A Song To Library"> </form> 
         </div>
-        
+
         <div id ="creategroupbutton">
             <form action="AddAGroup.html" method="post">
                 <br/> <input type = "submit" value = "Create group"> </form> 
         </div>
-        
+
         <div id ="editgroupbutton">
             <form action="" method="post">
                 <br/> <input type = "submit" value = "Edit group"> </form> 
@@ -59,7 +59,7 @@
         </div>
 
         <br/><a href="LoggedOut.jsp">Logout of Cantus</a>
-       
+
     </center>
 </body>
 </html>
