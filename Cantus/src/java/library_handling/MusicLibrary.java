@@ -1,9 +1,13 @@
 package library_handling;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import server_connections.SQLStatements;
 
 /**
  * Contains songs owned by a specific user.
@@ -26,26 +30,20 @@ import java.util.logging.Logger;
  */
 public class MusicLibrary {
 
-    private static final Logger LOG = Logger.getLogger(MusicLibrary.class.getName());
-
-    static MusicLibrary createLibrary() {
-        return new MusicLibrary(0);
+    public MusicLibrary(){
     }
-
-    private final Set<Song> songs = new HashSet<>(0);
-    private final int id;
-
-    MusicLibrary(int id) {
-        this.id = id;
-    }
-
+    
     /**
-     *
-     * @return songs in this library
-     */
-    public Set<Song> getSongs() {
-        Set<Song> songs = new HashSet<>();
-        return Collections.unmodifiableSet(songs);
+    * Queries the Database for track list based on title
+    * @param s is a string containing the title to search for. Can be an empty string to return all tracks
+    * @return is the result of type ResultSet
+    */
+    public ResultSet getTracks(String s) throws SQLException {
+        ResultSet trackList;
+        if(s.length()!=0)
+            trackList = SQLStatements.getSQLQuery("*", "tracks", "Title", "s");
+        else
+            trackList = SQLStatements.getSQLQuery("*", "tracks", "", "");
+        return trackList;
     }
-
 }
