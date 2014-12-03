@@ -20,7 +20,7 @@ public class SQLStatements {
 
     /**
      * Returns results from an SQL query.
-     *
+     * SELECT value FROM table WHERE keyType = key;
      * @param value the value to get from the row
      * @param table the table to use for the query
      * @param keyType the row name to look for the key in
