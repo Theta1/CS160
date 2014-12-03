@@ -45,7 +45,7 @@
         </div>
         
         <div id ="creategroupbutton">
-            <form action="" method="post">
+            <form action="AddAGroup.html" method="post">
                 <br/> <input type = "submit" value = "Create group"> </form> 
         </div>
         
