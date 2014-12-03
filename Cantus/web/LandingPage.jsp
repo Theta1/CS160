@@ -50,12 +50,13 @@
         </div>
 
         <div id ="editgroupbutton">
-            <form action="" method="post">
+            <form action="EditGroup.html" method="post">
                 <br/> <input type = "submit" value = "Edit group"> </form> 
         </div>
 
         <div id ="deletesongbutton">
-            <input type = "submit" value = "Delete Song From Library">
+            <form action="DeleteSong.html" method="post">
+                <input type = "submit" value = "Delete Song From Library"> </form>
         </div>
 
         <br/><a href="LoggedOut.jsp">Logout of Cantus</a>
