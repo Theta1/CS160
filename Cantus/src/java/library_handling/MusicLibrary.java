@@ -39,7 +39,7 @@ public class MusicLibrary {
     * @param key is the item name to search for. Can be an empty string to return all items.
     * @return is the result of type ResultSet
     */
-    public ResultSet getTracks(String keyType, String key ) throws SQLException {
+    public ResultSet getTable(String keyType, String key ) throws SQLException {
         ResultSet trackList;
         if(key.length()!=0)
             trackList = SQLStatements.getSQLQuery("*", "tracks", "keyType", "key");
@@ -47,4 +47,5 @@ public class MusicLibrary {
             trackList = SQLStatements.getSQLQuery("*", "tracks", "keyType", "");
         return trackList;
     }
+    //public void store
 }
