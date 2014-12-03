@@ -29,7 +29,9 @@ import server_connections.SQLStatements;
  * @author David-Eric Thorpe
  */
 public class MusicLibrary {
-
+    static MusicLibrary createLibrary() {
+        return new MusicLibrary();
+    }
     public MusicLibrary(){
     }
     
