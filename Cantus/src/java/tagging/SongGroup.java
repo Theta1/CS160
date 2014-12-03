@@ -2,8 +2,11 @@ package tagging;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
+import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import server_connections.SQLStatements;
 
@@ -55,15 +58,20 @@ public class SongGroup implements ISongTag {
      * Creates an unmodifiable TreeSet of the artist
      * @return a set of all artists in this group
      */
-    public TreeSet<Artist> getArtists() throws SQLException {
-        TreeSet<Artist> t = new TreeSet<>();
-        //throw new UnsupportedOperationException("Not supported yet.");
-        ResultSet results = SQLStatements.getSQLQuery("artistKey", "artist_has_group", "groupsKey", Integer.toString(id));
-        while(results.next()){
-            int id = results.getInt(1);
-            t.add(new Artist(id));
+    public SortedSet<Artist> getArtists() {
+        try {
+            TreeSet<Artist> t = new TreeSet<>();
+            ResultSet results = SQLStatements.getSQLQuery("artistKey", "artist_has_group", "groupsKey", Integer.toString(id));
+            while(results.next()){
+                int ids = results.getInt(1);
+                t.add(new Artist(ids));
+            }
+            SortedSet u = Collections.unmodifiableSortedSet(t);
+            return u;
+        } catch (SQLException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+            return null;
         }
-        return t;
         
     }
 
