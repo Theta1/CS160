@@ -43,13 +43,8 @@ public abstract class DatabaseItemWrapper {
      */
     protected ResultSet getProperty(String propertyName) throws
             SQLException {
-        String table = getTableName();
-        String keyType = getIDColumnName();
-        String key = Integer.toString(getID());
-        String query = "SELECT `" + propertyName + "` FROM `" + table + "` WHERE `" + keyType + "` = " + key;
-        ResultSet results = SQLStatements.selectWhere(propertyName, table,
-                keyType, key);
-        return results;
+        return SQLStatements.selectWhere(propertyName, getTableName(),
+                getIDColumnName(), Integer.toString(getID()));
     }
 
     /**
@@ -85,5 +80,11 @@ public abstract class DatabaseItemWrapper {
                 + values + ")";
         int rowCount = SQLStatements.executeUpdate(update);
         return rowCount;
+    }
+
+    protected int setProperty(String name, String value) throws SQLException {
+        return SQLStatements.executeUpdate("UPDATE " + getTableName() + " SET "
+                + name + " = " + value + " WHERE " + getIDColumnName() + " = "
+                + getID());
     }
 }

@@ -75,14 +75,8 @@ public class UserDatabase {
      */
     private User getUser(String username) {
         try {
-            String value = "user_id";
-            String table = "users";
-            String keyType = "username";
-            String key = "'";
-            key += username;
-            key += "'";
-            ResultSet results = SQLStatements.selectWhere(value, table, keyType,
-                    key);
+            ResultSet results = SQLStatements.selectWhere("user_id", "users",
+                    "username", "'" + username + "'");
             results.next();
             int nextInt = results.getInt(1);
             User ret = new User(nextInt);

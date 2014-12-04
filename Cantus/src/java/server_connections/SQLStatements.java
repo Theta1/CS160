@@ -3,6 +3,8 @@ package server_connections;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -44,44 +46,30 @@ public class SQLStatements {
      * Returns results from an SQL query. SELECT value FROM table WHERE keyType
      * = key;
      *
-     * @param value the value to get from the row
+     * @param selection the value to get from the row
      * @param table the table to use for the query
-     * @param keyType the row name to look for the key in
-     * @param key the key to search from keyType's column
+     * @param whereKey the row name to look for the key in
+     * @param whereValue the key to search from keyType's column
      * @return results from the query
      * @throws SQLException
      */
-    public static ResultSet selectWhere(String value, String table,
-            String keyType, String key) throws SQLException {
-        String query = "SELECT `";
-        query += value;
-        query += "` FROM `";
-        query += table;
-        query += "` WHERE `";
-        query += keyType;
-        query += "` = ";
-        query += key;
-        ResultSet results = executeQuery(query);
-        return results;
+    public static ResultSet selectWhere(String selection, String table,
+            String whereKey, String whereValue) throws SQLException {
+        return executeQuery("SELECT " + selection + " " + from(table) + " "
+                + where(whereKey, whereValue));
     }
 
     /**
-     * Returns results from an SQL query. SELECT value FROM table
+     * Returns results from an SQL query. SELECT selection FROM table
      *
-     * @param value the value to get from the rows
+     * @param selection the value to get from the rows
      * @param table the table to use for the query
      * @return results from the query
      * @throws SQLException
      */
-    public static ResultSet select(String value, String table)
+    public static ResultSet select(String selection, String table)
             throws SQLException {
-        String query = "SELECT `";
-        query += value;
-        query += "` FROM `";
-        query += table;
-        query += "`";
-        ResultSet results = executeQuery(query);
-        return results;
+        return executeQuery("SELECT " + selection + " " + from(table));
     }
 
     /**
@@ -91,9 +79,53 @@ public class SQLStatements {
      * @return a row count
      * @throws SQLException
      */
-    public static int executeUpdate(String update)
-            throws SQLException {
+    public static int executeUpdate(String update) throws SQLException {
         return createStatement().executeUpdate(update);
+    }
+
+    /**
+     *
+     * @param table the name of the table
+     * @return FROM table
+     */
+    private static String from(String table) {
+        return "FROM `" + table + "`";
+    }
+    
+    /**
+     *
+     * @param table the name of the table
+     * @return INTO table
+     */
+    private static String into(String table) {
+        return "INTO `" + table + "`";
+    }
+
+    /**
+     *
+     * @param key column name
+     * @param value value of cell
+     * @return WHERE key = value
+     */
+    private static String where(String key, String value) {
+        return "WHERE `" + key + "` = " + value;
+    }
+
+    private static String set(Map<String, String> assignments) {
+        String sql = "SET ";
+        int i = 0;
+        Iterator<Map.Entry<String, String>> it = assignments.entrySet()
+                .iterator();
+        while (it.hasNext()) {
+            // Add comma if not first entry.
+            if (i > 0) {
+                sql += ", ";
+            }
+            Map.Entry<String, String> nextEntry = it.next();
+            sql += nextEntry.getKey() + " = " + nextEntry.getValue();
+            ++i;
+        }
+        return sql;
     }
 
     private SQLStatements() {
