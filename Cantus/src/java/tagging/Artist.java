@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import server_connections.SQLStatements;
 
 /**
  * A tag that can store the first name and last name of a song's artist.
@@ -14,7 +13,7 @@ import server_connections.SQLStatements;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public class Artist implements ISongTag, Comparable<Artist> {
+public class Artist extends SongTag implements Comparable<Artist> {
 
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(Artist.class.getName());
@@ -35,10 +34,9 @@ public class Artist implements ISongTag, Comparable<Artist> {
      */
     public String getFullName() {
         try {
-            ResultSet results = SQLStatements.selectWhere("Name", "artist", "aKey", Integer.toString(id));
+            ResultSet results = getProperty("Name");
             results.next();
-            String fullName = results.getString(1);
-            return fullName;
+            return results.getString(1);
         } catch (SQLException ex) {
             LOG.log(Level.SEVERE, null, ex);
             return "";
@@ -57,7 +55,7 @@ public class Artist implements ISongTag, Comparable<Artist> {
 
     @Override
     public String getTableName() {
-        return "tags_artists";
+        return "artists";
     }
 
     @Override
@@ -68,5 +66,10 @@ public class Artist implements ISongTag, Comparable<Artist> {
     @Override
     public int compareTo(Artist t) {
         return getFullName().compareToIgnoreCase(t.getFullName());
+    }
+
+    @Override
+    protected String getIDColumnName() {
+        return "aKey";
     }
 }

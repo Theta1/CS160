@@ -23,17 +23,4 @@ public interface ISongTag extends Serializable {
      * @return the content of this tag, as a string
      */
     public String getTagText();
-
-    /**
-     * This should be similar to the name of the tag type
-     *
-     * @return the table in which tags of this type are stored.
-     */
-    String getTableName();
-
-    /**
-     *
-     * @return the row number in the table that stores this particular tag
-     */
-    int getID();
 }

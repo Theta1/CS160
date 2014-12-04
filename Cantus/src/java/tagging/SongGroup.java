@@ -17,7 +17,7 @@ import server_connections.SQLStatements;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public class SongGroup implements ISongTag {
+public class SongGroup extends SongTag {
 
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(SongGroup.class.getName());
@@ -48,7 +48,7 @@ public class SongGroup implements ISongTag {
 
     @Override
     public String getTagText() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return getName();
     }
 
     @Override
@@ -59,6 +59,21 @@ public class SongGroup implements ISongTag {
     @Override
     public int getID() {
         return id;
+    }
+
+    /**
+     *
+     * @return name of this group or band
+     */
+    public String getName() {
+        try {
+            ResultSet results = getProperty("Name");
+            results.next();
+            return results.getString(1);
+        } catch (SQLException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+            return "";
+        }
     }
 
     /**
@@ -82,6 +97,11 @@ public class SongGroup implements ISongTag {
             return null;
         }
 
+    }
+
+    @Override
+    protected String getIDColumnName() {
+        return "groups";
     }
 
 }

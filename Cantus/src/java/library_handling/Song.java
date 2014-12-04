@@ -22,6 +22,7 @@ public class Song extends DatabaseItemWrapper implements Comparable<Song> {
     private static final String tableName = "tracks";
     private static final String idColumnName = "TrackID";
     private static final String titleColumnName = "Title";
+    private static final String genreColumnName = "genre";
 
     /**
      *
@@ -82,6 +83,37 @@ public class Song extends DatabaseItemWrapper implements Comparable<Song> {
      */
     public SongGroup getGroup() {
         return SongGroup.getGroupOfSong(id);
+    }
+
+    /**
+     *
+     * @return genre of this song
+     */
+    public String getGenre() {
+        try {
+            ResultSet results = getProperty(genreColumnName);
+            results.next();
+            return results.getString(1);
+        } catch (SQLException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+            return "";
+        }
+    }
+
+    /**
+     * Assigns this song a new genre.
+     *
+     * @param newGenre the new genre of this song
+     * @return true if the assignment is successful
+     */
+    public boolean setGenre(String newGenre) {
+        try {
+            setProperty(genreColumnName, newGenre);
+            return true;
+        } catch (SQLException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     @Override
