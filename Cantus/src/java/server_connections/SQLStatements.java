@@ -27,7 +27,7 @@ public class SQLStatements {
      * @return results from the query
      * @throws SQLException
      */
-    public static ResultSet executeQuery(String query)
+    private static ResultSet executeQuery(String query)
             throws SQLException {
         return createStatement().executeQuery(query);
     }
@@ -79,7 +79,7 @@ public class SQLStatements {
      * @return a row count
      * @throws SQLException
      */
-    public static int executeUpdate(String update) throws SQLException {
+    private static int executeUpdate(String update) throws SQLException {
         return createStatement().executeUpdate(update);
     }
 
@@ -158,6 +158,22 @@ public class SQLStatements {
             ++i;
         }
         return sql;
+    }
+
+    /**
+     * Updates an existing row.
+     *
+     * @param table the table to update
+     * @param assignments a map of the value to update
+     * @param whereKey the column to search
+     * @param whereValue the row to select
+     * @return a row count
+     * @throws SQLException
+     */
+    public static int updateSet(String table, Map<String, String> assignments,
+            String whereKey, String whereValue) throws SQLException {
+        return executeUpdate("UPDATE " + table + " " + set(assignments)
+                + " WHERE " + whereKey + " = " + whereValue);
     }
 
     private SQLStatements() {

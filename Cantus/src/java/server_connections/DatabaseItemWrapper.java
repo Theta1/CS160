@@ -2,6 +2,7 @@ package server_connections;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -19,6 +20,14 @@ public abstract class DatabaseItemWrapper {
      * @return the primary key of the item
      */
     protected abstract int getID();
+
+    /**
+     *
+     * @return the ID as a string
+     */
+    private String getIDAsString() {
+        return Integer.toString(getID());
+    }
 
     /**
      *
@@ -42,7 +51,7 @@ public abstract class DatabaseItemWrapper {
     protected ResultSet getProperty(String propertyName) throws
             SQLException {
         return SQLStatements.selectWhere(propertyName, getTableName(),
-                getIDColumnName(), Integer.toString(getID()));
+                getIDColumnName(), getIDAsString());
     }
 
     /**
@@ -58,8 +67,9 @@ public abstract class DatabaseItemWrapper {
     }
 
     protected int setProperty(String name, String value) throws SQLException {
-        return SQLStatements.executeUpdate("UPDATE " + getTableName() + " SET "
-                + name + " = " + value + " WHERE " + getIDColumnName() + " = "
-                + getID());
+        HashMap<String, String> propertyContainer = new HashMap<>(1);
+        propertyContainer.put(name, value);
+        return SQLStatements.updateSet(getTableName(), propertyContainer,
+                getIDColumnName(), getIDAsString());
     }
 }
