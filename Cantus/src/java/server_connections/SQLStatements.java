@@ -91,7 +91,7 @@ public class SQLStatements {
     private static String from(String table) {
         return "FROM `" + table + "`";
     }
-    
+
     /**
      *
      * @param table the name of the table
@@ -99,6 +99,38 @@ public class SQLStatements {
      */
     private static String into(String table) {
         return "INTO `" + table + "`";
+    }
+
+    /**
+     * Adds a row via an SQL update.
+     *
+     * @param table the table to update
+     * @param insertions a map of the properties to their values
+     * @return a row count
+     * @throws SQLException
+     */
+    public static int insert(String table, Map<String, String> insertions)
+            throws SQLException {
+        String keys = "";
+        String values = "";
+        Iterator<Map.Entry<String, String>> it = insertions.entrySet()
+                .iterator();
+        int i = 0;
+        while (it.hasNext()) {
+            // Add comma if not first entry.
+            Map.Entry<String, String> nextEntry = it.next();
+            if (i > 0) {
+                keys += ", ";
+                values += ", ";
+            }
+            keys += "`";
+            keys += nextEntry.getKey();
+            keys += "`";
+            values += nextEntry.getValue();
+            ++i;
+        }
+        return SQLStatements.executeUpdate("INSERT " + into(table) + " ("
+                + keys + ") VALUES (" + values + ")");
     }
 
     /**

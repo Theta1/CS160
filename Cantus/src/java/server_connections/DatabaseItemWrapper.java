@@ -2,9 +2,7 @@ package server_connections;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
 /**
  * Wraps a database item using an ID number.
@@ -56,30 +54,7 @@ public abstract class DatabaseItemWrapper {
      */
     protected int addAsRow(Map<String, String> properties) throws
             SQLException {
-        String table = getTableName();
-        String keys = "";
-        String values = "";
-        Iterator<Entry<String, String>> it = properties.entrySet().iterator();
-        int i = 0;
-        while (it.hasNext()) {
-            // Add comma if not first entry.
-            Entry<String, String> nextEntry = it.next();
-            if (i > 0) {
-                String comma = ", ";
-                keys += comma;
-                values += comma;
-            }
-            String apostrophe = "`";
-            keys += apostrophe;
-            keys += nextEntry.getKey();
-            keys += apostrophe;
-            values += nextEntry.getValue();
-            ++i;
-        }
-        String update = "INSERT INTO `" + table + "` (" + keys + ") VALUES ("
-                + values + ")";
-        int rowCount = SQLStatements.executeUpdate(update);
-        return rowCount;
+        return SQLStatements.insert(getTableName(), properties);
     }
 
     protected int setProperty(String name, String value) throws SQLException {
