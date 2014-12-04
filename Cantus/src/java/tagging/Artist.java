@@ -35,7 +35,7 @@ public class Artist implements ISongTag, Comparable<Artist> {
      */
     public String getFullName() {
         try {
-            ResultSet results = SQLStatements.getSQLQueryWhere("Name", "artist", "aKey", Integer.toString(id));
+            ResultSet results = SQLStatements.selectWhere("Name", "artist", "aKey", Integer.toString(id));
             results.next();
             String fullName = results.getString(1);
             return fullName;

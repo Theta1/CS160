@@ -19,6 +19,28 @@ public class SQLStatements {
             .getName());
 
     /**
+     * Returns results from an SQL query.
+     *
+     * @param query the SQL statement to send
+     * @return results from the query
+     * @throws SQLException
+     */
+    public static ResultSet executeQuery(String query)
+            throws SQLException {
+        return createStatement().executeQuery(query);
+    }
+
+    /**
+     *
+     * @return a new statement
+     * @throws SQLException
+     */
+    private static Statement createStatement() throws SQLException {
+        return server_connections.ConnectionManager.getConnection()
+                .createStatement();
+    }
+
+    /**
      * Returns results from an SQL query. SELECT value FROM table WHERE keyType
      * = key;
      *
@@ -29,7 +51,7 @@ public class SQLStatements {
      * @return results from the query
      * @throws SQLException
      */
-    public static ResultSet getSQLQueryWhere(String value, String table,
+    public static ResultSet selectWhere(String value, String table,
             String keyType, String key) throws SQLException {
         String query = "SELECT `";
         query += value;
@@ -39,9 +61,7 @@ public class SQLStatements {
         query += keyType;
         query += "` = ";
         query += key;
-        Statement st = server_connections.ConnectionManager.
-                getConnection().createStatement();
-        ResultSet results = st.executeQuery(query);
+        ResultSet results = executeQuery(query);
         return results;
     }
 
@@ -53,41 +73,27 @@ public class SQLStatements {
      * @return results from the query
      * @throws SQLException
      */
-    public static ResultSet getSQLQuery(String value, String table)
+    public static ResultSet select(String value, String table)
             throws SQLException {
         String query = "SELECT `";
         query += value;
         query += "` FROM `";
         query += table;
         query += "`";
-        Statement st = server_connections.ConnectionManager.
-                getConnection().createStatement();
-        ResultSet results = st.executeQuery(query);
+        ResultSet results = executeQuery(query);
         return results;
     }
 
     /**
-     * Adds a row via an SQL update.
+     * Sends an SQL update.
      *
-     * @param table the table to update
-     * @param keys which types of values will be inserted
-     * @param values the values themselves to be inserted
+     * @param update the SQL statement to send
      * @return a row count
      * @throws SQLException
      */
-    public static int setSQLUpdate(String table, String keys, String values)
+    public static int executeUpdate(String update)
             throws SQLException {
-        String update = "INSERT INTO `";
-        update += table;
-        update += "` (";
-        update += keys;
-        update += ") VALUES (";
-        update += values;
-        update += ")";
-        Statement st = server_connections.ConnectionManager.
-                getConnection().createStatement();
-        int rowCount = st.executeUpdate(update);
-        return rowCount;
+        return createStatement().executeUpdate(update);
     }
 
     private SQLStatements() {

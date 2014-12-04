@@ -70,7 +70,7 @@ public class SongGroup implements ISongTag {
     public SortedSet<Artist> getArtists() {
         try {
             TreeSet<Artist> t = new TreeSet<>();
-            ResultSet results = SQLStatements.getSQLQueryWhere("artistKey", "artist_has_group", "groupsKey", Integer.toString(id));
+            ResultSet results = SQLStatements.selectWhere("artistKey", "artist_has_group", "groupsKey", Integer.toString(id));
             while (results.next()) {
                 int ids = results.getInt(1);
                 t.add(new Artist(ids));

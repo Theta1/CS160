@@ -46,7 +46,8 @@ public abstract class DatabaseItemWrapper {
         String table = getTableName();
         String keyType = getIDColumnName();
         String key = Integer.toString(getID());
-        ResultSet results = SQLStatements.getSQLQueryWhere(propertyName, table,
+        String query = "SELECT `" + propertyName + "` FROM `" + table + "` WHERE `" + keyType + "` = " + key;
+        ResultSet results = SQLStatements.selectWhere(propertyName, table,
                 keyType, key);
         return results;
     }
@@ -55,7 +56,7 @@ public abstract class DatabaseItemWrapper {
      * Adds a new row to the database table
      *
      * @param properties
-     * @return
+     * @return the row count
      * @throws SQLException
      */
     protected int addAsRow(Map<String, String> properties) throws
@@ -80,7 +81,9 @@ public abstract class DatabaseItemWrapper {
             values += nextEntry.getValue();
             ++i;
         }
-        int rowCount = SQLStatements.setSQLUpdate(table, keys, values);
+        String update = "INSERT INTO `" + table + "` (" + keys + ") VALUES ("
+                + values + ")";
+        int rowCount = SQLStatements.executeUpdate(update);
         return rowCount;
     }
 }

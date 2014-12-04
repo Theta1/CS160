@@ -26,7 +26,7 @@ public class MusicLibraryDatabase {
     private static ResultSet getSQLQuery(String value, String keyType,
             String key) throws SQLException {
         String table = "libraries";
-        ResultSet results = SQLStatements.getSQLQueryWhere(value, table, keyType,
+        ResultSet results = SQLStatements.selectWhere(value, table, keyType,
                 key);
         return results;
     }
@@ -51,7 +51,7 @@ public class MusicLibraryDatabase {
         try {
             String value = "TrackID";
             String table = "tracks";
-            ResultSet results = SQLStatements.getSQLQuery(value, table);
+            ResultSet results = SQLStatements.select(value, table);
             while (results.next()) {
                 int nextID = results.getInt(1);
                 Song nextSong = new Song(nextID);

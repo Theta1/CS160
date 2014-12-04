@@ -2,9 +2,10 @@ package library_handling;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import server_connections.SQLStatements;
+import server_connections.DatabaseItemWrapper;
 import tagging.SongGroup;
 
 /**
@@ -15,27 +16,12 @@ import tagging.SongGroup;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public class Song implements Comparable<Song> {
+public class Song extends DatabaseItemWrapper implements Comparable<Song> {
 
     private static final Logger LOG = Logger.getLogger(Song.class.getName());
-
-    private final static String tableName = "tracks";
-
-    /**
-     * Returns results from an SQL query.
-     *
-     * @param value the value to get from the row
-     * @param keyType the row to look for the key
-     * @param key the key to search from keyType's column
-     * @return results from the query
-     * @throws SQLException
-     */
-    private static ResultSet getSQLQuery(String value, String keyType,
-            String key) throws SQLException {
-        ResultSet results = SQLStatements.getSQLQueryWhere(value, tableName, keyType,
-                key);
-        return results;
-    }
+    private static final String tableName = "tracks";
+    private static final String idColumnName = "TrackID";
+    private static final String titleColumnName = "Title";
 
     /**
      *
@@ -44,11 +30,11 @@ public class Song implements Comparable<Song> {
      * @throws java.sql.SQLException
      */
     static Song createSong(String title) throws SQLException {
-        String keys = "`Title`";
-        String values = "'";
-        values += title;
-        values += "'";
-        int rowCount = SQLStatements.setSQLUpdate(tableName, keys, values);
+        String titleForSQL = "'" + title + "'";
+        HashMap<String, String> properties = new HashMap<>(1);
+        properties.put(titleColumnName, titleForSQL);
+        Song temp = new Song();
+        int rowCount = temp.addAsRow(properties);
         Song newSong = new Song(rowCount);
         return newSong;
     }
@@ -63,15 +49,19 @@ public class Song implements Comparable<Song> {
     }
 
     /**
+     * Creates a temporary instance that allows overridden methods to be used.
+     */
+    private Song() {
+        id = 0;
+    }
+
+    /**
      *
      * @return the title of this song
      */
     public String getTitle() {
         try {
-            String value = "Title";
-            String keyType = "TrackID";
-            String key = Integer.toString(id);
-            ResultSet results = getSQLQuery(value, keyType, key);
+            ResultSet results = getProperty(titleColumnName);
             results.next();
             String username = results.getString(1);
             return username;
@@ -92,5 +82,20 @@ public class Song implements Comparable<Song> {
      */
     public SongGroup getGroup() {
         return SongGroup.getGroupOfSong(id);
+    }
+
+    @Override
+    protected int getID() {
+        return id;
+    }
+
+    @Override
+    protected String getTableName() {
+        return tableName;
+    }
+
+    @Override
+    protected String getIDColumnName() {
+        return idColumnName;
     }
 }
