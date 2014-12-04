@@ -2,8 +2,9 @@ package login_handling;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.logging.Logger;
-import server_connections.SQLStatements;
+import server_connections.DatabaseItemWrapper;
 
 /**
  * Associates a user to a name and a password.
@@ -13,9 +14,13 @@ import server_connections.SQLStatements;
  * @author Jeremy Wong
  * @author David-Eric Thorpe
  */
-public class User {
+public class User extends DatabaseItemWrapper {
 
     private static final Logger LOG = Logger.getLogger(User.class.getName());
+    private static final String tableName = "users";
+    private static final String idColumnName = "user_id";
+    private static final String nameColumnName = "username";
+    private static final String passwordColumnName = "password";
 
     /**
      * Registers a new user into the system.
@@ -24,72 +29,27 @@ public class User {
      * @param password the user's password
      * @throws SQLException
      */
-    static User createUser(String username, String password) throws
-            SQLException {
-        setSQLUpdate(username, password);
-        int newID = getUserID(username);
+    static User createUser(String username, String password) throws SQLException {
+        HashMap<String, String> properties = new HashMap<>(2);
+        String apostrophe = "'";
+        String usernameForSQL = apostrophe + username + apostrophe;
+        String passwordForSQL = apostrophe + password + apostrophe;
+        properties.put(nameColumnName, usernameForSQL);
+        properties.put(passwordColumnName, passwordForSQL);
+        User temp = new User();
+        int newID = temp.addAsRow(properties);
         User newUser = new User(newID);
         return newUser;
     }
 
-    /**
-     * Gets an ID number from a certain username.
-     *
-     * @param username the username to search
-     * @return the next ID to use for a new user
-     * @throws SQLException
-     */
-    private static int getUserID(String username) throws SQLException {
-        String value = "user_id";
-        String keyType = "username";
-        String key = "'";
-        key += username;
-        key += "'";
-        ResultSet results = getSQLQuery(value, keyType, key);
-        results.next();
-        int newID = results.getInt(1);
-        return newID;
-    }
-
-    /**
-     * Adds a row via an SQL update.
-     *
-     * @param username the user's name
-     * @param password the user's password
-     * @return a row count
-     * @throws SQLException
-     */
-    private static int setSQLUpdate(String username, String password) throws
-            SQLException {
-        String table = "users";
-        String keys = "`username`, `password`";
-        String values = "'";
-        values += username;
-        values += "', '";
-        values += password;
-        values += "'";
-        int rowCount = SQLStatements.setSQLUpdate(table, keys, values);
-        return rowCount;
-    }
-
-    /**
-     * Returns results from an SQL query.
-     *
-     * @param value the value to get from the row
-     * @param keyType the row to look for the key
-     * @param key the key to search from keyType's column
-     * @return results from the query
-     * @throws SQLException
-     */
-    private static ResultSet getSQLQuery(String value, String keyType,
-            String key) throws SQLException {
-        String table = "users";
-        ResultSet results = SQLStatements.getSQLQuery(value, table, keyType,
-                key);
-        return results;
-    }
-
     private final int id;
+
+    /**
+     * Creates a temporary instance that allows overridden methods to be used.
+     */
+    private User() {
+        id = 0;
+    }
 
     /**
      * Creates a User Java object from an existing user, using the ID value.
@@ -101,27 +61,11 @@ public class User {
     }
 
     /**
-     * Returns results from an SQL query.
-     *
-     * @param value the value to get from the row
-     * @return results from the query
-     * @throws SQLException
-     */
-    private ResultSet getSQLQueryFromUserID(String value) throws
-            SQLException {
-        String keyType = "user_id";
-        String key = Integer.toString(id);
-        ResultSet results = getSQLQuery(value, keyType, key);
-        return results;
-    }
-
-    /**
      *
      * @return this user's name
      */
-    String getUsername()
-            throws SQLException {
-        ResultSet results = getSQLQueryFromUserID("username");
+    String getUsername() throws SQLException {
+        ResultSet results = getProperty(nameColumnName);
         results.next();
         String username = results.getString(1);
         return username;
@@ -132,8 +76,9 @@ public class User {
      * @return this user's password
      * @throws SQLException
      */
-    private String getPassword() throws SQLException {
-        ResultSet results = getSQLQueryFromUserID("password");
+    private String getPassword()
+            throws SQLException {
+        ResultSet results = getProperty(passwordColumnName);
         results.next();
         String password = results.getString(1);
         return password;
@@ -146,9 +91,23 @@ public class User {
      * @return 0 if the passwords match
      * @throws SQLException
      */
-    int comparePassword(String enteredPassword)
-            throws SQLException {
+    int comparePassword(String enteredPassword) throws SQLException {
         return getPassword().compareTo(enteredPassword);
+    }
+
+    @Override
+    protected int getID() {
+        return id;
+    }
+
+    @Override
+    protected String getTableName() {
+        return tableName;
+    }
+
+    @Override
+    protected String getIDColumnName() {
+        return idColumnName;
     }
 
 }

@@ -32,7 +32,7 @@ public class Song implements Comparable<Song> {
      */
     private static ResultSet getSQLQuery(String value, String keyType,
             String key) throws SQLException {
-        ResultSet results = SQLStatements.getSQLQuery(value, tableName, keyType,
+        ResultSet results = SQLStatements.getSQLQueryWhere(value, tableName, keyType,
                 key);
         return results;
     }

@@ -29,7 +29,7 @@ public class SQLStatements {
      * @return results from the query
      * @throws SQLException
      */
-    public static ResultSet getSQLQuery(String value, String table,
+    public static ResultSet getSQLQueryWhere(String value, String table,
             String keyType, String key) throws SQLException {
         String query = "SELECT `";
         query += value;
@@ -53,7 +53,7 @@ public class SQLStatements {
      * @return results from the query
      * @throws SQLException
      */
-    public static ResultSet getSQLQueryAllRows(String value, String table)
+    public static ResultSet getSQLQuery(String value, String table)
             throws SQLException {
         String query = "SELECT `";
         query += value;

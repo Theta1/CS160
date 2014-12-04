@@ -81,7 +81,7 @@ public class UserDatabase {
             String key = "'";
             key += username;
             key += "'";
-            ResultSet results = SQLStatements.getSQLQuery(value, table, keyType,
+            ResultSet results = SQLStatements.getSQLQueryWhere(value, table, keyType,
                     key);
             results.next();
             int nextInt = results.getInt(1);

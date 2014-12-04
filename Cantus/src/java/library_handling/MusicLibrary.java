@@ -48,9 +48,9 @@ public class MusicLibrary {
     public ResultSet getTable(String keyType, String key) throws SQLException {
         ResultSet trackList;
         if (key.length() != 0) {
-            trackList = SQLStatements.getSQLQuery("*", "tracks", "keyType", "key");
+            trackList = SQLStatements.getSQLQueryWhere("*", "tracks", "keyType", "key");
         } else {
-            trackList = SQLStatements.getSQLQuery("*", "tracks", "keyType", "");
+            trackList = SQLStatements.getSQLQueryWhere("*", "tracks", "keyType", "");
         }
         return trackList;
     }
