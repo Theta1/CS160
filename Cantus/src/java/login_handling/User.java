@@ -29,7 +29,8 @@ public class User extends DatabaseItemWrapper {
      * @param password the user's password
      * @throws SQLException
      */
-    static User createUser(String username, String password) throws SQLException {
+    static User createUser(String username, String password)
+            throws SQLException {
         HashMap<String, String> properties = new HashMap<>(2);
         String apostrophe = "'";
         String usernameForSQL = apostrophe + username + apostrophe;

@@ -3,6 +3,7 @@ package tagging;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.logging.Level;
@@ -20,7 +21,27 @@ import server_connections.SQLStatements;
 public class SongGroup extends SongTag {
 
     private static final long serialVersionUID = 1L;
-    private static final Logger LOG = Logger.getLogger(SongGroup.class.getName());
+    private static final Logger LOG = Logger.getLogger(SongGroup.class
+            .getName());
+
+    /**
+     * Creates a new song group into the database.
+     *
+     * @param name the name of the group or band
+     * @return a wrapper for the new group
+     */
+    public static SongGroup createGroup(String name) {
+        try {
+            HashMap<String, String> properties = new HashMap<>(1);
+            String nameForSQL = "'" + name + "'";
+            properties.put("Name", nameForSQL);
+            SongGroup temp = new SongGroup();
+            return new SongGroup(temp.addAsRow(properties));
+        } catch (SQLException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 
     /**
      *
@@ -32,6 +53,13 @@ public class SongGroup extends SongTag {
     }
 
     private final int id;
+
+    /**
+     * Creates a temporary instance that allows overridden methods to be used.
+     */
+    private SongGroup() {
+        id = 0;
+    }
 
     /**
      *
@@ -85,7 +113,8 @@ public class SongGroup extends SongTag {
     public SortedSet<Artist> getArtists() {
         try {
             TreeSet<Artist> t = new TreeSet<>();
-            ResultSet results = SQLStatements.selectWhere("artistKey", "artist_has_group", "groupsKey", Integer.toString(id));
+            ResultSet results = SQLStatements.selectWhere("artistKey",
+                    "artist_has_group", "groupsKey", Integer.toString(id));
             while (results.next()) {
                 int ids = results.getInt(1);
                 t.add(new Artist(ids));
