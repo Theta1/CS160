@@ -23,12 +23,52 @@ public class MusicLibraryDatabase {
     private static final Logger LOG = Logger.getLogger(
             MusicLibraryDatabase.class.getName());
 
-    private static ResultSet getSQLQuery(String value, String keyType,
-            String key) throws SQLException {
-        String table = "libraries";
-        ResultSet results = SQLStatements.selectWhere(value, table, keyType,
-                key);
-        return results;
+    /**
+     * Returns an unmodifiable collection of every song in the database.
+     *
+     * @return an unmodifiable SortedSet
+     */
+    public static SortedSet<Song> getAllSongs() {
+        TreeSet<Song> initialSet = new TreeSet<>();
+        try {
+            ResultSet results = SQLStatements.select("TrackID", "tracks");
+            while (results.next()) {
+                initialSet.add(new Song(results.getInt(1)));
+            }
+        } catch (SQLException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+        }
+        return Collections.unmodifiableSortedSet(initialSet);
+    }
+
+    /**
+     * Creates a new song entry for this database.
+     *
+     * @param title title of the song
+     * @param genre genre of the song
+     * @return true if the addition succeeded
+     */
+    public static Song addSong(String title, String genre) {
+        Song addedSong = addSong(title);
+        if (addedSong != null) {
+            addedSong.setGenre(genre);
+        }
+        return addedSong;
+    }
+
+    /**
+     * Creates a new song entry for this database.
+     *
+     * @param title title of the song
+     * @return true if the addition succeeded
+     */
+    public static Song addSong(String title) {
+        try {
+            return Song.createSong(title);
+        } catch (SQLException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     public MusicLibraryDatabase() {
@@ -44,24 +84,5 @@ public class MusicLibraryDatabase {
     public MusicLibrary getMusicLibrary(User user) {
         //Create a library if user is new.
         throw new UnsupportedOperationException();
-    }
-
-    public SortedSet<Song> getSongs() {
-        TreeSet<Song> initialList = new TreeSet<>();
-        try {
-            String value = "TrackID";
-            String table = "tracks";
-            ResultSet results = SQLStatements.select(value, table);
-            while (results.next()) {
-                int nextID = results.getInt(1);
-                Song nextSong = new Song(nextID);
-                initialList.add(nextSong);
-            }
-        } catch (SQLException ex) {
-            LOG.log(Level.SEVERE, null, ex);
-        }
-        SortedSet<Song> returnList = Collections.unmodifiableSortedSet(
-                initialList);
-        return returnList;
     }
 }
