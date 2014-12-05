@@ -65,7 +65,7 @@ public class SongGroup extends SongTag {
      *
      * @param id the row ID of this group in the table
      */
-    SongGroup(int id) {
+    public SongGroup(int id) {
         this.id = id;
     }
 
@@ -102,6 +102,26 @@ public class SongGroup extends SongTag {
             LOG.log(Level.SEVERE, null, ex);
             return "";
         }
+    }
+
+    /**
+     * Adds an artist to this group.
+     *
+     * @param a the artist to add
+     * @return true if added successfully
+     */
+    public boolean addArtist(Artist a) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Removes an artist from this group.
+     *
+     * @param a the artist to remove
+     * @return the removed artist
+     */
+    public Artist removeArtist(Artist a) {
+        throw new UnsupportedOperationException();
     }
 
     /**

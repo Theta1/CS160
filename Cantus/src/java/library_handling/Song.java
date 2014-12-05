@@ -78,6 +78,16 @@ public class Song extends DatabaseItemWrapper implements Comparable<Song> {
     }
 
     /**
+     * Assigns a new group to this song.
+     *
+     * @param g the group to assign
+     * @return true if the assignment succeeded
+     */
+    public boolean setGroup(SongGroup g) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
      *
      * @return the group of this song
      */

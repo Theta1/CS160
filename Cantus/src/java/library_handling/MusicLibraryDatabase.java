@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import login_handling.User;
 import server_connections.SQLStatements;
+import tagging.Artist;
 import tagging.SongGroup;
 
 /**
@@ -47,12 +48,30 @@ public class MusicLibraryDatabase {
      *
      * @return an unmodifiable SortedSet
      */
-    public static SortedSet<Song> getAllGroups() {
-        TreeSet<Song> initialSet = new TreeSet<>();
+    public static SortedSet<SongGroup> getAllGroups() {
+        TreeSet<SongGroup> initialSet = new TreeSet<>();
         try {
             ResultSet results = SQLStatements.select("gKey", "groups");
             while (results.next()) {
-                initialSet.add(new Song(results.getInt(1)));
+                initialSet.add(new SongGroup(results.getInt(1)));
+            }
+        } catch (SQLException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+        }
+        return Collections.unmodifiableSortedSet(initialSet);
+    }
+
+    /**
+     * Returns an unmodifiable collection of every artist in the database.
+     *
+     * @return an unmodifiable SortedSet
+     */
+    public static SortedSet<Artist> getAllArtists() {
+        TreeSet<Artist> initialSet = new TreeSet<>();
+        try {
+            ResultSet results = SQLStatements.select("aKey", "artists");
+            while (results.next()) {
+                initialSet.add(new Artist(results.getInt(1)));
             }
         } catch (SQLException ex) {
             LOG.log(Level.SEVERE, null, ex);
