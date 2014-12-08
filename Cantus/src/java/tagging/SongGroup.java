@@ -111,7 +111,16 @@ public class SongGroup extends SongTag {
      * @return true if added successfully
      */
     public boolean addArtist(Artist a) {
-        throw new UnsupportedOperationException();
+        try {
+            HashMap<String, String> artistContainer = new HashMap<>(2);
+            artistContainer.put("artistKey", Integer.toString(a.getID()));
+            artistContainer.put("groupsKey", Integer.toString(getID()));
+            SQLStatements.insert("artists_has_groups", artistContainer);
+            return true;
+        } catch (SQLException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     /**
