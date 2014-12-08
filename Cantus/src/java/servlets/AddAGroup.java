@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import library_handling.MusicLibraryDatabase;
 
-
 /**
  *
  * @author Kerfuffle
@@ -37,9 +36,9 @@ public class AddAGroup extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String group=request.getParameter("group");
+            String group = request.getParameter("group");
             /*Need to know whether to add to user's library, or "global"...
-            */
+             */
             //MusicLibraryDatabase mldb = new MusicLibraryDatabase();
             MusicLibraryDatabase.addGroup(group);
             response.sendRedirect("AddAGroup.html");

@@ -43,6 +43,21 @@ public class SQLStatements {
     }
 
     /**
+     * Deletes a row.
+     *
+     * @param table the table of the row
+     * @param whereKey a column to use to find the row
+     * @param whereValue the cell that intersects whereKey and the desired row.
+     * @return a row count
+     * @throws SQLException
+     */
+    public static int delete(String table, String whereKey,
+            String whereValue) throws SQLException {
+        return executeUpdate("DELETE " + from(table) + " " + where(whereKey,
+                whereValue));
+    }
+
+    /**
      * Returns results from an SQL query. SELECT value FROM table WHERE keyType
      * = key;
      *

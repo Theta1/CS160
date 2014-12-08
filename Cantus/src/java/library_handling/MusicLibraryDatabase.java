@@ -113,10 +113,17 @@ public class MusicLibraryDatabase {
      * Removes the specified song from the database.
      *
      * @param s the song to remove
-     * @return the removed song, if successful
+     * @return true if successful
      */
-    public static Song removeSong(Song s) {
-        throw new UnsupportedOperationException();
+    public static boolean removeSong(Song s) {
+        try {
+            SQLStatements.delete(s.getTableName(), s.getIDColumnName(),
+                    Integer.toString(s.getID()));
+            return true;
+        } catch (SQLException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     /**
