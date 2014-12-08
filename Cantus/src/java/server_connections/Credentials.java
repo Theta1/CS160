@@ -30,7 +30,7 @@ public class Credentials {
      * @return our SQL password
      */
     static String getPassword() {
-        return "fora";
+        return "workhard";
     }
 
     private Credentials() {

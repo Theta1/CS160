@@ -8,13 +8,13 @@ and open the template in the editor.
     Author     : Busairo
 */
 
-.aquaText {
-    color: aqua;
+body {
+    background-image: url("landingpagebackground.jpg");
+    background-size: 1260px 650px;
 }
 
-body {
-    background-image: url("black texture.jpg");
-    font-family: sans-serif;
+.aquaText {
+    color: aqua;
 }
 
 h2 {
@@ -27,13 +27,13 @@ a {
     position: absolute;
     left: 10px;
     bottom: 10px;
-    font-size: 150%;
+    font-size: 130%;
 }
 
 .songarea {
-    border: 8px solid black;
+    border: 2px solid transparent;
     color: white;
-    background-color: rgba(255,255,255,0.2);
+    background-color: rgba(255,255,255,0.1);
     width: 800px;
     height: 400px;
     overflow: auto;
@@ -92,7 +92,8 @@ input[type="submit"]{
 }
 
 input[type="submit"]:hover{
-    background: gray;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px / 20px;
 }
 
 input[type="text"] {
