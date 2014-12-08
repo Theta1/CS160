@@ -21,7 +21,9 @@
             UserDatabase ud = new UserDatabase();
             boolean check = ud.signUp(username, password);
             if(check) { out.println("<p> Registration <b>SUCCESSFUL</b>");    }
-            else {  out.println("<p> Registration <b>UNSUCCESSFUL</b>");    }
+            else {  out.println("<p> Registration <b>UNSUCCESSFUL</b> "
+                    + "<p> Username & password already registered."
+                    + "<p> Or (For developers) MYSQL server is not on.<p>");    }
             //response.sendRedirect("index.html");
         %>
         <br/> <a href="index.html">Click here to return to login page</a>

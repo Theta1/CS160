@@ -12,3 +12,10 @@ body {
     background-image: url("deletesongbackground.jpg");
 }
 
+a  {
+   color: white;
+   position: absolute;
+   left: 20px;
+   bottom: 20px;
+}
+

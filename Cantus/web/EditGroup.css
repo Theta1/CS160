@@ -11,3 +11,10 @@ and open the template in the editor.
 body {
     background-image: url("editgroupbackground.jpg");
 }
+
+a {
+    position: absolute;
+    color: white;
+    bottom: 20px;
+    left: 20px;
+}
