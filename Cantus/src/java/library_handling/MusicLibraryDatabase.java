@@ -2,9 +2,9 @@ package library_handling;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import login_handling.User;
@@ -28,10 +28,10 @@ public class MusicLibraryDatabase {
     /**
      * Returns an unmodifiable collection of every song in the database.
      *
-     * @return an unmodifiable SortedSet
+     * @return an unmodifiable List
      */
-    public static SortedSet<Song> getAllSongs() {
-        TreeSet<Song> initialSet = new TreeSet<>();
+    public static List<Song> getAllSongs() {
+        ArrayList<Song> initialSet = new ArrayList<>(0);
         try {
             ResultSet results = SQLStatements.select("TrackID", "tracks");
             while (results.next()) {
@@ -40,16 +40,16 @@ public class MusicLibraryDatabase {
         } catch (SQLException ex) {
             LOG.log(Level.SEVERE, null, ex);
         }
-        return Collections.unmodifiableSortedSet(initialSet);
+        return Collections.unmodifiableList(initialSet);
     }
 
     /**
      * Returns an unmodifiable collection of every song group in the database.
      *
-     * @return an unmodifiable SortedSet
+     * @return an unmodifiable List
      */
-    public static SortedSet<SongGroup> getAllGroups() {
-        TreeSet<SongGroup> initialSet = new TreeSet<>();
+    public static List<SongGroup> getAllGroups() {
+        ArrayList<SongGroup> initialSet = new ArrayList<>(0);
         try {
             ResultSet results = SQLStatements.select("gKey", "groups");
             while (results.next()) {
@@ -58,16 +58,16 @@ public class MusicLibraryDatabase {
         } catch (SQLException ex) {
             LOG.log(Level.SEVERE, null, ex);
         }
-        return Collections.unmodifiableSortedSet(initialSet);
+        return Collections.unmodifiableList(initialSet);
     }
 
     /**
      * Returns an unmodifiable collection of every artist in the database.
      *
-     * @return an unmodifiable SortedSet
+     * @return an unmodifiable List
      */
-    public static SortedSet<Artist> getAllArtists() {
-        TreeSet<Artist> initialSet = new TreeSet<>();
+    public static List<Artist> getAllArtists() {
+        ArrayList<Artist> initialSet = new ArrayList<>(0);
         try {
             ResultSet results = SQLStatements.select("aKey", "artists");
             while (results.next()) {
@@ -76,7 +76,7 @@ public class MusicLibraryDatabase {
         } catch (SQLException ex) {
             LOG.log(Level.SEVERE, null, ex);
         }
-        return Collections.unmodifiableSortedSet(initialSet);
+        return Collections.unmodifiableList(initialSet);
     }
 
     /**
