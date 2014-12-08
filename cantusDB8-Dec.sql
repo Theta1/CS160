@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
+-- version 4.2.13
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 07, 2014 at 08:18 AM
+-- Generation Time: Dec 08, 2014 at 11:04 PM
 -- Server version: 5.5.39-MariaDB
--- PHP Version: 5.5.18
+-- PHP Version: 5.5.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -29,9 +29,9 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `artists` (
 `aKey` int(11) NOT NULL,
   `Name` varchar(20) NOT NULL,
-  `Instrument` varchar(20) NOT NULL,
-  `Birth` date NOT NULL,
-  `Death` date NOT NULL
+  `Instrument` varchar(20) DEFAULT NULL,
+  `Birth` date DEFAULT NULL,
+  `Death` date DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
@@ -64,8 +64,8 @@ CREATE TABLE IF NOT EXISTS `artists_has_groups` (
 `keyIgnoreMe` int(11) NOT NULL,
   `artistKey` int(11) NOT NULL,
   `groupsKey` int(11) NOT NULL,
-  `artistName` text NOT NULL,
-  `groupName` text NOT NULL
+  `artistName` text,
+  `groupName` text
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
@@ -157,8 +157,8 @@ INSERT INTO `artists_has_tracks` (`keyIGNORE`, `artistKey`, `trackKey`) VALUES
 CREATE TABLE IF NOT EXISTS `groups` (
 `gKey` int(11) NOT NULL,
   `Name` text NOT NULL,
-  `Formed` date NOT NULL,
-  `Disbanded` date NOT NULL
+  `Formed` date DEFAULT NULL,
+  `Disbanded` date DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
@@ -182,8 +182,8 @@ CREATE TABLE IF NOT EXISTS `groups_has_tracks` (
 `keyIGNORE` int(11) NOT NULL,
   `groupID` int(11) NOT NULL,
   `trackID` int(11) NOT NULL,
-  `groupName` text NOT NULL,
-  `trackName` text NOT NULL
+  `groupName` text,
+  `trackName` text
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
@@ -315,8 +315,8 @@ CREATE TABLE IF NOT EXISTS `performances_has_groups` (
 `keyIGNORE` int(11) NOT NULL,
   `performaceKey` int(11) NOT NULL,
   `groupKey` int(11) NOT NULL,
-  `performanceName` text NOT NULL,
-  `groupName` text NOT NULL
+  `performanceName` text,
+  `groupName` text
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
@@ -346,10 +346,10 @@ INSERT INTO `performances_has_groups` (`keyIGNORE`, `performaceKey`, `groupKey`,
 CREATE TABLE IF NOT EXISTS `tracks` (
 `TrackID` int(11) NOT NULL,
   `Title` varchar(20) NOT NULL,
-  `year` year(4) NOT NULL,
-  `genre` varchar(20) NOT NULL,
+  `year` year(4) DEFAULT NULL,
+  `genre` varchar(20) DEFAULT NULL,
   `Movement` int(11) DEFAULT NULL,
-  `length` int(11) NOT NULL
+  `length` int(11) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
