@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import server_connections.DatabaseItemWrapper;
+import server_connections.SQLStatements;
 import tagging.SongGroup;
 
 /**
@@ -84,7 +85,16 @@ public class Song extends DatabaseItemWrapper implements Comparable<Song> {
      * @return true if the assignment succeeded
      */
     public boolean setGroup(SongGroup g) {
-        throw new UnsupportedOperationException();
+        try {
+            HashMap<String, String> columns = new HashMap<>(2);
+            columns.put("groupID", Integer.toString(g.getID()));
+            columns.put("trackID", Integer.toString(getID()));
+            SQLStatements.insert("groups_has_tracks", columns);
+            return true;
+        } catch (SQLException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     /**

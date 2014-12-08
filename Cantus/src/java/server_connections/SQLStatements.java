@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * @author David-Eric Thorpe
  */
 public class SQLStatements {
-
+    
     private static final Logger LOG = Logger.getLogger(SQLStatements.class
             .getName());
 
@@ -29,6 +29,7 @@ public class SQLStatements {
      */
     private static ResultSet executeQuery(String query)
             throws SQLException {
+        LOG.fine(query);
         return createStatement().executeQuery(query);
     }
 
@@ -95,6 +96,7 @@ public class SQLStatements {
      * @throws SQLException
      */
     private static int executeUpdate(String update) throws SQLException {
+        LOG.fine(update);
         return createStatement().executeUpdate(update);
     }
 
@@ -157,7 +159,7 @@ public class SQLStatements {
     private static String where(String key, String value) {
         return "WHERE `" + key + "` = " + value;
     }
-
+    
     private static String set(Map<String, String> assignments) {
         String sql = "SET ";
         int i = 0;
@@ -190,7 +192,7 @@ public class SQLStatements {
         return executeUpdate("UPDATE " + table + " " + set(assignments)
                 + " WHERE " + whereKey + " = " + whereValue);
     }
-
+    
     private SQLStatements() {
     }
 }
