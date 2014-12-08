@@ -23,8 +23,8 @@ import login_handling.UserDatabase;
  */
 public class LoginCheck extends HttpServlet {
 
-    final String LANDING_PAGE = "LandingPage.jsp";
-    final String INVALID_LOGIN_PAGE = "InvalidLogin.jsp";
+    //final String LANDING_PAGE = "LandingPage.jsp";
+    //final String INVALID_LOGIN_PAGE = "InvalidLogin.jsp";
     private static String username_e = "";
 
     /**

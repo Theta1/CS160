@@ -1,0 +1,67 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 2, 2014, 5:18:43 PM
+    Author     : Busairo
+*/
+body {
+    background-color: black;
+    background-repeat: no-repeat;
+    font-family: cursive;
+    font-size: 120%;
+    color: white;
+}
+
+input[type="submit"] {
+    width:28%;
+    background: transparent;
+    border:5px;
+    font-family: cursive;
+    font-size:100%;
+    color: white;
+    cursor:pointer;
+    transition:background .3s;
+    -webkit-transition:background .3s;
+    position: absolute;
+    left: 470px;
+    top: 140px;
+}
+
+input[type="text"] {
+    width:55%;
+    background: white;
+    border:5px;
+    font-family: cursive;
+    font-size:100%;
+    color: black;
+    cursor:pointer;
+    transition:background .3s;
+    -webkit-transition:background .3s;
+}
+
+input[type="password"] {
+    width:55%;
+    background: white;
+    border:5px;
+    font-family: cursive;
+    font-size:100%;
+    color: black;
+    cursor:pointer;
+    transition:background .3s;
+    -webkit-transition:background .3s;
+}
+
+input[type="submit"]:hover{
+    background: gray;
+}
+
+a {
+    color: white;
+}
+
+
+
+

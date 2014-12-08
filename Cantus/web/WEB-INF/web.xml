@@ -5,12 +5,16 @@
         <servlet-class>servlets.LoginCheck</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddAGroup</servlet-name>
+        <servlet-class>servlets.AddAGroup</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>LoggedOut</servlet-name>
         <servlet-class>servlets.LoggedOut</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegistrationConfirmination</servlet-name>
-        <servlet-class>servlets.RegistrationConfirmination</servlet-class>
+        <servlet-class>servlets.RegistrationConfirmation</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginCheck</servlet-name>

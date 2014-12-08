@@ -8,22 +8,22 @@ and open the template in the editor.
     Author     : Busairo
 */
 h1 {
-    font-family: cursive;
+    font-family: sans-serif;
     font-size: 200%;
 }
 
 h2 {
-    font-family: cursive;
+    font-family: sans-serif;
     font-size: 180%;
 }
 
 h3 {
-    font-family: cursive;
+    font-family: sans-serif;
     font-size: 160%;
 }
 
 p {
-    font-family: cursive;
+    font-family: sans-serif;
     font-size: 150%
 }
 
@@ -36,7 +36,7 @@ body {
 }
 
 #usernamebox {
-    font-family: cursive;
+    font-family: sans-serif;
     width:20%;
     background: transparent;
     margin-bottom:0%;
@@ -47,7 +47,7 @@ body {
 }
 
 #passwordbox {
-    font-family: cursive;
+    font-family: sans-serif;
 }
 
 #mainsignuparea {
@@ -62,7 +62,7 @@ input[type="submit"]{
     border-radius: 20px / 20px;
     border:5px;
     padding:0%;
-    font-family: cursive;
+    font-family: sans-serif;
     font-size:160%;
     color:#fff;
     cursor:pointer;
@@ -78,7 +78,7 @@ input[type="text"] {
     width:100%;
     background: rgba(255,255,255,0.1);
     border:5px;
-    font-family: cursive;
+    font-family: sans-serif;
     font-size:160%;
     color: white;
     cursor:pointer;
@@ -92,7 +92,7 @@ input[type="password"] {
     width:20%;
     background: rgba(255,255,255,0.1);
     border:5px;
-    font-family: cursive;
+    font-family: sans-serif;
     font-size:160%;
     color: white;
     cursor:pointer;

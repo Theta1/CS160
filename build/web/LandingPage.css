@@ -1,0 +1,118 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 2, 2014, 1:38:33 PM
+    Author     : Busairo
+*/
+
+.aquaText {
+    color: aqua;
+}
+
+body {
+    background-image: url("black texture.jpg");
+    font-family: cursive;
+}
+
+h2 {
+    color: white;
+    font-size: 200%;
+}
+
+a {
+    color: white;
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    font-size: 150%;
+}
+
+.songarea {
+    border: 8px solid black;
+    color: white;
+    background-color: rgba(255,255,255,0.2);
+    width: 800px;
+    height: 400px;
+    overflow: auto;
+    position: absolute;
+    left: 50px;
+    top: 120px;
+    border-radius: 20px / 20px;
+}
+
+#searchbar {
+    position: absolute;
+    left: 850px;
+    top: 120px;
+    font-size: 150%;
+}
+
+#addsongbutton {
+    position: absolute;
+    left: 900px;
+    top: 170px;
+    font-size: 150%
+}
+
+#deletesongbutton {
+    position: absolute;
+    left: 900px;
+    top: 250px;
+    font-size: 150%;
+}
+
+#creategroupbutton {
+    position: absolute;
+    left: 900px;
+    top: 330px;
+    font-size: 150%;
+}
+
+#editgroupbutton {
+    position: absolute;
+    left: 900px;
+    top: 375px;
+    font-size: 150%;
+}
+
+input[type="submit"]{
+    width:100%;
+    background: transparent;
+    border:10px;
+    padding:0%;
+    font-family: cursive;
+    font-size:100%;
+    color:#fff;
+    cursor:pointer;
+    transition:background .3s;
+    -webkit-transition:background .3s;
+}
+
+input[type="submit"]:hover{
+    background: gray;
+}
+
+input[type="text"] {
+    width:60%;
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 20px / 20px;
+    border:5px;
+    font-family: cursive;
+    font-size:100%;
+    color: white;
+    cursor:pointer;
+    transition:background .3s;
+    -webkit-transition:background .3s;
+}
+
+p1 {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 100%;
+    color: white;
+}
+
