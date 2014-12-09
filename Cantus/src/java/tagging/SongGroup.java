@@ -124,6 +124,26 @@ public class SongGroup extends SongTag {
     }
 
     /**
+     * Adds an artist to this group.
+     *
+     * @param artistName the artist to add
+     * @return the artist, if added successfully
+     */
+    public Artist addArtist(String artistName) {
+        try {
+            HashMap<String, String> artistContainer = new HashMap<>(2);
+            Artist a = Artist.createArtist(artistName);
+            artistContainer.put("artistKey", Integer.toString(a.getID()));
+            artistContainer.put("groupsKey", Integer.toString(getID()));
+            SQLStatements.insert("artists_has_groups", artistContainer);
+            return a;
+        } catch (SQLException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    /**
      * Removes an artist from this group.
      *
      * @param a the artist to remove
