@@ -51,12 +51,12 @@ public class TagAdd extends HttpServlet {
             String genre = request.getParameter("genre");
             String group = request.getParameter("group");
             String performance = request.getParameter("performance"); //not added
-            
-            Song s = MusicLibraryDatabase.addSong(title,genre);
+
+            Song s = MusicLibraryDatabase.addSong(title, genre);
             SongGroup sg = SongGroup.createGroup(group);
             sg.addArtist(artist);
             s.setGroup(sg);
-            
+
         }
     }
 

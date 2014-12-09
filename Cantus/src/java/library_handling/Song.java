@@ -36,8 +36,11 @@ public class Song extends DatabaseItemWrapper implements Comparable<Song> {
         HashMap<String, String> properties = new HashMap<>(1);
         properties.put(titleColumnName, titleForSQL);
         Song temp = new Song();
-        int rowCount = temp.addAsRow(properties);
-        Song newSong = new Song(rowCount);
+        temp.addAsRow(properties);
+        ResultSet results = SQLStatements.selectWhere(idColumnName, tableName,
+                titleColumnName, titleForSQL);
+        results.next();
+        Song newSong = new Song(results.getInt(1));
         return newSong;
     }
     private final int id;
