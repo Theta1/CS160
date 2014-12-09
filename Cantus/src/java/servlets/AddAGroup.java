@@ -37,12 +37,8 @@ public class AddAGroup extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String group = request.getParameter("group");
-            /*Need to know whether to add to user's library, or "global"...
-             */
-            //MusicLibraryDatabase mldb = new MusicLibraryDatabase();
             MusicLibraryDatabase.addGroup(group);
             response.sendRedirect("LandingPage.jsp");
-            //response.sendRedirect("GroupAdded.jsp");
         }
     }
 
