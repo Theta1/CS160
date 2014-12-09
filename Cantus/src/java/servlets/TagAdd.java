@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import library_handling.MusicLibraryDatabase;
-import static library_handling.MusicLibraryDatabase.addSong;
 import library_handling.Song;
+import tagging.SongGroup;
 
 /**
  *
@@ -47,10 +47,16 @@ public class TagAdd extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String title = request.getParameter("name_of_song");
             String artist = request.getParameter("artist");
-            String album = request.getParameter("album");
+            String album = request.getParameter("album"); //not added
             String genre = request.getParameter("genre");
             String group = request.getParameter("group");
-            String performance = request.getParameter("performance");
+            String performance = request.getParameter("performance"); //not added
+            
+            Song s = MusicLibraryDatabase.addSong(title,genre);
+            SongGroup sg = SongGroup.createGroup(group);
+            sg.addArtist(artist);
+            s.setGroup(sg);
+            
         }
     }
 
