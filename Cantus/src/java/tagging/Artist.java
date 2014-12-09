@@ -2,6 +2,7 @@ package tagging;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,7 +19,24 @@ public class Artist extends SongTag implements Comparable<Artist> {
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(Artist.class.getName());
 
+    static Artist createArtist(String name) throws SQLException {
+        String nameForSQL = "'" + name + "'";
+        HashMap<String, String> properties = new HashMap<>(1);
+        properties.put("Name", nameForSQL);
+        Artist temp = new Artist();
+        int rowCount = temp.addAsRow(properties);
+        Artist newArtist = new Artist(rowCount);
+        return newArtist;
+    }
+
     private final int id;
+
+    /**
+     * Creates a temporary instance that allows overridden methods to be used.
+     */
+    private Artist() {
+        id = 0;
+    }
 
     /**
      *
@@ -72,4 +90,5 @@ public class Artist extends SongTag implements Comparable<Artist> {
     protected String getIDColumnName() {
         return "aKey";
     }
+
 }
