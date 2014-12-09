@@ -12,6 +12,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import library_handling.MusicLibraryDatabase;
+import static library_handling.MusicLibraryDatabase.addSong;
+import library_handling.Song;
 
 /**
  *
@@ -26,6 +29,7 @@ public class TagAdd extends HttpServlet {
     boolean groupCheck;
     boolean performanceCheck;
     boolean successfullyAdded;
+    MusicLibraryDatabase mld = new MusicLibraryDatabase();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,8 +48,9 @@ public class TagAdd extends HttpServlet {
             String title = request.getParameter("name_of_song");
             String artist = request.getParameter("artist");
             String album = request.getParameter("album");
+            String genre = request.getParameter("genre");
             String group = request.getParameter("group");
-            String performance = request.getParameter("performance");
+            String performance = request.getParameter("performance");     
         }
     }
 

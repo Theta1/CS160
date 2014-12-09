@@ -41,7 +41,7 @@ public class AddAGroup extends HttpServlet {
              */
             //MusicLibraryDatabase mldb = new MusicLibraryDatabase();
             MusicLibraryDatabase.addGroup(group);
-            response.sendRedirect("AddAGroup.html");
+            response.sendRedirect("LandingPage.jsp");
             //response.sendRedirect("GroupAdded.jsp");
         }
     }
