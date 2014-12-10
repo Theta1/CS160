@@ -47,7 +47,7 @@ public class EditGroup extends HttpServlet {
                 }
             }
             //Below: stuff to return we'll probably need.
-            
+
         }
     }
 

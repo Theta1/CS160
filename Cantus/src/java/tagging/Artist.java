@@ -19,7 +19,7 @@ public class Artist extends SongTag implements Comparable<Artist> {
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(Artist.class.getName());
 
-    static Artist createArtist(String name) throws SQLException {
+    public static Artist createArtist(String name) throws SQLException {
         String nameForSQL = "'" + name + "'";
         HashMap<String, String> properties = new HashMap<>(1);
         properties.put("Name", nameForSQL);

@@ -182,4 +182,8 @@ public class SongGroup extends SongTag {
         return "groups";
     }
 
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

@@ -54,14 +54,15 @@ public class TagAdd extends HttpServlet {
 
             Song s = MusicLibraryDatabase.addSong(title, genre);
             SongGroup sg;
-            
+
             //If the user gives no group, then set group to just be artist
             //Need to know if backend handles duplicates properly
-            if(group.length()==0) {
-                sg=SongGroup.createGroup(artist);
+            if (group.length() == 0) {
+                sg = SongGroup.createGroup(artist);
+            } else {
+                sg = SongGroup.createGroup(group);
             }
-            else sg=SongGroup.createGroup(group);
-            
+
             sg.addArtist(artist);
             s.setGroup(sg);
             //redirect seems to not be working...
