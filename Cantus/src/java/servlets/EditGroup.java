@@ -36,7 +36,7 @@ public class EditGroup extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String groupToEdit = request.getParameter("GroupToEdit");
             //Below: stuff to return we'll probably need.
-            
+
         }
     }
 

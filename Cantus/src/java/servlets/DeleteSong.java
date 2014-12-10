@@ -39,8 +39,8 @@ public class DeleteSong extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String t = request.getParameter("name_of_song");
             List<Song> ls = MusicLibraryDatabase.getAllSongs();
-            for(Song s : ls) {
-                if(s.getTitle().compareToIgnoreCase(t)==0) {
+            for (Song s : ls) {
+                if (s.getTitle().compareToIgnoreCase(t) == 0) {
                     MusicLibraryDatabase.removeSong(s);
                 }
             }
@@ -60,8 +60,7 @@ public class DeleteSong extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        
+
     }
 
     /**
@@ -89,4 +88,3 @@ public class DeleteSong extends HttpServlet {
     }// </editor-fold>
 
 }
-

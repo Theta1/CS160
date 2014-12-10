@@ -31,7 +31,7 @@ public class Song extends DatabaseItemWrapper implements Comparable<Song> {
      * @return a new song in the database
      * @throws java.sql.SQLException
      */
-    static Song createSong(String title) throws SQLException {
+    public static Song createSong(String title) throws SQLException {
         String titleForSQL = "'" + title + "'";
         HashMap<String, String> properties = new HashMap<>(1);
         properties.put(titleColumnName, titleForSQL);
@@ -49,7 +49,7 @@ public class Song extends DatabaseItemWrapper implements Comparable<Song> {
      *
      * @param id the id of the song in the data table
      */
-    Song(int id) {
+    public Song(int id) {
         this.id = id;
     }
 
