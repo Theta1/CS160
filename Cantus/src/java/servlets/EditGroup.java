@@ -7,11 +7,15 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.GroupLayout.Group;
+import library_handling.MusicLibraryDatabase;
+import tagging.SongGroup;
 
 /**
  *
@@ -35,6 +39,13 @@ public class EditGroup extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String groupToEdit = request.getParameter("GroupToEdit");
+            String artist = request.getParameter("Artist");
+            List<SongGroup> lg = MusicLibraryDatabase.getAllGroups();
+            for(SongGroup g : lg) {
+                if(g.getName().compareToIgnoreCase(groupToEdit)==0) {
+                    g.addArtist(artist);
+                }
+            }
             //Below: stuff to return we'll probably need.
             
         }

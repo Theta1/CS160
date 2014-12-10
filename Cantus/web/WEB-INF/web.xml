@@ -5,6 +5,10 @@
         <servlet-class>servlets.LoginCheck</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DeleteSong</servlet-name>
+        <servlet-class>servlets.DeleteSong</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddAGroup</servlet-name>
         <servlet-class>servlets.AddAGroup</servlet-class>
     </servlet>
