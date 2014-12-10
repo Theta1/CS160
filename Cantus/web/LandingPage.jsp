@@ -61,7 +61,7 @@ Author     : Busairo
            <form action="javascript:searchFunction(number);">
              <font color="white">  Search: </font> <input type="text" id="searchinput" name="search"> 
              <%
-                String toLookFor = "I Got A Boy" /* place holder for now to test search */;
+                String toLookFor = "dvno" /* place holder for now to test search */;
                 int indexOf = getIndexOfElement(songList, toLookFor);
              %>
             </form>
@@ -93,10 +93,6 @@ Author     : Busairo
            var number = '<%= indexOf %>';
            var searchfor = document.getElementById("searchinput").value;
            //var nos = document.getElementByName("search");
-           function deleteFunction() {
-               document.getElementById("name_of_song").toString();
-               document.location.href="DeleteSong";
-           } 
            
            function searchFunction(index) {
               document.getElementById("name_of_song").selectedIndex = index;

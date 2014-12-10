@@ -179,7 +179,7 @@ public class SongGroup extends SongTag {
 
     @Override
     protected String getIDColumnName() {
-        return "groups";
+        return "gKey";
     }
 
     @Override
