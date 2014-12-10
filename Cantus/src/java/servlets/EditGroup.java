@@ -12,24 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import library_handling.MusicLibraryDatabase;
-import library_handling.Song;
-import tagging.SongGroup;
 
 /**
  *
- * @author Busairo
+ * @author Kerfuffle
  */
-@WebServlet(name = "TagAdd", urlPatterns = {"/TagAdd"})
-public class TagAdd extends HttpServlet {
-
-    final String LANDING_PAGE = "LandingPage.jsp";
-    boolean artistCheck;
-    boolean albumCheck;
-    boolean groupCheck;
-    boolean performanceCheck;
-    boolean successfullyAdded;
-    MusicLibraryDatabase mld = new MusicLibraryDatabase();
+@WebServlet(name = "EditGroup", urlPatterns = {"/EditGroup"})
+public class EditGroup extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,28 +34,9 @@ public class TagAdd extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String title = request.getParameter("name_of_song");
-            String artist = request.getParameter("artist");
-            String album = request.getParameter("album"); //not added
-            String genre = request.getParameter("genre");
-            String group = request.getParameter("group");
-            String performance = request.getParameter("performance"); //not added
-
-            Song s = MusicLibraryDatabase.addSong(title, genre);
-            SongGroup sg;
+            String groupToEdit = request.getParameter("GroupToEdit");
+            //Below: stuff to return we'll probably need.
             
-            //If the user gives no group, then set group to just be artist
-            //Need to know if backend handles duplicates properly
-            if(group.length()==0) {
-                sg=SongGroup.createGroup(artist);
-            }
-            else sg=SongGroup.createGroup(group);
-            
-            sg.addArtist(artist);
-            s.setGroup(sg);
-            //redirect seems to not be working...
-            response.sendRedirect("LandingPage.jsp");
-
         }
     }
 

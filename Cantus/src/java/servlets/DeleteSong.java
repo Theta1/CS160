@@ -7,6 +7,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,22 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import library_handling.MusicLibraryDatabase;
 import library_handling.Song;
-import tagging.SongGroup;
 
 /**
  *
- * @author Busairo
+ * @author Kerfuffle
  */
-@WebServlet(name = "TagAdd", urlPatterns = {"/TagAdd"})
-public class TagAdd extends HttpServlet {
-
-    final String LANDING_PAGE = "LandingPage.jsp";
-    boolean artistCheck;
-    boolean albumCheck;
-    boolean groupCheck;
-    boolean performanceCheck;
-    boolean successfullyAdded;
-    MusicLibraryDatabase mld = new MusicLibraryDatabase();
+@WebServlet(name = "DeleteSong", urlPatterns = {"/DeleteSong"})
+public class DeleteSong extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,28 +37,13 @@ public class TagAdd extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String title = request.getParameter("name_of_song");
-            String artist = request.getParameter("artist");
-            String album = request.getParameter("album"); //not added
-            String genre = request.getParameter("genre");
-            String group = request.getParameter("group");
-            String performance = request.getParameter("performance"); //not added
-
-            Song s = MusicLibraryDatabase.addSong(title, genre);
-            SongGroup sg;
-            
-            //If the user gives no group, then set group to just be artist
-            //Need to know if backend handles duplicates properly
-            if(group.length()==0) {
-                sg=SongGroup.createGroup(artist);
+            String t = request.getParameter("name_of_song");
+            List<Song> ls = MusicLibraryDatabase.getAllSongs();
+            for(Song s : ls) {
+                if(s.getTitle().compareToIgnoreCase(t)==0) {
+                    MusicLibraryDatabase.removeSong(s);
+                }
             }
-            else sg=SongGroup.createGroup(group);
-            
-            sg.addArtist(artist);
-            s.setGroup(sg);
-            //redirect seems to not be working...
-            response.sendRedirect("LandingPage.jsp");
-
         }
     }
 
@@ -83,6 +60,8 @@ public class TagAdd extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        
     }
 
     /**
@@ -110,3 +89,4 @@ public class TagAdd extends HttpServlet {
     }// </editor-fold>
 
 }
+

@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Kerfuffle/Repositories/SJSU-CS160-LeagueOfOrdinaryGentlemen/Cantus/src/java/library_handling/MusicLibraryDatabase.java</file>
+            <file>file:/C:/Users/Kerfuffle/Repositories/SJSU-CS160-LeagueOfOrdinaryGentlemen/Cantus/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Kerfuffle/Repositories/SJSU-CS160-LeagueOfOrdinaryGentlemen/Cantus/src/java/tagging/SongTag.java</file>
+            <file>file:/C:/Users/Kerfuffle/Repositories/SJSU-CS160-LeagueOfOrdinaryGentlemen/Cantus/web/AddAGroup.html</file>
+            <file>file:/C:/Users/Kerfuffle/Repositories/SJSU-CS160-LeagueOfOrdinaryGentlemen/Cantus/src/java/servlets/TagAdd.java</file>
+            <file>file:/C:/Users/Kerfuffle/Repositories/SJSU-CS160-LeagueOfOrdinaryGentlemen/Cantus/src/java/servlets/AddAGroup.java</file>
+        </group>
     </open-files>
 </project-private>
