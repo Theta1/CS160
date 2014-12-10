@@ -4,6 +4,9 @@ Created on : Nov 10, 2014, 8:42:25 AM
 Author     : Busairo
 --%>
 
+<%@page import="servlets.Search"%>
+<%@page import="tagging.Artist"%>
+<%@page import="tagging.SongGroup"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,31 +15,56 @@ Author     : Busairo
         <title>Cantus Home Page</title>
     </head>
     <body>
-    <center> 
+      <%@ page import="servlets.LoginCheck,java.util.ArrayList, library_handling.MusicLibraryDatabase,
+                     java.util.List, library_handling.Song" %>
         <h2> 
             <link rel="stylesheet" type="text/css" href="LandingPage.css">
-            <%@ page import="servlets.LoginCheck, java.util.ArrayList" %>
             <%
                 String name = LoginCheck.getUserName();
-                //out.println("Hello " + name + ", you have successfully logged into Cantus.");
-                ArrayList testListOfSongs = new ArrayList();
-                testListOfSongs.add("I Got A Boy    -   Girls Generation");
-                for(int i = 0; i < 1000; i++)
-                    testListOfSongs.add(i+1 + ".  This better stretch across the entire box you know just because.");
+                MusicLibraryDatabase mld = new MusicLibraryDatabase();
+                List<Song> songList = mld.getAllSongs();
+                List<SongGroup> groupList = mld.getAllGroups();
+                List<Artist> artistList = mld.getAllArtists();
+                int biggest = songList.size() + groupList.size() + artistList.size();
             %> 
+            
+            <%!
+                public int getIndexOfElement(List<Song> list, String name)
+                {
+                    int index = 0;
+                    for(int i = 0; i < list.size(); i++)
+                    {
+                        String element = list.get(i).getTitle();
+                        if(element.equalsIgnoreCase(name))
+                        { index = i; }
+                    }
+                    return index;
+                }
+            %>
             Hello <span class="aquaText"><%= name %></span>, you have successfully logged into Cantus.
         </h2> 
 
         <div class="songarea">
+            <center>
+            <form action= "deleteFunction()" method="post">
+            <select id ="name_of_song" name ="songtitles" size="50">
             <% 
-              for(int i = 0; i < testListOfSongs.size(); i++)
-              {  out.println(testListOfSongs.get(i) + "<BR>"); }
+              for(int i = 0; i < songList.size(); i++)
+              {  out.println("<option>" + ""+ songList.get(i).getTitle() + "</option>"); }
             %>
+            </select>
+            </form>
+            </center>
         </div>
 
-        <div id="searchbar"
-             <form action="search.java" method="post">
-                <font color="white"> Search: </font> <input type="text" name="search"> </form>
+        <div id="searchbar">
+           <form action="javascript:searchFunction(number);">
+             <font color="white">  Search: </font> <input type="text" id="searchinput" name="search"> 
+             <%
+                String toLookFor = "I Got A Boy" /* place holder for now to test search */;
+                int indexOf = getIndexOfElement(songList, toLookFor);
+             %>
+            </form>
         </div>
 
         <div id ="addsongbutton">
@@ -50,17 +78,31 @@ Author     : Busairo
         </div>
 
         <div id ="editgroupbutton">
-            <form action="EditGroup.html" method="post">
+            <form action="EditGroup.jsp" method="post">
                 <br/> <input type = "submit" value = "Edit group"> </form> 
         </div>
 
         <div id ="deletesongbutton">
-            <form action="DeleteSong.html" method="post">
+            <form action="DeleteSong">
                 <input type = "submit" value = "Delete Song From Library"> </form>
         </div>
-
+            
         <br/><a href="LoggedOut.jsp">Logout of Cantus</a>
+        
+        <script>
+           var number = '<%= indexOf %>';
+           var searchfor = document.getElementById("searchinput").value;
+           //var nos = document.getElementByName("search");
+           function deleteFunction() {
+               document.getElementById("name_of_song").toString();
+               document.location.href="DeleteSong";
+           } 
+           
+           function searchFunction(index) {
+              document.getElementById("name_of_song").selectedIndex = index;
+            }
+        </script>
 
-    </center>
+    
 </body>
 </html>

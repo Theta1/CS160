@@ -37,13 +37,14 @@ public class DeleteSong extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String t = request.getParameter("name_of_song");
+           String t = request.getParameter("name_of_song");
             List<Song> ls = MusicLibraryDatabase.getAllSongs();
             for (Song s : ls) {
                 if (s.getTitle().compareToIgnoreCase(t) == 0) {
                     MusicLibraryDatabase.removeSong(s);
                 }
             }
+              response.sendRedirect("LandingPage.jsp");
         }
     }
 

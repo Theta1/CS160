@@ -24,6 +24,7 @@ public class Song extends DatabaseItemWrapper implements Comparable<Song> {
     private static final String idColumnName = "TrackID";
     private static final String titleColumnName = "Title";
     private static final String genreColumnName = "genre";
+    public String toSearch = "";
 
     /**
      *
@@ -153,4 +154,8 @@ public class Song extends DatabaseItemWrapper implements Comparable<Song> {
     protected String getIDColumnName() {
         return idColumnName;
     }
+    
+    @Override
+    public String toString()
+    {   return getTitle();  }
 }
