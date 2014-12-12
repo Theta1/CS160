@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-The Catus LoOG Music Database, Ant file
+The Cantus LoOG Music Database, Ant file
 Run this file to automatically compile and deploy the webapp
 to tomcat and the database to mysql (or mariadb).
 
@@ -9,36 +9,34 @@ Authors:	Christopher Raleigh
 		Jeremy Wong
 		David-Eric Thorpe
             
-Version 1.0
+Version 1.2
 ___________
 Change log:
-
+	Corrections
 -->
 <project name="${project.name}" default="deploy" basedir=".">
 	<property file="build.properties"/>
 	<path id="classpath">
- 		<fileset dir="${lib.dir}" includes="servlet-api.jar"/>
-	</path>
-	<path id="catalina-ant-classpath">
 		<fileset dir="${lib.dir}">
-        		<include name="catalina-ant.jar"/>
-        		<include name="tomcat-coyote.jar"/>
+ 			<include name="servlet-api.jar"/>
         		<include name="tomcat-util.jar"/>
-        		<include name="tomcat-juli.jar"/>
+        		<include name="catalina-ant.jar"/>
 			<include name="mysql-connector-java-5.1.34-bin.jar"/>
         	</fileset>
 	</path>
-    	<taskdef name="undeploy"  classname="org.apache.catalina.ant.UndeployTask">
-        	<classpath refid="catalina-ant-classpath"/>
+    	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask" >
+        	<classpath refid="classpath"/>
     	</taskdef>
     	<taskdef name="deploy"  classname="org.apache.catalina.ant.DeployTask">
-    		<classpath refid="catalina-ant-classpath"/>
+    		<classpath refid="classpath"/>
     	</taskdef>
+
 	<!--Targets below-->
     	<target name="dbdrop" description=
 	"clears previous database entries">
         	<echo>Dropping old database</echo>
         	<sql driver="${sql.driver}" url="${sql.url}" userid="${sql.username}" password="${sql.password}" >
+			<classpath refid="classpath"/>
 			DROP database IF EXISTS cantus;
         	</sql>
     	</target>
@@ -58,11 +56,12 @@ Change log:
 		<echo>Creating the ${build.dir}</echo>
 		<mkdir dir="${build.dir}/WEB-INF/classes"/>
 		<mkdir dir="${build.dir}/WEB-INF/lib"/>
+		<mkdir dir="${dist.dir}/web"/>
     	</target>
     	<target name="compile" depends="init" description=
 	"Compiles the sources files">
 		<echo>Compiling the source files</echo>
-		<javac srcdir="${src.dir}" destdir="${build.dir}/WEB-INF/classes">
+		<javac srcdir="${src.dir}" destdir="${build.dir}/WEB-INF/classes" includeAntRuntime="false" >
 			<classpath refid="classpath"/>
 		</javac>
 	</target>
@@ -70,7 +69,7 @@ Change log:
 	"Copies the webapp into deployment structure">
 		<echo>Copying files to ${build.dir}</echo>
 		<copy todir="${build.dir}">
-			<fileset dir="${web.content}"/>
+			<fileset dir="Cantus/${web.content}"/>
 		</copy>
 		<copy todir="${build.dir}/WEB-INF/lib">
 			<fileset dir="${lib.dir}"/>
@@ -85,9 +84,15 @@ Change log:
 	</target>
     	<target name="dbcreate" depends="dbdrop" description=
 	"creates the database from mysqldump file">
-        	<echo>Creating DB</echo>
+		<echo>Creating DB and User</echo>
         	<sql driver="${sql.driver}" url="${sql.url}" userid="${sql.username}" password="${sql.password}" >
-	        	<transaction src="${sql.dir}/cantus.sql"/>
+			<classpath refid="classpath"/>
+	        	<transaction src="Cantus/Database/initial.sql"/>
+	        </sql>        	
+		<echo>Dumping DB</echo>
+        	<sql driver="${sql.driver}" url="${sql.url}/cantus" userid="${sql.username}" password="${sql.password}" >
+			<classpath refid="classpath"/>
+	        	<transaction src="Cantus/Database/cantus.sql"/>
 	        </sql>
     	</target>
     	<target name="deploy" depends="war,dbcreate,undeploy" description=
