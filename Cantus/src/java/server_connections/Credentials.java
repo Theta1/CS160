@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 /**
  * Stores the username and password for the SQL server.
  *
+ * 
  * @author Christopher Raleigh
  * @author Benjamin Ngo
  * @author Jeremy Wong
