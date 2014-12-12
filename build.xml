@@ -106,6 +106,6 @@ Fixed for new structure.
     	<target name="deploy" depends="war,dbcreate,undeploy" description=
  	"Removes previous deployment of application">
 		<echo>Deploying war file</echo>
-        	<deploy url="${url}" username="${tc.username}" password="${tc.password}" path="/${project.name}" war="file:${project.name}.war"/>
+        	<deploy url="${url}" username="${tc.username}" password="${tc.password}" path="${project.name}" war="file:${project.name}.war"/>
     	</target>
 </project>
