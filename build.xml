@@ -9,10 +9,17 @@ Authors:	Christopher Raleigh
 		Jeremy Wong
 		David-Eric Thorpe
             
+<<<<<<< HEAD
 Version 1.2
 ___________
 Change log:
 	Corrections
+=======
+Version 1.1
+___________
+Change log:
+Fixed for new structure. Emoji fun
+>>>>>>> e04072b03cf00927032d66f9a7014953f431f449
 -->
 <project name="${project.name}" default="deploy" basedir=".">
 	<property file="build.properties"/>
