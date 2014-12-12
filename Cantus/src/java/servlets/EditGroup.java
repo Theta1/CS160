@@ -41,8 +41,8 @@ public class EditGroup extends HttpServlet {
             String groupToEdit = request.getParameter("GroupToEdit");
             String artist = request.getParameter("Artist");
             List<SongGroup> lg = MusicLibraryDatabase.getAllGroups();
-            for(SongGroup g : lg) {
-                if(g.getName().compareToIgnoreCase(groupToEdit)==0) {
+            for (SongGroup g : lg) {
+                if (g.getName().compareToIgnoreCase(groupToEdit) == 0) {
                     g.addArtist(artist);
                 }
             }

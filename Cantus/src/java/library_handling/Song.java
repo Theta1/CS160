@@ -154,8 +154,9 @@ public class Song extends DatabaseItemWrapper implements Comparable<Song> {
     protected String getIDColumnName() {
         return idColumnName;
     }
-    
+
     @Override
-    public String toString()
-    {   return getTitle();  }
+    public String toString() {
+        return getTitle();
+    }
 }

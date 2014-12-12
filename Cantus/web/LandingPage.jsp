@@ -15,8 +15,8 @@ Author     : Busairo
         <title>Cantus Home Page</title>
     </head>
     <body>
-      <%@ page import="servlets.LoginCheck,java.util.ArrayList, library_handling.MusicLibraryDatabase,
-                     java.util.List, library_handling.Song" %>
+        <%@ page import="servlets.LoginCheck,java.util.ArrayList, library_handling.MusicLibraryDatabase,
+                 java.util.List, library_handling.Song" %>
         <h2> 
             <link rel="stylesheet" type="text/css" href="LandingPage.css">
             <%
@@ -27,7 +27,7 @@ Author     : Busairo
                 List<Artist> artistList = mld.getAllArtists();
                 int biggest = songList.size() + groupList.size() + artistList.size();
             %> 
-            
+
             <%!
                 public int getIndexOfElement(List<Song> list, String name)
                 {
@@ -46,24 +46,24 @@ Author     : Busairo
 
         <div class="songarea">
             <center>
-            <form action= "deleteFunction()" method="post">
-            <select id ="name_of_song" name ="songtitles" size="50">
-            <% 
-              for(int i = 0; i < songList.size(); i++)
-              {  out.println("<option>" + ""+ songList.get(i).getTitle() + "</option>"); }
-            %>
-            </select>
-            </form>
+                <form action= "deleteFunction()" method="post">
+                    <select id ="name_of_song" name ="songtitles" size="50">
+                        <% 
+                          for(int i = 0; i < songList.size(); i++)
+                          {  out.println("<option>" + ""+ songList.get(i).getTitle() + "</option>"); }
+                        %>
+                    </select>
+                </form>
             </center>
         </div>
 
         <div id="searchbar">
-           <form action="javascript:searchFunction(number);">
-             <font color="white">  Search: </font> <input type="text" id="searchinput" name="search"> 
-             <%
-                String toLookFor = "dvno" /* place holder for now to test search */;
-                int indexOf = getIndexOfElement(songList, toLookFor);
-             %>
+            <form action="javascript:searchFunction(number);">
+                <font color="white">  Search: </font> <input type="text" id="searchinput" name="search"> 
+                <%
+                   String toLookFor = "dvno" /* place holder for now to test search */;
+                   int indexOf = getIndexOfElement(songList, toLookFor);
+                %>
             </form>
         </div>
 
@@ -86,19 +86,19 @@ Author     : Busairo
             <form action="DeleteSong">
                 <input type = "submit" value = "Delete Song From Library"> </form>
         </div>
-            
+
         <br/><a href="LoggedOut.jsp">Logout of Cantus</a>
-        
+
         <script>
-           var number = '<%= indexOf %>';
-           var searchfor = document.getElementById("searchinput").value;
-           //var nos = document.getElementByName("search");
-           
-           function searchFunction(index) {
-              document.getElementById("name_of_song").selectedIndex = index;
+            var number = '<%= indexOf %>';
+            var searchfor = document.getElementById("searchinput").value;
+            //var nos = document.getElementByName("search");
+
+            function searchFunction(index) {
+                document.getElementById("name_of_song").selectedIndex = index;
             }
         </script>
 
-    
-</body>
+
+    </body>
 </html>

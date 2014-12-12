@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-           <link rel="stylesheet" type="text/css" href="DeleteSong.css">
+        <link rel="stylesheet" type="text/css" href="DeleteSong.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Delete a song</title>
     </head>

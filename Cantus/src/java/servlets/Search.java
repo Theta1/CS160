@@ -21,10 +21,11 @@ import javax.servlet.http.HttpServletResponse;
 public class Search extends HttpServlet {
 
     private static String toSearch = "";
-    
-    public static String getSearched()
-    {   return toSearch;    }
-    
+
+    public static String getSearched() {
+        return toSearch;
+    }
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,7 +41,7 @@ public class Search extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String searched = request.getParameter("search");
             toSearch = searched;
-            
+
             /* TODO output your page here. You may use following sample code. */
         }
     }
